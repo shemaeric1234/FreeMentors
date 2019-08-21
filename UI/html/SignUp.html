@@ -1,0 +1,117 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Free Mentors</title>
+<link rel="stylesheet" media="screen and (max-width: 767px)"  href="../Css/phone.css"/>
+<link rel="stylesheet" media="screen and (min-width: 768px) and (max-width: 999px)" href="../Css/tablet.css"/>
+<link rel="stylesheet" type="text/css" media="screen and (min-width: 1000px)"  href="../Css/general_index.css" />
+<link rel="stylesheet" media="screen and (min-width: 1000px)"  href="../Css/login_model.css" />
+<style type="text/css">
+	
+</style>
+</head>
+
+<body><div id="wrap">
+	<div id="banner">
+	  <div id="logo"></div>
+		<span id="banner_title">Free Mentors</span>
+		<div id="signInUp">
+		<div class="signInUp" id="signin">SignIn</div>
+		<div id="phone_menu_icon" onClick="myFunction()"></div>
+		</div>
+    </div>
+	<div id="phone_menu">
+	  <div id="phone_title">Menu</div>
+		<a href="../index.html"><div class="phone_menu_items">Back</div></a>
+	</div>
+	
+	<div id="menu">
+	  <div class="submenu" id="home">Home</div>
+	 <div class="submenu" id="aboutUs">About Us</div>
+	  <div class="submenu" id="contactUs" >Contact Us</div>
+	</div>
+	
+	<div class="activities_main_wrap">
+  <div id="signup_activities">
+    <div class="link_and_icon">
+		<div class="view_pages_icon" id="back"></div>
+    <div class="activities_links">Back</div>
+	  </div>
+	 
+  </div>
+  <div id="main_content">
+	  <!--   message box here       ---------------------->
+	  <div class="message_box">
+		  <div class="message_body">Data successfuly submited</div>
+	    <div id="close_message" onClick="close_message()"></div>
+	  
+	  </div>
+	  <!--   message box here       ---------------------->
+	   <div id="signup_welcom_title"></div>
+    <div id="signup_welcome_note">
+      <form name="signUp_form">
+         <label>First name<span class="required_star">*</span></label><br/>
+		<input data-name="first name"  class="signUpform" type="text" name="fname" required placeholder=" First name"><br/>
+		  <label>Second name<span class="required_star">*</span></label><br/>
+		<input data-name="last name" class="signUpform" type="text" name="lname" required placeholder=" Second name"><br/>
+		   <label>E-mail<span class="required_star">*</span></label><br/>
+		<input data-name="email" class="signUpform" type="email" name="email" required placeholder=" E-mail"><br/>
+		  <label>Password<span class="required_star">*</span></label><br/>
+		<input data-name="password" class="signUpform" type="password" name="password" required placeholder=" Password"><br/>
+		   <label>Conform Password<span class="required_star">*</span></label><br/>
+		<input data-name="password" class="signUpform" type="password" name="password" required placeholder=" Conform Password"><br/>
+		  <label>Address<span class="required_star">*</span></label><br/>
+		<input data-name="address" class="signUpform" type="text" name="address" required placeholder=" Address"><br/>
+		  <label>Occupation<span class="required_star">*</span></label><br/>
+	    <input data-name="occupetion" class="signUpform" type="text" name="occupetion" required placeholder=" Occupation"><br/>
+		   <label>Biography<span class="required_star">*</span></label><br/>
+	    <textarea data-name="Biography" placeholder="Your Biography here..." class="signUpform" required ></textarea><br/>
+		  <label>Expertise<span class="required_star">*</span></label><br/>
+        <textarea data-name="Expertise" placeholder="Your Expertise here..." class="signUpform" required ></textarea><br/>
+		 
+		</form>
+		<div id="submit_button" onclick="validate_form('signUpform')" >SignUp</div>
+	  </div>
+	</div>
+		
+		</div>
+	
+	<!--    login_model_tages -->
+	<div id="login_myModal" class="login_modal">
+
+  <!-- Modal content -->
+  <div class="login_modal-content">
+    <div class="login_close"></div>
+    <div id="login_model_title"></div>
+    
+    <div id="login_form_container">
+	  <form>
+		  <input class="signUpform_login" type="email" name="email" placeholder="E-mail"><br/>
+		 <input class="signUpform_login" type="password" name="password" placeholder="Password"><br/>
+		  <div id="login_submit_button" class="login_model_submit_button" onClick="prvilegeControl()">LogIn</div>
+		</form>
+	  <div id="login_notification"></div>
+		
+	  </div>
+  </div>
+
+</div>
+	
+	<!--    login_model_tages -->
+	
+	
+	
+  <div id="footer">
+    <div id="adress">KK 511 Street, Kigali<br/>
+E-mail: info@freememtors.com<br/>
+Tel: (+250)783333333 / (+250)789999999 / (+250)782222222<br/>
+Website: www.freememtors.com</div></div>
+	
+	</div>
+	
+	<script src="../Js/general_code.js"></script>
+</body>
+</html>
