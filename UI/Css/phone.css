@@ -1,0 +1,1293 @@
+@charset "utf-8";
+/* CSS Document */
+
+* {
+  box-sizing: border-box;
+}
+
+/*-------------phone menu css----------------------------*/
+.login_modal-content{
+	display: inherit;
+}
+#phone_menu {
+	background-color: white;
+	clear: none;
+	float: left;
+	min-height: 100px;
+	width: 70%;
+	display: none;
+	z-index: 1003;
+	position: absolute;
+	margin-top: 100px;
+	border-bottom-right-radius: 10px;
+	color: slategray;
+	padding-bottom: 10px;
+	box-shadow: 1px 2px 7px gray;
+	
+
+	
+}
+#phone_title {
+	background-color: rgba(212,236,228,0.8);
+	clear: none;
+	float: left;
+	height: 30px;
+	width: 100%;
+	margin-top: 1px;
+	padding: 5px;
+   
+
+}
+.phone_menu_items {
+	background-color: white;
+	clear: none;
+	float: left;
+	height: 30px;
+	width: 100%;
+	border-bottom: 1px solid #F25D07;
+	padding: 5px;
+}
+/*-------------phone  menu css--------------------------------------------------------------------*/
+
+
+/* index page css ------------------------------------------------------------------------*/
+#wrap::-webkit-scrollbar {
+  width: 10px;
+}
+#wrap::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+	background-color: white;
+}
+#wrap::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+	background-color: #F2865E;
+}
+#wrap{
+
+	background-color: #D8DDE8;
+	float: left;
+	clear: none;
+	min-height: 625px;
+	width: 100%;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	overflow-x: hidden;
+	overflow-y: hidden;
+	}
+#banner {
+	float: left;
+	clear: both;
+	min-height: 100px;
+	width: 100%;
+	border-bottom: 1px solid gray;
+	margin-bottom: 2px;
+	background-color: #F2865E;
+   
+	}
+	#menu {
+	background-color: white;
+	float: left;
+	clear: none;
+	min-height: 30px;
+	width: 100%;
+	padding-top: 10px;
+	position: -webkit-sticky; /* Safari */
+    position: sticky;
+	top: 0px;
+	align-content: center;
+	box-shadow: 1px 2px 7px #888888;
+		z-index: 1000;
+	}
+#activities {
+	display: none;
+}
+#main_content {
+	clear: none;
+	float: left;
+	min-height: 550px;
+	width: 100%;
+	background-color: white;
+	text-shadow: 0px 0px #B94345;
+}
+
+	#footer {
+	
+	background-color: #D8DDE8;
+	clear: none;
+	float: left;
+	min-height: 60px;
+	width: 100%;
+	border-top: 2px solid #F25D07;
+}
+.submenu {
+	clear: none;
+	float: left;
+	min-height: 20px;
+	width: 33%;
+	background-color: white;
+	position: absolute;
+	align: center;
+	text-align: center;
+}
+	#home {
+	left: 0%;	
+	}
+	#aboutUs {
+	left: 33%;	
+	}
+	#contactUs {
+	left: 66%;	
+	}
+
+#phone_menu_icon {
+	clear: none;
+	float: right;
+	height: 55px;
+	width: 15%;
+	text-align: center;
+	margin-top: 15px;
+	margin-bottom: 5px;
+	border-radius:20px;
+	border: 2px solid #F25D07;
+	background-image: url(../Assets/Icons/phone_menu.jpg);
+	background-repeat: no-repeat;
+	background-size: 100% 55px;
+	color: rgba(249,248,248,0.00);
+	margin-right: 5px;
+
+}
+.signInUp{
+	display: none;
+}
+	#signin{
+ display: none;
+	}
+	#signup{
+		margin-right: 2px;
+	}
+	 
+#logo {
+	background-color: #F2865E;
+	clear: none;
+	float: left;
+	height: 55px;
+	width: 15%;
+	background-image: url(../Assets/Icons/mentor_icon.png);
+	background-repeat: no-repeat;
+	background-size: 100% 55px;
+	border-radius: 20px;
+	margin-left: 2px;
+	    margin-top: 15px;
+}
+
+
+#adress {
+	clear: none;
+	float: left;
+	height: 100px;
+	width: 100%;
+	padding-top: 5px;
+	color: #F25D07;
+    margin-left: 10px;
+}
+
+	#banner_title{
+
+	color: #D8DDE8;
+	text-transform: capitalize;	
+	position: absolute;
+	left: 20%;
+padding-top: 20px;
+ font-size: 2.3em;
+	}
+#welcome_note {
+	clear: none;
+	float: right;
+	min-height: 300px;
+	width: 100%;
+	margin-top: 30px;
+	margin-left: 5px;
+	border-radius: 10px;
+	background-color: white;
+}
+#welcome_image {
+	background-color: #EDECEC;
+	clear: none;
+	float: left;
+	height: 200px;
+	width: 100%;
+	background-image: url(../Assets/img/two-women-look-at-laptop.jpg);
+	background-repeat: no-repeat;
+	background-size: 100% 200px;
+	border-radius: 10px;
+	padding-left: 5px;
+	
+}
+#welcom_content {
+	clear: none;
+	float: left;
+	height: 200px;
+	width: 100%;
+	padding-top: 10px;
+	padding-right: 10px;
+	padding-left: 5px;
+	color: grey;
+	font-style: normal;
+	font-weight: 400;
+	background-color: white;
+	font-size: larger;
+	line-height: 1.5em;
+	margin-top: 30px;
+	margin-left: 10px;
+
+}
+	
+	/* index page css ------------------------------------------------------------------------*/
+
+/*-------------login css--------------------------------------------*/
+#login_wrap {
+	background-color:white;;
+	clear: none;
+	float: left;
+	min-height: 150px;
+	width: 100%;
+	 display: flex;
+  flex-direction: column;
+	justify-content: center;
+	margin-bottom: 10px;
+	margin-top: 10px;
+	padding-bottom: 10px;
+	padding-top: 10px;
+	border: 1px solid grey;
+	border-radius: 10px;
+	
+}
+
+.login_input{
+	width: 90%;
+	height: 50px;
+	margin-left: 5%;
+	margin-right: 5%;
+}
+
+#login_title_index {
+	font-family: Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", serif;
+	font-size: 2em;
+	color: slategray;
+	background-color: white;
+	clear: none;
+	float: left;
+	height: 50px;
+	width: 100%;
+	text-align: center;
+}
+
+/*---------login css ------------------------------------------------------------*/
+
+
+/*---signup css file ----------------------------------------------------------- */
+#signup_welcome_note{
+	clear: none;
+	float: left;
+	min-height: 300px;
+	width: 100%;
+	margin-top: 20px;
+	border-radius: 10px;
+	background-color: white;
+	border: 1px solid #F25D07;
+	padding-bottom: 10px;
+	padding-top: 10px;
+	margin-bottom: 50px;
+}
+
+ input.signUpform{
+		width: 97%;
+		border-radius: 20px;
+		margin: 5px;
+		height: 30px;
+        outline: none;
+	 border: 1px solid gray;
+	font-size: 1.3em;
+	 padding-left: 10px;
+	 padding-right: 10px;
+	 
+	}
+	textarea.signUpform{
+		padding-right: 10px;
+		 padding-left: 10px;
+		width: 97%;
+		border-color: gray;
+		border-radius: 20px;
+		margin: 5px;
+		height: 80px;
+		 border: 1px solid gray;
+        outline: none;
+		font-size: 1.5em;
+	}
+	#submit_button{
+	clear: none;
+	float: left;
+	height: 30px;
+	width: 50%;
+	text-align: center;
+	padding-top: 5px;
+	margin-top: 20px;
+	margin-bottom: 5px;
+	border-radius:20px;
+	border: 2px solid #F25D07;
+		left: 25%;
+		position: relative;
+		background-color: #F25D07;
+		color: white;
+	}
+
+#users_welcom_title {
+	text-align: center;
+	clear: none;
+	float: left;
+	height: 50px;
+	width: 100%;
+	margin-top: 20px;
+	text-shadow: 1px 2px 5px #F8F4F4;
+	color: gray;
+	text-transform: capitalize;	
+
+    font-size: 2.5em;
+	margin-bottom: 10px;
+}
+	#users_welcom_title::after{
+		content: "All Available Users";
+	}
+	
+	
+	.change_to_mentor{
+
+	clear: none;
+	float: left;
+	height: 35px;
+	width: 70%;
+	border-radius: 50px;
+	text-align: center;
+	background-image: url(../Assets/Icons/edit2.png);
+	background-size: 100% 35px;
+	background-repeat: no-repeat;
+	left: 35%;
+	position: relative;
+	}
+
+	#signup_welcom_title {
+	clear: none;
+	float: left;
+	height: 50px;
+	width: 100%;
+	text-shadow: 1px 2px 5px #F8F4F4;
+	color: gray;
+	text-transform: capitalize;
+    margin-top: 10px;
+	font-size: 2.5em;
+	text-align: center;
+		
+}
+	#signup_welcom_title::after{
+		content: "SignUp";
+	}
+	
+	
+	#signup_activities {
+	display: none;
+}
+	.required_star{
+		color: red;
+	}
+label{
+margin-left: 10px;
+}
+
+#login_myModal{
+	display: none;
+}
+/*---signup css file ----------------------------------------------------------- */
+
+
+/* -------message box css-------------------------------------------------message box------*/
+
+
+.message_box{
+		display: none;
+		margin-top: 20px;
+		left: 10%;
+		position: fixed;
+		width: 80%;
+		height: 100px;
+	    background-color: rgba(193,235,178,0.7);
+		z-index: 1002;
+		box-shadow: 1px 2px 5px gray;
+		border-radius: 10px;
+		
+	}
+#close_message {
+	text-align: center;
+	clear: none;
+	float: right;
+	height: 30px;
+	width: 5%;
+	background-image: url(../Assets/Icons/canser_icon.jpg);	
+	background-size: 100% 30px;
+	background-repeat: no-repeat;
+	border-radius: 10px;
+}
+
+	.message_body{
+	float: left;
+	clear: none;
+	width: 50%;
+	height: 50px;
+	color:rgba(29,109,9,0.96);
+	margin-bottom: 10px;
+	margin-top: 20px;
+	margin-left: 40px;
+	margin-right: 10px;
+	text-align: center;
+	font-size: 1.2em;
+	}
+
+/* -------message box css-------------------------------------------------message box------*/
+
+/*------user welcome page-------------------------------------------------------------------*/
+#user_welcome_image {
+	background-color: #EDECEC;
+	clear: none;
+	float: left;
+	height: 280px;
+	width: 100%;
+	background-image: url(../Assets/img/GettyImages.jpeg);
+	background-repeat: no-repeat;
+	background-size: 100% 280px;
+	border-radius: 10px;
+	font-size: 100;
+	
+	
+}
+	.user_welcome_note{
+	clear: none;
+	float: right;
+	min-height:200px;
+	width: 100%;
+	margin-left: 5px;
+	border-radius: 10px;
+	background-color: white;
+	}
+	
+#user_welcom_title {
+	text-align: center;
+	clear: none;
+	float: left;
+	height: 50px;
+	width:100%;
+	
+	text-shadow: 1px 2px 5px #F8F4F4;
+	color: gray;
+	text-transform: capitalize;	
+	padding-top: 20px;
+    font-size: 2em;
+	margin-top: 10px;
+	margin-bottom: 30px;
+	padding-left: 5px;
+	padding-right: 10px;
+}
+	#user_welcom_title::before{
+		content: "welcome ";
+	}
+	#user_main_content{
+	clear: none;
+	float: left;
+	min-height: 400px;
+	width: 100%;
+	background-color: white;
+	text-shadow: 0px 0px #B94345;
+	}
+	
+	#user_profile{
+	clear: none;
+	float: right;
+	height: 50px;
+	width: 20%;
+	text-align: center;
+		margin-top: 15px;
+		
+	}
+	
+#user_profile_pc {
+	background-color: #F5F4F4;
+	clear: none;
+	float: left;
+	height: 50px;
+	width: 25%;
+	border-radius: 10px;
+	padding-top: 5px;
+	background-image: url(../Assets/Icons/profile_image.png);
+	background-size: 100% 50px;
+	background-repeat: no-repeat;
+	
+}
+.user_profile_name {
+
+	clear: none;
+	float: left;
+	height: 15px;
+	width: 65%;
+	margin-top: 5px;
+	text-align: left;
+color: white;
+	padding-left: 5px;
+	
+}
+	#user_logOut:hover{
+	cursor: pointer;
+	text-decoration: underline;
+	}
+#user_activities{
+	display: none;
+}
+
+#user_profile{
+	display: none;
+}
+/*------user welcome page-------------------------------------------------------------------*/
+
+/*--------review mentor  session css -------------------------------------*/
+
+#session_review_wrap {
+	background-color: white;
+	clear: none;
+	float: left;
+	height: 300px;
+	width: 100%;
+}
+#review_score {
+	background-color: white;
+	clear: none;
+	float: left;
+	height: 50px;
+	width: 100%;
+	text-align: center;
+}
+#remark_session_form {
+	background-color: white;
+	clear: none;
+	float: left;
+	height: 230px;
+	width: 100%;
+}
+	
+	textarea.remarkform{
+		padding-left: 13px;
+		width: 97%;
+		border-color: gray;
+		border-radius: 20px;
+		margin: 5px;
+		height: 210px;
+		 border: 1px solid gray;
+        outline: none;
+		font-size: 1.5em;
+	}
+	img.rate_star{
+		height: 40px;
+		width: 12%;
+		margin-top: 10px;
+		cursor: pointer;
+	}
+	
+.mentor_occupation {
+	background-color: rgba(248,248,248,1);
+	clear: none;
+	float: left;
+	height: 30px;
+	width: 100%;
+	font-size: 1em;	
+	color: grey;
+}
+	.mentor_occupation:before{
+		content:"Occupation: ";
+	}
+
+/*--------review mentor  session css -----------------------------------review mentor  session--*/
+
+
+/*---all_user_sesssion css file ----------------------------------------------------------- */
+.no_visible{
+	width: 1px;
+	display: none;
+	}
+	
+	
+	#review_session_welcom_title {
+		text-align: center;
+	clear: none;
+	float: left;
+	height: 50px;
+	width: 100%;
+	
+	text-shadow: 1px 2px 5px #F8F4F4;
+	color: gray;
+	text-transform: capitalize;	
+	padding-top: 10px;
+    font-size: 2em;
+	margin-top: 50px;
+	margin-bottom: 30px;
+}
+	#review_session_welcom_title::after{
+	content: "All Sessions Available";
+	}
+.review_session_item {
+	background-color: white;
+	margin-left: 1%;
+	margin-right: 1%;
+	margin-bottom: 50px;
+	clear: both;
+	float: left;
+	min-height: 300px;
+	width: 100%;
+	border-radius: 10px;
+	box-shadow: 1px 2px 7px gray;
+}
+
+.mentor_profile {
+	background-color: rgba(248,248,248,1);
+	clear: none;
+	float: left;
+	height: 90px;
+	width: 100%;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	box-shadow: 1px 2px 7px gray;
+	font-size: 1em;	
+}
+.mentor_image {
+	background-color: rgba(248,248,248,1);
+	clear: none;
+	float: left;
+	height: 90%;
+	width: 25%;
+	border-radius: 10px;
+	background-image: url(../Assets/Icons/profile_image.png);
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	margin-right: 5px;
+}
+.mentor_name {
+	background-color: rgba(248,248,248,1);
+	clear: none;
+	float: left;
+	height: 20%;
+	min-width: 50%;
+	padding-top: 2px;
+	margin-bottom: 2px;
+	color: gray;
+}
+	.mentor_name:before{
+		content:"to : ";
+	}
+.review_questions {
+	background-color: white;
+	padding: 3%;
+	clear: none;
+	float: left;
+	height: 200px;
+	width: 100%;
+	overflow-y: auto;
+	overflow-x: hidden;
+	color: rgba(160,160,160,1.00);
+	text-align: left;
+	font-size: 0.87em;
+	letter-spacing: 0.1em;
+	font-weight: lighter;
+}
+	
+.review_questions::-webkit-scrollbar {
+  width: 7px;
+}
+.review_questions::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+	background-color: white;
+}
+.review_questions::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+	background-color: #F2865E;
+}
+.button_review {
+	clear: none;
+	float: left;
+	height: 50px;
+	width: 100%;
+	background-color: white;
+}
+.button_review {
+	background-color: white;
+	clear: none;
+	float: left;
+	min-height: 6px;
+	width: 100%;
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+	border-top: 1px solid #F2865E;
+}
+.delete_review {
+	background-color: #F2865E;
+	clear: none;
+	float: left;
+	height: 20px;
+	width: 40%;
+	margin-left: 24%;
+	margin-right: 24%;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	border-radius: 50px;
+	padding-top: 2px;
+	border: 1px solid #F2865E;
+	text-align: center;
+	color: white;
+	
+	
+}
+	.delete_review:hover{
+	background-color: #F25D07;
+	text-decoration-color: white;
+	color: white;
+	cursor: pointer;
+	font-size: larger;
+	}
+	#review_session_list {
+	clear: none;
+	float: left;
+	min-height: 10px;
+	width: 97%;
+	background-color: #FFFFFF;
+	font-size: 100;
+	left: 0px;
+	margin-bottom: 10px;
+	
+}
+.user_question {
+	background-color:rgba(228,233,227,0.40);
+	padding: 10px;
+	clear: both;
+	float: right;
+	min-height: 10px;
+	width: 100%;
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
+	border-bottom-left-radius: 20px;
+	color:grey;
+}
+	
+	#session_list {
+	clear: none;
+	float: left;
+	min-height: 10px;
+	width: 100%;
+	background-color: #FFFFFF;
+	font-size: 100;
+	left: 0px;
+	margin-bottom: 10px;
+	
+}
+	
+		#session_table {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  width: 100%;
+		height: 15px;
+}
+
+#session_table td, session_table th {
+  padding: 8px;
+}
+
+.sesion_status {
+	background-color: rgba(248,248,248,1);
+	clear: none;
+	float: left;
+	height: 30px;
+	width: 100%;
+	font-size: 1em;	
+	color: grey;
+}
+	.sesion_status:before{
+		content:"status: ";
+	}
+
+
+/*---all_user_sesssion css file ----------------------------------------------------------- */
+
+/*------------all mentor sessions -----------------------------mentor session-------*/
+
+.acc_review {
+	background-color: rgba(143,166,117,1.00);
+	clear: none;
+	float: left;
+	height: 25px;
+	width: 20%;
+	margin-left: 30%;
+	margin-right: 1%;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	border-radius: 50px;
+	padding-top: 0px;
+	padding-bottom: 2px;
+	border: 1px solid rgba(143,166,117,1.00);
+	color:white;
+	text-align: center;
+	
+	
+}
+
+	
+	.rej_review{
+	background-color: rgba(239,133,135,0.94);
+	clear: none;
+	float: left;
+	height: 25px;
+	width: 20%;
+	margin-left: 1%;
+	margin-right: 24%;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	border-radius: 50px;
+	padding-top: 0px;
+		padding-bottom: 2px;
+	border: 1px solid rgba(239,133,135,0.94);	
+	color:white;
+	text-align: center;
+	}
+	
+	
+	.mentee_name {
+	background-color: rgba(248,248,248,1);
+	clear: none;
+	float: left;
+	height: 30%;
+	min-width: 50%;
+	padding-top: 10px;
+	margin-bottom: 2px;
+	color: gray;
+}
+	.mentee_name:before{
+		content:"from : ";
+	}
+	
+	#mentor_session_activities {
+	display: none;
+}
+	#remark{
+		background-image: url(../Assets/Icons/rating_icon.jpg);
+	}
+	
+	#reject_conformation_model_title {
+	clear: none;
+	float: left;
+	height: 30px;
+	width: 100%;
+	padding-top: 20px;
+	padding-bottom: 10px;
+	text-align: center;
+	color: gray;
+	background-color: white;
+	box-shadow: 1px 2px 7px #888888;
+	
+}
+#reject_conformation_model_title::before{
+		content: "Are you sure you want to reject this session ?";
+}
+	.mentee_email{
+	background-color: rgba(248,248,248,1);
+	clear: both;
+	float: left;
+	height: 30px;
+	width: 100%;
+	font-size: 1em;	
+	color: grey;
+}
+	.mentee_email:before{
+		content:"E-mail: ";
+	}
+	.mentee_detail{
+	background-color: rgba(248,248,248,1);
+	clear: none;
+	float: left;
+	min-height: 30px;
+	width: 70%;
+
+	}
+
+/*------------all mentor sessions -----------------------------mentor session-------*/
+
+
+/*-------------admin_delete_remark---------------------------------------admin_delete_review--*/
+.session_body {
+	background-color: rgba(248,248,248,1);
+	clear: none;
+	float: left;
+	min-height: 200px;
+	width: 100%;
+	box-shadow: 1px 2px 7px gray;	
+}
+	.mentee_mentor_name {
+	background-color: rgba(248,248,248,1);
+	clear: none;
+	float: left;
+	height: 30px;
+	min-width: 100%;
+	padding-top: 10px;
+	margin-bottom: 2px;
+	color: gray;
+	font-size: 1.5em;
+}
+	#mentee_name:before{
+		content:"from: ";
+	}
+	#mentor_name:before{
+		content:"to: ";
+	}
+	
+	.mentee_question {
+	background-color: white;
+	padding: 10px;
+	clear: both;
+	float:left;
+	min-height: 10px;
+	width: 87%;
+	margin: 5%;
+	border-radius: 20px;
+	color:grey;
+	border: 1px solid rgba(158,158,158,1.00);
+}
+	.mentee_question:before{
+		content: "Question  :    ";
+	}
+#remark_content {
+	background-color: white;
+	clear: none;
+	float: left;
+	min-height: 200px;
+	width: 90%;
+	margin-left: 5%;
+	margin-right: 5%;
+	margin-bottom: 20px;
+	margin-top: 20px;
+	border: 1px solid grey;
+}
+#remark_title {
+	background-color: rgba(248,248,248,1);
+	clear: none;
+	float: left;
+	height: 30px;
+	width: 100%;
+	color: gray;
+	font-size: 2em;
+	text-align: center;
+	margin-bottom: 10px;
+	margin-top: 10px;
+}
+#session_remark_note {
+	background-color: white;
+	float: left;
+	height: 200px;
+	width: 100%;
+    padding-left: 2.5;
+	padding-right: 2.5;
+	padding-bottom: 10px;
+	padding-top: 10px;
+	text-align: center;
+	clear: none;
+	color: grey;
+}
+	.score_rate{
+		background-color: rgba(248,248,248,1);
+		width: 100%;
+		min-height: 10px;
+		text-align: center;
+	}
+	
+	
+	.delete_remark {
+	background-color: white;
+	clear: none;
+	float: left;
+	height: 20px;
+	width: 10%;
+	margin-left: 45%;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	border-radius: 50px;
+	padding-top: 2px;
+	border: 1px solid #F2865E;
+	text-align: center;
+	
+	
+}
+	.delete_remark:hover{
+	background-color: #F25D07;
+	text-decoration-color: white;
+	color: white;
+	cursor: pointer;
+	font-size: larger;
+	}
+	
+	#admin_remark_welcom_title {
+		text-align: center;
+	clear: none;
+	float: left;
+	height: 50px;
+	width: 100%;
+	
+	text-shadow: 1px 2px 5px #F8F4F4;
+	color: gray;
+	text-transform: capitalize;	
+	padding-top: 20px;
+    font-size: 2em;
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
+	#admin_remark_welcom_title::after{
+		content: "Session Remark and Score";
+	}
+
+
+/*-------------admin_delete_remark---------------------------------------admin_delete_review--*/
+
+
+
+/*----------------user_create ession------------------------------------------------------------*/
+
+#new_session_welcom_title {
+	clear: none;
+	float: left;
+	height: 50px;
+	width: 100%;
+	
+	text-shadow: 1px 2px 5px #F8F4F4;
+	color: gray;
+	text-transform: capitalize;	
+	padding-top: 20px;
+    font-size: 2em;
+	margin-top: 10px;
+	margin-bottom: 30px;
+	text-align: center;
+}
+	#new_session_welcom_title::after{
+		content: "Create New Session";
+	}
+	
+/*----------------user_create ession------------------------------------------------------------*/
+
+/*  -----all mentors list css ---------------------------------------------------------------------*/
+
+#mentors_list {
+	clear: none;
+	float: left;
+	min-height: 10px;
+	width: 100%;
+	background-color: #FFFFFF;
+	font-size: 1em;
+	box-shadow: 1px 2px 7px gray;
+	left: 0px;
+	margin-bottom: 30px;
+	color: grey;
+	
+}
+	#mentors {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+		height: 15px;
+}
+
+#mentors td, #mentors th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#mentors tr:nth-child(even){background-color: #f2f2f2;}
+
+#mentors tr:hover {background-color: #ddd;}
+
+#mentors th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: gray;
+  color: white;
+}
+#text_fild_wrap {
+	background-color: #FDFCFC;
+	clear: none;
+	float: left;
+	min-height: 50px;
+	width: 95%;
+	position: relative;
+	margin: 10px;
+	border-radius: 10px;
+	box-shadow: 1px 2px 7px gray;
+	
+}
+	#mentor_filter {
+	clear: none;
+	float: left;
+	min-height: 100px;
+	width: 100%;
+	background-color: white;
+	margin-top: 10px;
+}
+	#filter_text_fild{
+	float: left;
+	clear: none;
+	width: 100%;
+	height: 50px;
+	font-size: 1.5em;
+	border-radius: 10px;
+	border-width: 0px;
+	outline: none;
+	background-image: url(../Assets/Icons/search_icon.png);
+		background-size: 7% 50px;
+		background-repeat: no-repeat;
+		padding: 1px 1px 1px 8% ;
+	}
+.add_session {
+	
+	clear: none;
+	float: left;
+	height: 30px;
+	width: 70%;
+	border-radius: 50px;
+	text-align: center;
+	background-image: url(../Assets/Icons/Add-icon.png);
+	background-size: 100% 30px;
+	background-repeat: no-repeat;
+	left: 35%;
+	position: relative;
+}
+
+	.view_session{
+		border: 1px solid gray;
+	clear: none;
+	float: left;
+	height: 28px;
+	width: 70%;
+	border-radius: 50px;
+	text-align: center;
+	background-image: url(../Assets/Icons/view.png);
+	background-size: 100% 30px;
+	background-repeat: no-repeat;
+	left: 35%;
+	position: relative;
+	}
+	
+	.table_email{
+	text-transform: lowercase;
+	}
+	
+	#mentor_list_main_wrap{
+	clear: none;
+	float: left;
+	min-height:450px;
+	width: 100%;
+	margin-left: 0px;
+	border-radius: 10px;
+	background-color: white;
+	}
+	
+	#mentors_welcom_title {
+	clear: none;
+	float: left;
+	height: 50px;
+	width: 100%;
+	text-align: center;
+	text-shadow: 1px 2px 5px #F8F4F4;
+	color: gray;
+	text-transform: capitalize;	
+	padding-top: 10px;
+    font-size: 2em;
+	margin-top: 50px;
+	margin-bottom: 10px;
+}
+	#mentors_welcom_title::after{
+		content: "All Available mentors";
+	}
+	.activities_main_wrap{
+		float: left;
+		clear: none;
+		min-height: 10px;
+		width: 100%;
+		background-color: white;
+	}
+.phone_table_rwap{
+	width: 100%;
+	min-height: 100px;
+	overflow-x: auto;
+}
+/* ----- all mentors list css-----------------------------------------------------------*/
+
+/* -----all session css -----------------------------------------------------------*/
+
+#session_welcom_title {
+	text-align: center;
+	clear: none;
+	float: left;
+	height: 50px;
+	width: 80%;
+	
+	text-shadow: 1px 2px 5px #F8F4F4;
+	color: gray;
+	text-transform: capitalize;	
+	padding-top: 20px;
+    font-size: 1.5em;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+	#session_welcom_title::after{
+		content: "All Available Sessions";
+	}
+
+	.review_session{
+	border: 1px solid gray;
+	clear: none;
+	float: left;
+	height: 28px;
+	width: 25%;
+	border-radius: 50px;
+	text-align: center;
+	background-image: url(../Assets/Icons/review_icon.png);
+	background-size: 100% 30px;
+	background-repeat: no-repeat;
+	left: 35%;
+	position: relative;
+	}
+	.review_session:hover{
+    background-size: 100% 30.5px;
+    height: 29px;
+	width: 26%;
+		cursor: pointer;
+	}
+	#all_mentors{
+	background-image: url(../Assets/Icons/logo.jpg);
+    background-size: 95% 45px;
+		background-position: center;
+    
+	}
+	
+
+/* ------------  all session css -----------------------------------------------------------*/
+
+
+/*-----------------conformation message-------------------------------------------------------*/
+
+#login_modal{
+	display: none;
+}
+
+/*-----------------conformation message-------------------------------------------------------*/
