@@ -1,5 +1,8 @@
 @charset "utf-8";
 
+a{
+	color: black;
+}
 /* index page css ------------------------------------------------------------------------*/
 
 
@@ -492,7 +495,7 @@ color: white;
 	width: 25%;
 	border-radius: 50px;
 	text-align: center;
-	background-image: url(../Assets/Icons/Add-icon.png);
+	background-image: url(../Assets/Icons/datail.png);
 	background-size: 100% 30px;
 	background-repeat: no-repeat;
 	left: 35%;
@@ -1469,3 +1472,118 @@ margin-left: 10px;
 	#all_session{
 		background-image: url(../Assets/Icons/session_icon.png);	
 	}
+
+/*------------------------------- all user list----------------------*/
+
+/*------------------------mentor details pop up modal css-------------------------*/
+
+	.mentor_modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  border: 1px solid #888;
+  width: 50%;
+  min-height: 60%;
+	 position: relative;
+	-webkit-animation-name: example;
+  -webkit-animation-duration: 0.5s;
+  animation-name: example;
+  animation-duration: 0.5s;
+	align-content: center;
+	border-radius: 10px;
+	box-shadow: 1px 2px 7px #888888;
+}
+#mentor_body {
+	background-color: white;
+	float: left;
+	height: 300px;
+	width: 100%;
+	margin-top: 30px;
+	padding-bottom: 5px;
+	overflow-y: auto;
+    box-shadow: 1px 2px 7px gray;
+}
+
+#mentor_body::-webkit-scrollbar {
+  width: 5px;
+}
+#mentor_body::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+	background-color: white;
+}
+#mentor_body::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+	background-color: #F2865E;
+}
+
+#mentor_photo {
+	background-color: white;
+	clear: none;
+	float: left;
+	height: 100px;
+	width: 20%;
+	background-image: url(../Assets/Icons/profile_image.png);	
+	background-size: 100% 100px;
+	
+}
+#mentor_nameD {
+	background-color: white;
+	clear: none;
+	float: left;
+	height: 100px;
+	width: 70%;
+	margin-top: 5px;
+}
+.mentor_nameHere {
+	background-color: white;
+	clear: none;
+	float: left;
+	height: 30px;
+	width: 100%;
+	text-align: center;
+	color: gray;
+}
+#bioHere {
+	background-color: white;
+	clear: none;
+	float: left;
+	min-height: 200px;
+	width: 97%;
+	color: gray;
+	padding: 10px;
+	margin-top: 30px;
+}
+#mentor_profile_button {
+	background-color: white;
+	clear: none;
+	float: left;
+	height: 30px;
+	width: 20%;
+	margin-top: 10px;
+	position: relative;
+	left: 40%;
+	padding-top: 5px;
+	border-radius: 10px;
+	border: 1px solid #F25D07;
+}
+	#mentor_profile_button:hover{
+	color: white;
+		background-color: #F25D07;
+	}
+	
+#bio_content {
+	background-color: rgba(228,233,227,0.40);
+	clear: none;
+	float: left;
+	min-height: 200px;
+	width: 80%;
+	left: 10%;
+	position: relative;
+	padding: 5px;
+	border-radius:  5px;
+	
+}
+
+
+/*------------------------mentor details pop up modal css-------------------------*/
