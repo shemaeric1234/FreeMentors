@@ -1,56 +1,46 @@
-// ---signIn modal start-----------------------------
-var modal = document.getElementById("login_myModal");
-var btn = document.getElementById("signin");
 
-var closebtn = document.getElementsByClassName("login_close")[0];
-
- // reject button
-
- 
-btn.onclick = function() {
-  modal.style.display = "block";
-}
-
-closebtn.onclick = function() {
-  modal.style.display = "none";
-}
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
+//------------------mentors list popup links---------------------
+function responsiveNess(device) {
+	if (device.matches) {
+		let resp=document.getElementsByClassName("mentor_link");
+		for(var u=0;u< resp.length;u++){
+			resp[u].setAttribute('href', "#");
+			}
+	} 
   }
-}
-/////-----------------signIn modal end-----------------------------*/
-
+  
+  var device = window.matchMedia("(min-width: 1000px)")
+  responsiveNess(device) 
+  device.addListener(responsiveNess) 
+//------------------mentors list popup links---------------------
 
 //----filter code-----------------------------------------
 
-let filtering=(text_id,table_id)=>{
-  var input, filter, table, tr, td, i, txtValue1,txtValue2;
+var filtering =(text_id, table_id)=> {
+  var input, filter, table, tr, td, i, txtValue1, txtValue2;
   input = document.getElementById(text_id);
   filter = input.value.toUpperCase();
   table = document.getElementById(table_id);
   tr = table.getElementsByTagName("tr");
+
   for (i = 0; i < tr.length; i++) {
     td = tr[i].getElementsByTagName("td");
-    for(let t = 0;t < td.length;t++){
-    if (td[t]) {
-      txtValue1 = td[t].textContent || td[t].innerText;
-      txtValue2 = td[++t].textContent || td[++t].innerText;
-      if (txtValue1.toUpperCase().indexOf(filter) > -1 || txtValue2.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-        break;
-      } else {
-        tr[i].style.display = "none";
-        break;
+
+    for (var t = 0; t < td.length; t++) {
+      if (td[t]) {
+        txtValue1 = td[t].textContent || td[t].innerText;
+        txtValue2 = td[++t].textContent || td[++t].innerText;
+
+        if (txtValue1.toUpperCase().indexOf(filter) > -1 || txtValue2.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+          break;
+        } else {
+          tr[i].style.display = "none";
+          break;
+        }
       }
-      
-    }       
-       
-   }
-       
-       
+    }
   }
-  
 }
 /// end of filter code
 
@@ -76,17 +66,23 @@ let myFunction=()=> {
 ///----phone menu--------------------------------------------
 
 //------------------conformation box -------------------------
-let message= (message) =>{
-	
-    modal.style.display = "none";
-	const message_box1=document.getElementsByClassName("message_box");
+let message= (message,Mycolor) =>{
+	if(modal){modal.style.display = "none";}
+	const message_box=document.getElementsByClassName("message_box");
+	if(Mycolor==='red'){
+		message_box[0].style.backgroundColor="rgba(199,85,87,0.79)"; 
+		document.getElementsByClassName("message_body")[0].style.color="white"; 
+	}else{
+		
+		message_box[0].style.backgroundColor="rgba(193,235,178,0.7)"; 
+		document.getElementsByClassName("message_body")[0].style.color="rgba(29,109,9,0.96)"; 
+	}
 	
 	document.getElementsByClassName("message_body")[0].innerHTML=" "+message+" ";
 	document.getElementsByClassName("message_box")[0].style.display='inherit';
-	const message_box=document.getElementsByClassName("message_box");
-	setTimeout(()=>message_box[0].style.display='none',2500);
-       
-	}
+	setTimeout(()=>message_box[0].style.display='none',2000);
+  
+}
 		let close_message=()=>{
 		document.getElementsByClassName("message_box")[0].style.display='none';	
 		}
@@ -98,11 +94,17 @@ var validate_form= text =>{
 let textFild=document.getElementsByClassName(text);
 for(let i=0;i<textFild.length;i++){
   var textName=textFild[i].getAttribute("data-name");
- if(textFild[i].value ===""){message('fill '+textName+' fild please! '); break;}
- else if(textFild[3].value !== textFild[4].value)
- {message('password not match !!'); break;}
- window.location.href("../html/users_welcome_page.html");
+ if(textFild[i].value ===""){message('fill '+textName+' fild please! ','red'); break;}
+ 
+
 }
+	
+if(textFild[i].value !== textFild[4].value)
+ {message('password not match !!','red'); break;}
+	else{
+	 window.location.href("../html/users_welcome_page.html");	
+	}
+	
 }
 
 
@@ -150,3 +152,35 @@ let session_validate=()=>{
 	
 }
 //---------------session validate----------------------------
+
+// ---signIn modal start-----------------------------
+var modal = document.getElementById("login_myModal");
+var btn = document.getElementById("signin");
+
+var closebtn = document.getElementsByClassName("login_close")[0];
+
+var mentorPop=document.getElementsByClassName("add_session");
+ // reject button
+
+for(var mentor=0;mentor<mentorPop.length;mentor++){
+mentorPop[mentor].addEventListener('click',function(){
+	modal.style.display = "block";
+});
+}
+closebtn.addEventListener('click',function(){
+	modal.style.display = "none";
+});
+
+btn.addEventListener('click',function(){
+	modal.style.display = "block";
+});
+window.addEventListener('click',function(event){
+	if (event.target == modal) {
+		modal.style.display = "none";
+	  }
+});
+
+
+
+
+/////-----------------signIn modal end-----------------------------*/

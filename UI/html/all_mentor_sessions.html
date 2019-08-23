@@ -11,7 +11,6 @@
 <title>Free Mentors</title>
 <style type="text/css">
 
-
 </style>
 	
 </head>
@@ -97,7 +96,7 @@
 			</div>
 			
           <div class="button_review">
-           <div class="acc_review">Accept</div>
+           <div class="acc_review" onClick="message('Session successfuly accepted')">Accept</div>
 			<div class="rej_review" >Reject</div>
 			
 			</div>
@@ -128,8 +127,8 @@
 			</div>
 			
           <div class="button_review">
-            <div class="acc_review">Accept</div>
-			<div class="rej_review" onClick="message()">Reject</div>
+            <div class="acc_review" onClick="message('Session successfuly accepted')">Accept</div>
+			<div class="rej_review">Reject</div>
 			</div>
 		  
 		  </div>
@@ -156,7 +155,7 @@
     <div id="login_form_container">
       <div id="conformation_wrap">
 		   <div class="delete_conformation" onClick="myFunction()" >No</div>
-            <div class="delete_conformation" onClick="message('session successfuly rejected')" >Yes</div>
+            <div class="delete_conformation" onClick="message('session successfuly rejected','red')" >Yes</div>
 			
 			</div>
 	  
