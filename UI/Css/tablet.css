@@ -67,7 +67,7 @@
 }
 #wrap{
 
-	background-color: #D8DDE8;
+	background-color: white;
 	float: left;
 	clear: none;
 	min-height: 625px;
@@ -252,7 +252,7 @@ padding-top: 20px;
 
 /*-------------login css--------------------------------------------*/
 #login_wrap {
-	background-color:white;;
+	background-color:white;
 	clear: none;
 	float: left;
 	min-height: 150px;
@@ -261,10 +261,10 @@ padding-top: 20px;
   flex-direction: column;
 	justify-content: center;
 	margin-bottom: 10px;
-	margin-top: 10px;
+	margin-top: 30px;
 	padding-bottom: 10px;
 	padding-top: 10px;
-	border: 1px solid grey;
+
 	border-radius: 10px;
 	
 }
@@ -274,12 +274,26 @@ padding-top: 20px;
 	height: 50px;
 	margin-left: 5%;
 	margin-right: 5%;
-	font-size: 2em;
+	margin-bottom: 10px;
+	border-radius: 10px;
+	font-size: 1.5em;
+}
+
+.login_button{
+	width: 60%;
+	height: 40px;
+	margin-right: 5%;
+	margin-left: 20%;
+	border: 1px solid #F25D07;
+	border-radius: 10px;
+	font-size: 1.5em;
+	background-color: #F25D07;
+	color: white;
 }
 
 #login_title_index {
 	font-family: Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", serif;
-	font-size: 3em;
+	font-size: 2em;
 	color: slategray;
 	background-color: white;
 	clear: none;
@@ -287,7 +301,7 @@ padding-top: 20px;
 	height: 50px;
 	width: 100%;
 	text-align: center;
-	margin-bottom: 20px;
+	margin-bottom: 10px;
 }
 
 /*---------login css ------------------------------------------------------------*/
@@ -335,7 +349,7 @@ padding-top: 20px;
 	#submit_button{
 	clear: none;
 	float: left;
-	height: 60px;
+	min-height: 60px;
 	width: 50%;
 	text-align: center;
 	padding-top: 5px;
@@ -347,7 +361,7 @@ padding-top: 20px;
 		position: relative;
 		background-color: #F25D07;
 		color: white;
-		font-size: 2em;
+		font-size: 1.5em;
 	}
 
 #users_welcom_title {
@@ -1220,7 +1234,7 @@ color: white;
 	#mentors_welcom_title {
 	clear: none;
 	float: left;
-	height: 50px;
+	min-height: 50px;
 	width: 100%;
 	text-align: center;
 	text-shadow: 1px 2px 5px #F8F4F4;
@@ -1241,6 +1255,7 @@ color: white;
 		width: 100%;
 		background-color: white;
 		margin-top: 10px;
+		font-size:1.5em;
 	}
 .phone_table_rwap{
 	width: 100%;
@@ -1309,3 +1324,178 @@ color: white;
 }
 
 /*-----------------conformation message-------------------------------------------------------*/
+
+
+/* ----------------after first  feedback -------------------------------------*/
+
+.address_span{
+	text-align: right;
+	}
+#quotes {
+	clear: none;
+	float: left;
+	min-height: 200px;
+	width: 100%;
+	opacity: 0.8;
+	color: black;
+	font-size:2em;
+}
+#mentorQuotes2 {
+	clear: none;
+	float: left;
+	min-height: 200px;
+	width: 100%;
+	opacity: 0.5;
+	color:#0E6973;
+	font-size: 1.5em;
+	line-height: 1.5em;
+	padding: 20px;
+	 font-weight: 1000;
+	margin-bottom: 30px;
+}
+#signup_main_button_wrap {
+	background-color: white;
+	clear: none;
+	float: left;
+	height: 100px;
+	width: 100%;
+	margin-top: 10px;
+	margin-bottom: 30px;
+}
+#signup_main {
+	background-color: #F25D07;
+	float: left;
+	height: 45px;
+	width: 50%;
+	font-size: 1.5em;
+	color: white;
+	text-align: center;
+	border-radius: 10px;
+	padding-top: 5px;
+	margin-left: 20%;
+	margin-top: 20px;
+}
+
+	
+	.newUser{
+		background-color: white;
+		width: 100%;
+		min-height: 10px;
+		font-size: 1em;
+		float: left;
+		clear: none;
+		color: gray;
+		padding: 10px;
+		text-align: center;
+	}
+/* ----------------after first  feedback -------------------------------------*/
+
+
+/*-----------contct us css----------------------------------------*/
+
+#contactUs_welcom_title {
+	clear: none;
+	float: left;
+	min-height: 50px;
+	width: 80%;
+	text-shadow: 1px 2px 5px #F8F4F4;
+	color: gray;
+	text-transform: capitalize;
+	padding-top: 20px;
+	font-size: 2.5em;
+	margin-top: 50px;
+	text-align: center;
+}
+	#contactUs_welcom_title::after{
+		content: "Contact Us";
+	}
+
+/*-----------contct us css----------------------------------------*/
+
+/*---------------------about us css -----------------------------*/
+
+#aboutUs_welcom_title {
+	clear: none;
+	float: left;
+	min-height: 50px;
+	width: 100%;
+	text-shadow: 1px 2px 5px #F8F4F4;
+	color: gray;
+	text-transform: capitalize;
+	padding-top: 20px;
+	font-size: 2.5em;
+	margin-top: 50px;
+	text-align: center;
+}
+	#aboutUs_welcom_title::after{
+		content: "About Us";
+	}
+	
+#aboutus_note{
+	clear: none;
+	float: left;
+	min-height: 300px;
+	width: 100%;
+	margin-top: 20px;
+	border-radius: 10px;
+	background-color: white;
+	padding-left: 5%;
+	padding-right:5%;
+	padding-bottom: 10px;
+	padding-top: 10px;
+	margin-bottom: 20px;
+	position:relative;
+	color: gray;
+}
+	
+.our_vision {
+	clear: none;
+	float: left;
+	min-height: 50px;
+	width: 100%;
+	background-color: white;
+	margin-top: 20px;
+	color: #F25D07;
+	font-size: 3em;
+	
+	}
+/*---------------------about us css -----------------------------*/
+
+/*----------login css----------------------------*/
+
+#signin_welcome_note{
+	clear: none;
+	float: left;
+	min-height: 180x;
+	width: 100%;
+	margin-top: 20px;
+	border-radius: 10px;
+	background-color: white;
+	border: 1px solid #F25D07;
+
+	padding-bottom: 10px;
+	padding-top: 70px;
+	margin-bottom: 5px;
+	position:relative;
+
+}
+	
+	#signin_welcom_title {
+	clear: none;
+	float: left;
+	height: 50px;
+	width: 80%;
+	text-shadow: 1px 2px 5px #F8F4F4;
+	color: gray;
+	text-transform: capitalize;
+	padding-top: 20px;
+	font-size: 2.5em;
+	margin-top: 50px;
+	text-align: center;
+}
+	#signin_welcom_title::after{
+		content: "SignIn";
+	}
+
+
+	/*---------------------about us css -----------------------------*/

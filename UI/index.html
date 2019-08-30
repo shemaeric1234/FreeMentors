@@ -21,7 +21,7 @@
 		<div id="signInUp">
 		<a  href="html/SignUp.html"><div class="signInUp" id="signup" >SignUp</div></a>
 			<div id="phone_menu_icon" onClick="myFunction()"></div>
-		<div class="signInUp" id="signin">SignIn</div>
+		<a href="html/signin.html"><div class="signInUp" id="signin">SignIn</div></a>
 		</div> 
     </div>
 	<div id="phone_menu">
@@ -30,9 +30,9 @@
 	</div>
 	
   <div id="menu">
-	  <div class="submenu" id="home">Home</div>
-	 <div class="submenu" id="aboutUs">About Us</div>
-	  <div class="submenu" id="contactUs" >Contact Us</div>
+	 <a href="index.html"><div class="submenu" id="home">Home</div></a> 
+	 <a href="html/aboutUs.html"><div class="submenu" id="aboutUs">About Us</div></a> 
+	 <a href="html/contactUs.html"> <div class="submenu" id="contactUs" >Contact Us</div></a> 
 	</div>
 	<div id="login_wrap">
 	  <div id="login_title_index">Login</div>
@@ -40,7 +40,7 @@
 	<form name="form1">
 		<input class="login_input" type="email" name="email" placeholder="Email..." required><br/>
 		<input class="login_input" type="password" name="password" placeholder="password" required><br/>
-		<input class="login_input" type="submit" name="submit">
+		<input class="login_button" type="submit" name="submit">
 	  </form>
   </div>
 	
@@ -48,33 +48,8 @@
 	
   <div id="activities">
     <div class="mentor_cotes">
-	  “
-Mentoring is a brain to pick, 
-an ear to listen,
-and a push in the right direction.     
-
-	  </div>
-	   <div class="mentor_cotes">
-	 “
-A mentor is someone who sees more talent 
-and ability within you, than you see 
-in yourself,and helps bring it out of you.      
-    
-
-	  </div>
-	   <div class="mentor_cotes">
-	“
-What you want in a mentor 
-is someone who truly cares 
-for you and who will look 
-after your interests and not 
-just their own. When you do 
-come across the right person 
-to mentor you, start by showing 
-them that the time they spend 
- with you is worthwhile.     
-
-	  </div>
+	 
+    </div>
 	  
   </div>
   <div id="main_content">
@@ -82,47 +57,35 @@ them that the time they spend
       <div id="welcome_image"></div>
       <div id="welcom_content">
 		“
-
 I think kids should have a mentor and a role model, 
 but that they shouldn't take one person's opinion 
-to be what we call final assessment or judgment about how life is supposed to be.     
+to be what we call final assessment or judgment about how life is supposed to be. </div>
+	 <div id="signup_main_button_wrap">
+		<div class="newUser">Create an Account to become our Community Member </div>
+	  <a href="html/SignUp.html"><div id="signup_main">Create Account</div></a> 
+	 </div>
+    </div>
 
-
-
-</div>
-	  
-	  </div>
-	</div>
-  <div id="footer">
-    <div id="adress">KK 511 Street, Kigali<br/>
-E-mail: info@freememtors.com<br/>
-Tel: (+250)783333333 / (+250)789999999 / (+250)782222222<br/>
-Website: www.freememtors.com</div></div>
-	
-	</div>
-	
-	<!--    login_model_tages -->
-	<div id="login_myModal" class="login_modal">
-
-  <!-- Modal content -->
-  <div class="login_modal-content">
-    <div class="login_close"></div>
-    <div id="login_model_title"></div>
-    
-    <div id="login_form_container">
-	  <form>
-		  <input class="signUpform_login" type="email" name="email" placeholder="E-mail"><br/>
-		 <input class="signUpform_login" type="password" name="password" placeholder="Password"><br/>
-		  <div id="login_submit_button" class="login_model_submit_button" onClick="prvilegeControl()">LogIn</div>
-		</form>
-	  <div id="login_notification"></div>
-		
-	  </div>
   </div>
-
-</div>
+	<div id="quotes">
+	  <div id="mentorQuotes2">
+		   “
+A mentor is someone who sees more talent 
+and ability within you, than you see 
+in yourself,and helps bring it out of you.      
+    
+    </div> 
 	
-	<!--    login_model_tages -->
+	</div>
+	
+  <div id="footer">
+    <div id="adress">KK 511 Street, Kigali ||
+<span class="address_span">E-mail: info@freememtors.com</span><br/>
+Tel: (+250)783333333 / (+250)789999999 ||
+  <span class="address_span">Website: www.freememtors.com</span></div></div>
+	
+	</div>
+	
 	
 	<script src="Js/general_code.js"></script>
 </body>
