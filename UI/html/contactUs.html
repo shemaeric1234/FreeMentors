@@ -11,6 +11,7 @@
 <link rel="stylesheet" media="screen and (min-width: 1000px)"  href="../Css/login_model.css" />
 <style type="text/css">
 	
+	
 </style>
 </head>
 
@@ -19,7 +20,7 @@
 	  <div id="logo"></div>
 		<span id="banner_title">Free Mentors</span>
 		<div id="signInUp">
-		<a href="signin.html"><div class="signInUp" id="signin">SignIn</div></a>
+	
 		<div id="phone_menu_icon" onClick="myFunction()"></div>
 		</div>
     </div>
@@ -50,30 +51,19 @@
 	  
 	  </div>
 	  <!--   message box here       ---------------------->
-	   <div id="signup_welcom_title"></div>
+	   <div id="contactUs_welcom_title"></div>
     <div id="signup_welcome_note">
       <form name="signUp_form">
-         <label>First name<span class="required_star">*</span></label><br/>
-		<input data-name="first name"  class="signUpform" type="text" name="fname" required placeholder=" First name"><br/>
-		  <label>Second name<span class="required_star">*</span></label><br/>
-		<input data-name="last name" class="signUpform" type="text" name="lname" required placeholder=" Second name"><br/>
-		   <label>E-mail<span class="required_star">*</span></label><br/>
-		<input data-name="email" class="signUpform" type="email" name="email" required placeholder=" E-mail"><br/>
-		  <label>Password<span class="required_star">*</span></label><br/>
-		<input data-name="password" class="signUpform" type="password" name="password" required placeholder=" Password"><br/>
-		   <label>Conform Password<span class="required_star">*</span></label><br/>
-		<input data-name="password" class="signUpform" type="password" name="password" required placeholder=" Conform Password"><br/>
-		  <label>Address<span class="required_star">*</span></label><br/>
-		<input data-name="address" class="signUpform" type="text" name="address" required placeholder=" Address"><br/>
-		  <label>Occupation<span class="required_star">*</span></label><br/>
-	    <input data-name="occupetion" class="signUpform" type="text" name="occupetion" required placeholder=" Occupation"><br/>
-		   <label>Biography<span class="required_star">*</span></label><br/>
-	    <textarea data-name="Biography" placeholder="Your Biography here..." class="signUpform" required ></textarea><br/>
-		  <label>Expertise<span class="required_star">*</span></label><br/>
-        <textarea data-name="Expertise" placeholder="Your Expertise here..." class="signUpform" required ></textarea><br/>
+         <label>E-mail<span class="required_star">*</span></label><br/>
+		<input data-name="first name"  class="signUpform" type="text" name="fname" required placeholder=" E-mail"><br/>
+		  <label>Phone<span class="required_star">*</span></label><br/>
+		<input data-name="last name" class="signUpform" type="text" name="lname" required placeholder=" Phone number"><br/>
+		  
+		   <label>Message <span class="required_star">*</span></label><br/>
+	    <textarea data-name="Biography" placeholder="Your Message here..." class="signUpform" required ></textarea>
 		 
 		</form>
-		<a href="users_welcome_page.html"><div id="submit_button" onclick="validate_form('signUpform')" >SignUp</div></a>
+		<div id="submit_button" onclick="message('thank you, your Message is valued!')" >Submit</div>
 	  </div>
 	</div>
 		

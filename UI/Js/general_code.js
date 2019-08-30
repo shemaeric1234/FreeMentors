@@ -115,21 +115,8 @@ if(textFild[i].value !== textFild[4].value)
 //------------signIn privelege  control code-------------------
 
 let prvilegeControl=()=>{
-	if(/index/.test(window.location.pathname)){
-	var login_data=document.getElementsByClassName("signUpform_login");
-	
-	if(login_data[0].value == "admin@gmail.com" && login_data[1].value == "admin" )
-		{
-		window.location.href='html/admin_welcome_page.html';	
-		}else if(login_data[0].value == "mentor@gmail.com" && login_data[1].value == "mentor" ){
-		window.location.href='html/mentors_welcome_page.html';
-		}else if(login_data[0].value == "mentee@gmail.com" && login_data[1].value == "mentee" ){
-		window.location.href='html/users_welcome_page.html';
-		}else{
-			document.getElementById("login_notification").innerHTML='<span id="login_notification_text">Incorect user name or password</span>';
-		}
-		}else{
-			var login_data=document.getElementsByClassName("signUpform_login");
+
+	var login_data=document.getElementsByClassName("signUpform");
 	
 	if(login_data[0].value == "admin@gmail.com" && login_data[1].value == "admin" )
 		{
@@ -141,7 +128,7 @@ let prvilegeControl=()=>{
 		}else{
 			document.getElementById("login_notification").innerHTML='<span id="login_notification_text">Incorect user name or password</span>';
 		}
-		}
+		
 }
 
 //------------signIn privelege  control code-------------------
