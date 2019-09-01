@@ -59,6 +59,30 @@ class sessionReview {
       sessionReviews,
     });
   }
+
+  static deleteRemark(req, res) {
+    const reviewId = parseInt(req.params.sessionId, 10);
+    let deleteResult = '';
+    sessionReviews.map((specificReview, index) => {
+      if (specificReview.sessionId === reviewId) {
+        sessionReviews.splice(index, 1);
+
+        deleteResult = 'session review deleted successfuly';
+      }
+    });
+    if (deleteResult) {
+      return res.status(200).send({
+        success: 'true',
+        deleteResult,
+      });
+    } 
+
+    return res.status(404).send({
+      success: 'false',
+      message: 'session review not found',
+    });
+
+  }
 }
 
 export default sessionReview;
