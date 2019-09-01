@@ -101,3 +101,75 @@ describe('POST </API/v1/sessions> a mentee should create a session', () => {
 
 });
 
+
+describe('GET </API/v1/sessions> should get all sessions', () => {
+  it('It should display all related sessions ', () => {
+    chai
+      .request(app)
+      .get('/API/v1/sessions')
+      .set('Authorization', `Bearer ${menteeToken}`)
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.have.be.a('object');
+        res.body.should.have.property('success').eql('true');
+        res.body.relatedSessions.should.be.a('array');
+        res.body.relatedSessions[0].id.should.be.a('number');
+        res.body.relatedSessions[0].mentorId.should.be.a('number');
+        res.body.relatedSessions[0].menteeId.should.be.a('number');
+        res.body.relatedSessions[0].should.have.property('questions');
+        res.body.relatedSessions[0].should.have.property('menteeEmail');
+        res.body.relatedSessions[0].should.have.property('status');
+      });
+  });
+
+  it('It should check is user allowed ', () => {
+    chai
+      .request(app)
+      .get('/API/v1/sessions')
+      .set('Authorization', `Bearer ${admintoken}`)
+      .end((err, res) => {
+        res.should.have.status(403);
+        res.body.should.have.be.a('object');
+      });
+  });
+
+
+  it('it should verify if there is not athorization in header set', () => {
+    chai
+      .request(app)
+      .get('/API/v1/sessions')
+      .end((err, res) => {
+        res.should.have.status(403);
+        res.body.should.have.be.a('object');
+        res.body.should.have.property('error').eql('Please Set The Authorization Header!');
+
+      });
+  });
+
+  it('it should verify if there is not token in header', () => {
+    chai
+      .request(app)
+      .get('/API/v1/sessions')
+      .set('Authorization', 'Bearer')
+      .end((err, res) => {
+        res.should.have.status(403);
+        res.body.should.have.be.a('object');
+        res.body.should.have.property('error').eql('No token provided, Access Denied!');
+
+      });
+  });
+
+  it('it should verify if there is not token in header', () => {
+    chai
+      .request(app)
+      .get('/API/v1/sessions')
+      .set('Authorization', 'Bearer aaaaaaaaaaaa')
+      .end((err, res) => {
+        res.should.have.status(403);
+        res.body.should.have.be.a('object');
+        res.body.should.have.property('error').eql('You provided the invalid token!');
+
+      });
+  });
+});
+

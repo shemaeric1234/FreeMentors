@@ -39,7 +39,25 @@ class session {
     });
   }
 
-  
+  static getAll(req, res) {
+    const relatedSessions = [];
+
+    sessions.map((RelatedSession) => {
+      users.map((specUser) => {
+        if (specUser.email === req.user.email) {
+          if (specUser.id === RelatedSession.mentorId || specUser.email
+             === RelatedSession.menteeEmail) {
+            relatedSessions.push(RelatedSession);
+          }
+        }
+      });
+    });
+
+    return res.status(200).json({
+      success: 'true',
+      relatedSessions,
+    });
+  }
 }
 
 export default session;
