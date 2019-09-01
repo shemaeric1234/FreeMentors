@@ -173,3 +173,77 @@ describe('GET </API/v1/sessions> should get all sessions', () => {
   });
 });
 
+
+describe('POST </API/v1/sessions> a mentor should make decision', () => {
+  it('It should accept a session ', () => {
+    chai
+      .request(app)
+      .patch('/API/v1/sessions/1/accept')
+      .set('Authorization', `Bearer ${mentorToken}`)
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.have.be.a('object');
+        res.body.should.have.property('message').eql('Session accepted successfuly');
+
+      });
+  });
+
+  it('It should reject a session', () => {
+    chai
+      .request(app)
+      .patch('/API/v1/sessions/1/reject')
+      .set('Authorization', `Bearer ${mentorToken}`)
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.have.be.a('object');
+        res.body.should.have.property('message').eql('Session reject successfuly');
+      });
+  });
+
+  it('It should check if a session to be accepted is available', () => {
+    chai
+      .request(app)
+      .patch('/API/v1/sessions/0/accept')
+      .set('Authorization', `Bearer ${mentorToken}`)
+      .end((err, res) => {
+        res.should.have.status(404);
+        res.body.should.have.be.a('object');
+        res.body.should.have.property('message').eql('Session not found');
+      });
+  });
+
+  it('It should check if a session to be rejected is available', () => {
+    chai
+      .request(app)
+      .patch('/API/v1/sessions/0/reject')
+      .set('Authorization', `Bearer ${mentorToken}`)
+      .end((err, res) => {
+        res.should.have.status(404);
+        res.body.should.have.be.a('object');
+        res.body.should.have.property('message').eql('Session not found');
+      });
+  });
+
+  it('It should check if a user allowed to do this action', () => {
+    chai
+      .request(app)
+      .patch('/API/v1/sessions/1/reject')
+      .set('Authorization', `Bearer ${admintoken}`)
+      .end((err, res) => {
+        res.should.have.status(403);
+        res.body.should.have.be.a('object');
+      });
+  });
+
+  it('It should check if decision taken are valid', () => {
+    chai
+      .request(app)
+      .patch('/API/v1/sessions/1/dfghj')
+      .set('Authorization', `Bearer ${mentorToken}`)
+      .end((err, res) => {
+        res.should.have.status(400);
+        res.body.should.have.be.a('object');
+      });
+  });
+
+});

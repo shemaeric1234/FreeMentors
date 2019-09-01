@@ -58,6 +58,39 @@ class session {
       relatedSessions,
     });
   }
+
+  static acceptOrReject(req, res) {
+    const id = parseInt(req.params.sessionId, 10);
+    const decision = req.params.decision.toLowerCase();
+    let MySession = '';
+    let sessMessage = '';
+    let sessStatus = 0;
+    sessions.map((sessionToUpdate) => {
+      if (sessionToUpdate.id === id) {
+        MySession = sessionToUpdate;
+      }
+    });
+
+    if (!MySession) {
+      sessMessage = 'Session not found';
+      sessStatus = 404;
+    } else if (decision === 'accept') {
+      MySession.status = 'accepted';
+      sessMessage = 'Session accepted successfuly';
+      sessStatus = 200;
+    } else if (decision === 'reject') {
+      MySession.status = 'reject';
+      sessMessage = 'Session reject successfuly';
+      sessStatus = 200;
+    } else if ( decision !== 'accept' || decision !== 'reject' ) {
+      sessMessage = 'invalid decision';
+      sessStatus = 400;
+    } 
+    return res.status(sessStatus).send({
+      status: sessStatus,
+      message: sessMessage,
+    });
+  }
 }
 
 export default session;
