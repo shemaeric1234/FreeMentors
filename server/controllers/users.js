@@ -48,6 +48,7 @@ class User {
       User,
     });
   }
+
   static login(req, res) {
     let loggedInUser = '';
     const { email } = req.body;
@@ -80,6 +81,13 @@ class User {
       loggedInUser,
     });
   }
+
+  static getUsers(req, res) {
+    return res.status(200).json({
+      users,
+    });
+  }
+
 }
 
 export default User;
