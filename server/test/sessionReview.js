@@ -109,3 +109,32 @@ describe('GET </API/v1/sessions>  GET all sessions reviewed', () => {
       });
   });
 });
+
+describe('GET </API/v1/sessions>  delete specific  reviewed review deemed as inappropriate ', () => {
+  it('delete specific  reviewed review deemed as inappropriate', () => {
+    chai
+      .request(app)
+      .delete('/API/v1/sessions/1/review')
+      .set('Authorization', `Bearer ${admintoken}`)
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.have.be.a('object');
+        res.body.should.have.property('success').eql('true');
+        res.body.deleteResult.should.be.a('string').eql('session review deleted successfuly');
+      });
+  });
+
+  it('it should check if session is not available', () => {
+    chai
+      .request(app)
+      .delete('/API/v1/sessions/0/review')
+      .set('Authorization', `Bearer ${admintoken}`)
+      .end((err, res) => {
+        res.should.have.status(404);
+        res.body.should.have.be.a('object');
+        res.body.should.have.property('success').eql('false');
+        res.body.should.have.property('message').eql('session review not found');
+      });
+  });
+
+});
