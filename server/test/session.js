@@ -1,0 +1,103 @@
+import chai from 'chai';
+import chaiHttp from 'chai-http';
+import app from '../index';
+import sessions from './mockData/session';
+import getToken from '../helpers/generateToken';
+
+chai.use(chaiHttp);
+chai.should();
+const admintoken = getToken('admin@gmail.com');
+const menteeToken = getToken('mentee@gmail.com');
+const mentorToken = getToken('mentor@gmail.com');
+
+describe('POST </API/v1/sessions> a mentee should create a session', () => {
+  it('It should create a new session ', () => {
+    chai
+      .request(app)
+      .post('/API/v1/sessions')
+      .send(sessions[0])
+      .set('Authorization', `Bearer ${menteeToken}`)
+      .end((err, res) => {
+        res.should.have.status(201);
+        res.body.should.have.be.a('object');
+        res.body.should.have.property('success').eql('true');
+      });
+  });
+
+  it('It should validate mentee input', () => {
+    chai
+      .request(app)
+      .post('/API/v1/sessions')
+      .send()
+      .set('Authorization', `Bearer ${menteeToken}`)
+      .end((err, res) => {
+        res.should.have.status(400);
+        res.body.should.have.be.a('object');
+      });
+  });
+
+  it('It should sheck if that session exist', () => {
+    chai
+      .request(app)
+      .post('/API/v1/sessions')
+      .send(sessions[0])
+      .set('Authorization', `Bearer ${menteeToken}`)
+      .end((err, res) => {
+        res.should.have.status(400);
+        res.body.should.have.be.a('object');
+      });
+  });
+
+  it('It should sheck if a user allowed', () => {
+    chai
+      .request(app)
+      .post('/API/v1/sessions')
+      .send(sessions[1])
+      .set('Authorization', `Bearer ${admintoken}`)
+      .end((err, res) => {
+        res.should.have.status(403);
+        res.body.should.have.be.a('object');
+      });
+  });
+
+  it('it should verify if there is not athorization in header set', () => {
+    chai
+      .request(app)
+      .post('/API/v1/sessions')
+      .end((err, res) => {
+        res.should.have.status(403);
+        res.body.should.have.be.a('object');
+        res.body.should.have.property('error').eql('Please Set The Authorization Header!');
+
+      });
+  });
+
+  it('it should verify if there is not token in header', () => {
+    chai
+      .request(app)
+      .post('/API/v1/sessions')
+      .set('Authorization', 'Bearer')
+      .end((err, res) => {
+        res.should.have.status(403);
+        res.body.should.have.be.a('object');
+        res.body.should.have.property('error').eql('No token provided, Access Denied!');
+
+      });
+  });
+
+  it('it should verify if there is not token in header', () => {
+    chai
+      .request(app)
+      .post('/API/v1/sessions')
+      .set('Authorization', 'Bearer aaaaaaaaaaaa')
+      .end((err, res) => {
+        res.should.have.status(403);
+        res.body.should.have.be.a('object');
+        res.body.should.have.property('error').eql('You provided the invalid token!');
+
+      });
+  });
+
+
+});
+
