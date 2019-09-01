@@ -129,6 +129,19 @@ class User {
       newMentor,
     });
   }
+
+  static getMentors(req, res) {
+    const allMentor = [];
+    users.map((mentor) => {
+      if (mentor.type === 'mentor') {
+        allMentor.push(mentor);
+      }
+    });
+    return res.status(200).json({
+      success: 'true',
+      allMentor,
+    });
+  }
 }
 
 export default User;
