@@ -107,6 +107,28 @@ class User {
     });
   }
   
+  static updateUser(req, res) {
+    const id = parseInt(req.params.userId);
+    let newMentor;
+    users.map((userToUpdate) => {
+      if (userToUpdate.id === id) {
+        userToUpdate.type = 'mentor';
+        newMentor = userToUpdate;
+      }
+    });
+
+    if (!newMentor) {
+      return res.status(404).send({
+        success: 'false',
+        message: 'user not found',
+      });
+    }
+    return res.status(201).send({
+      success: 'true',
+      message: 'user upDate successfully',
+      newMentor,
+    });
+  }
 }
 
 export default User;
