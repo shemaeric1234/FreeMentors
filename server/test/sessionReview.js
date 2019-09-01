@@ -74,3 +74,38 @@ describe('it should check bad request', () => {
       });
   });
 });
+
+describe('GET </API/v1/sessions>  GET all sessions reviewed', () => {
+  it('It should display all reviewed sessions', () => {
+    chai
+      .request(app)
+      .get('/API/v1/reviewedsessions')
+      .set('Authorization', `Bearer ${admintoken}`)
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.have.be.a('object');
+        res.body.should.have.property('success');
+        res.body.sessionReviews.should.be.a('array');
+        res.body.sessionReviews[0].id.should.be.a('number');
+        res.body.sessionReviews[0].sessionId.should.be.a('number');
+        res.body.sessionReviews[0].mentorId.should.be.a('number');
+        res.body.sessionReviews[0].menteeId.should.be.a('number');
+        res.body.sessionReviews[0].score.should.be.a('number');
+        res.body.sessionReviews[0].should.have.property('menteeFullName');
+        res.body.sessionReviews[0].should.have.property('remark');
+
+      });
+  });
+
+
+  it('It should check if a user allowed to do this action', () => {
+    chai
+      .request(app)
+      .get('/API/v1/reviewedsessions')
+      .set('Authorization', `Bearer ${menteeToken}`)
+      .end((err, res) => {
+        res.should.have.status(403);
+        res.body.should.have.be.a('object');
+      });
+  });
+});

@@ -53,7 +53,12 @@ class sessionReview {
     });
   }
 
-  
+  static allReview(req, res) {
+    return res.status(200).json({
+      success: 'true',
+      sessionReviews,
+    });
+  }
 }
 
 export default sessionReview;
