@@ -142,6 +142,25 @@ class User {
       allMentor,
     });
   }
+
+  static getMentor(req, res) {
+    const id = parseInt(req.params.mentorId, 10);
+    let specMentor = '';
+    users.map((specificMentor) => {
+      if (specificMentor.id === id) {
+        specMentor = specificMentor;
+      }
+    });
+    if (!specMentor) {
+      return res.status(404).send({
+        success: 'false',
+        message: 'mentor not found',
+      });
+    }
+    return res.status(200).send({
+      specMentor,
+    });
+  }
 }
 
 export default User;
