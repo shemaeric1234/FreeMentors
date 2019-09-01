@@ -1,0 +1,50 @@
+export const user = [
+  {
+    firstName: 'mukesha',
+    lastName: 'agime',
+    email: 'mentee@gmail.com',
+    password: 'dfghjk',
+    address: 'kigali',
+    bio: 'iaminnocent',
+    occupation: 'nurse',
+    expertise: 'doctor',
+    type: 'mentee',
+  },
+  {
+    firstName: 'mukesha',
+    lastName: 'yves',
+    email: 'yves4@gmail.com',
+    password: 'uwimana',
+    address: 'kayonza',
+    bio: 'hhhhhhh',
+    occupation: 'swdeveloper',
+    expertise: 'master',
+  },
+  {
+    id: 3,
+    firstName: 'new',
+    lastName: 'yves',
+    email: 'new@gmail.com',
+    password: 'uwimana3',
+    address: 'kayonza',
+    bio: 'hhhhhhh',
+    occupation: 'sw-developer',
+    expertise: 'master',
+    type: 'mentor',
+  },
+  {
+    firstName: 'mukesha',
+    lastName: 'agime',
+    email: 'new@gmail.com',
+    password: 'dfghjk',
+    address: 'kigali',
+    bio: 'iaminnocent',
+    occupation: 'nurse',
+    expertise: 'doctor',
+  },
+];
+
+export const login = {
+  email: 'mentee@gmail.com',
+  password: 'mentee',
+};
