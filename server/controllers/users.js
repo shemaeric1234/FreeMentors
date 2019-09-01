@@ -88,6 +88,25 @@ class User {
     });
   }
 
+  static getUser(req, res) {
+    const id = parseInt(req.params.id, 10);
+    let userGotten = '';
+    users.forEach((user) => {
+      if (user.id === id) {
+        userGotten = user;
+      }
+    });
+    if (!userGotten) {
+      return res.status(404).json({
+        success: 'false',
+        message: 'user not found',
+      });
+    }
+    return res.status(200).send({
+      userGotten,
+    });
+  }
+  
 }
 
 export default User;
