@@ -43,13 +43,13 @@ a{
 	background-color: #D8DDE8;
 	float: left;
 	clear: none;
-	height: 625px;
+	height: 100%;
 	width: 100%;
 	position: absolute;
 	left: 0px;
 	top: 0px;
 	background-image: url(../Assets/img/henry-be-IicyiaPYGGI-unsplash.jpg);
-		background-size: 100% 700px;
+		background-size: 100% 100%;
 		background-repeat: no-repeat;
 	}
 #banner {
@@ -99,10 +99,13 @@ a{
 	background-color: #D8DDE8;
 	clear: none;
 	float: left;
-	min-height: 60px;
+	min-height: 70px;
 	width: 100%;
 	border-top: 2px solid #F25D07;
 	margin-top: 20px;
+	bottom: 0;
+	left: 0;
+	position: fixed;
 }
 .submenu {
 	clear: none;
@@ -201,11 +204,11 @@ a{
 	clear: none;
 	float: left;
 	min-height: 50px;
-	width: 50%;
-	padding-top: 3px;
-	color: #F25D07;
+	width: 80%;
+	padding-top: 15px;
+	color:#0E6973;
 	position: absolute;
-	left: 30%;
+	left: 15%;
 }
 .activities_links {
 	clear: none;
@@ -290,6 +293,17 @@ a{
 	padding-left: 10px;
 	padding-right: 5px;
 	font-size: 1.5em;
+}
+
+#welcome_note_index {
+	clear: none;
+	float: right;
+	min-height: 300px;
+	width: 90%;
+	margin-top: 17px;
+	margin-left: 10px;
+	border-radius: 10px;
+	background-color: white;
 }
 	
 	/* index page css ------------------------------------------------------------------------*/
@@ -1056,7 +1070,7 @@ margin-left: 10px;
 		position: fixed;
 		width: 40%;
 		height: 100px;
-	    background-color: rgba(193,235,178,0.7);
+	    background-color: #F2865E;
 		z-index: 1002;
 		box-shadow: 1px 2px 5px gray;
 		border-radius: 10px;
@@ -1592,7 +1606,7 @@ margin-left: 10px;
 	float: left;
 	min-height: 200px;
 	width: 100%;
-	opacity: 0.8;
+	opacity: 1;
 	color: black;
 }
 #mentorQuotes2 {
@@ -1600,7 +1614,7 @@ margin-left: 10px;
 	float: left;
 	min-height: 200px;
 	width: 70%;
-	opacity: 0.5;
+	opacity: 1;
 	color:#0E6973;
 	margin-left: 17%;
 	font-size: 3em;

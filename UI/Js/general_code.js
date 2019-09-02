@@ -70,12 +70,12 @@ let message= (message,Mycolor) =>{
 	if(modal){modal.style.display = "none";}
 	const message_box=document.getElementsByClassName("message_box");
 	if(Mycolor==='red'){
-		message_box[0].style.backgroundColor="rgba(199,85,87,0.79)"; 
+		message_box[0].style.backgroundColor="rgba(199,85,87,1)"; 
 		document.getElementsByClassName("message_body")[0].style.color="white"; 
 	}else{
 		
-		message_box[0].style.backgroundColor="rgba(193,235,178,0.7)"; 
-		document.getElementsByClassName("message_body")[0].style.color="rgba(29,109,9,0.96)"; 
+		message_box[0].style.backgroundColor="#F2865E"; 
+		document.getElementsByClassName("message_body")[0].style.color="white"; 
 	}
 	
 	document.getElementsByClassName("message_body")[0].innerHTML=" "+message+" ";
