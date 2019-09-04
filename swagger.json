@@ -1,0 +1,548 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "FreeMentors",
+        "description": "Free Mentors is a social initiative where accomplished professionals become role models to young people to provide free mentorship sessions.",
+        "license": {
+            "name": "ISC",
+            "url": "https://github.com/shemaeric1234/FreeMentors"
+        }
+    },
+    "basePath": "/API/v1",
+    "tags": [
+        {
+            "name": "Users",
+            "description": "Users management"
+        },
+        {
+            "name": "Sessions",
+            "description": "Sessions management"
+        },
+        {
+            "name": "Reviews",
+            "description": "Review management"
+        }
+    ],
+    "schemes": [
+        "https",
+        "http"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/auth/signup": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "New user signup",
+                "description": "Register a new user",
+                "parameters": [
+                    {
+                        "name": "users",
+                        "in": "body",
+                        "description": "User to be created",
+                        "schema": {
+                            "$ref": "#/definitions/signup"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "user successfuly created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "user already exists"
+                    }
+                }
+            }
+        },
+        "/auth/signin": {
+            "post": {
+              "tags": [
+                "Users"
+              ],
+              "summary": "Login a user",
+              "description": "Authenticate a user for minutes",
+              "parameters": [
+                {
+                  "name": "users",
+                  "in": "body",
+                  "description": "User signin in a system",
+                  "schema": {
+                    "$ref": "#/definitions/signin"
+                  }
+                }
+              ],
+              "produces": [
+                "application/json"
+              ],
+              "responses": {
+                "200": {
+                  "description": "successfully signin"
+                },
+                "400": {
+                  "description": "Validate input"
+                },
+                "404": {
+                  "description": "ser not found, Incorrect email or password"
+                }
+              }
+            }
+          },
+          "/sessions": {
+            "post": {
+              "tags": [
+                "Sessions"
+              ],
+              "summary": "Create Mentor Session",
+              "description": "Enable mentee to create a mentorship session",
+              "parameters": [
+                {
+                    "name": "Authorization",
+                    "in": "header",
+                    "description": "Check token authentication",
+                    "required": true
+                  },
+                {
+                  "name": "session",
+                  "in": "body",
+                  "description": "create mentor session",
+                  "schema": {
+                    "$ref": "#/definitions/sessions"
+                  }
+                }
+              ],
+              "produces": [
+                "application/json"
+              ],
+              "responses": {
+                "201": {
+                  "description": "session created successfully"
+                },
+                "400": {
+                  "description": "validate your input value or session already exists"
+                }
+              }
+            }
+          },
+          "/sessions/{sessionId}/review": {
+            "post": {
+              "tags": [
+                "Reviews"
+              ],
+              "summary": "Create a Session review",
+              "description": "Enable mentee to create a Session review",
+              "parameters": [
+                {
+                    "name": "Authorization",
+                    "in": "header",
+                    "description": "Check token authentication",
+                    "required": true
+                  },{
+                    "name": "sessionId",
+                    "in": "path",
+                    "description": "enter a session id",
+                    "required": true,
+                    "type": "integer"
+                  },
+                {
+                  "name": "review",
+                  "in": "body",
+                  "description": "create session review",
+                  "schema": {
+                    "$ref": "#/definitions/reviews"
+                  }
+                }
+              ],
+              "produces": [
+                "application/json"
+              ],
+              "responses": {
+                "201": {
+                  "description": "session review created successfully"
+                },
+                "400": {
+                  "description": "validate your input value"
+                },
+                "404": {
+                  "description": "session not found"
+                }
+              }
+            }
+          },
+          "/auth/": {
+            "get": {
+              "tags": [
+                "Users"
+              ],
+              "summary": "View a all users",
+              "description": "the admin can view all users",
+              "parameters": [
+                {
+                  "name": "Authorization",
+                  "in": "header",
+                  "description": "Check token authentication",
+                  "required": true
+                }
+              ],
+              "produces": [
+                "application/json"
+              ],
+              "responses": {
+                "200": {
+                  "description": "result found"
+                }
+              }
+            }
+          },
+          "/auth/{id}": {
+            "get": {
+              "tags": [
+                "Users"
+              ],
+              "summary": "View a specific user",
+              "description": "the admin can view a specific user",
+              "parameters": [
+                {
+                  "name": "Authorization",
+                  "in": "header",
+                  "description": "Check token authentication",
+                  "required": true
+                },
+                {
+                  "name": "id",
+                  "in": "path",
+                  "description": "enter user id",
+                  "required": true,
+                  "type": "integer"
+                }
+              ],
+              "produces": [
+                "application/json"
+              ],
+              "responses": {
+                "200": {
+                  "description": "result found"
+                }
+              }
+            }
+          },
+          "/mentors/": {
+            "get": {
+              "tags": [
+                "Users"
+              ],
+              "summary": "View all Mentors",
+              "description": "Mentee can view all Mentors",
+              "parameters": [
+                {
+                  "name": "Authorization",
+                  "in": "header",
+                  "description": "Check token authentication",
+                  "required": true
+                }
+              ],
+              "produces": [
+                "application/json"
+              ],
+              "responses": {
+                "200": {
+                  "description": "result found"
+                },
+                "404": {
+                    "description": "mentor not found"
+                  }
+              }
+            }
+          },
+          "/mentors/{mentorId}": {
+            "get": {
+              "tags": [
+                "Users"
+              ],
+              "summary": "View a specific mentor",
+              "description": "the mentee can view a specific mentor",
+              "parameters": [
+                {
+                  "name": "Authorization",
+                  "in": "header",
+                  "description": "Check token authentication",
+                  "required": true
+                },
+                {
+                  "name": "mentorId",
+                  "in": "path",
+                  "description": "enter mentor id",
+                  "required": true,
+                  "type": "integer"
+                }
+              ],
+              "produces": [
+                "application/json"
+              ],
+              "responses": {
+                "200": {
+                  "description": "result found"
+                }
+              }
+            }
+          },
+          "/sessions ": {
+            "get": {
+              "tags": [
+                "Sessions"
+              ],
+              "summary": "View all sessions",
+              "description": "Mentee or mentor can view all related sessions",
+              "parameters": [
+                {
+                  "name": "Authorization",
+                  "in": "header",
+                  "description": "Check token authentication",
+                  "required": true
+                }
+              ],
+              "produces": [
+                "application/json"
+              ],
+              "responses": {
+                "200": {
+                  "description": "result found"
+                }
+              }
+            }
+          },
+          "/reviewedsessions": {
+            "get": {
+              "tags": [
+                "Reviews"
+              ],
+              "summary": "View all session reviews",
+              "description": "Mentor or admin can view all session reviews",
+              "parameters": [
+                {
+                  "name": "Authorization",
+                  "in": "header",
+                  "description": "Check token authentication",
+                  "required": true
+                }
+              ],
+              "produces": [
+                "application/json"
+              ],
+              "responses": {
+                "200": {
+                  "description": "result found"
+                }
+              }
+            }
+          },
+          "/sessions/{sessionId}/review ": {
+            "delete": {
+              "tags": [
+                "Reviews"
+              ],
+              "summary": "delete a specific review",
+              "description": "the admin can delete a specific review",
+              "parameters": [
+                {
+                  "name": "Authorization",
+                  "in": "header",
+                  "description": "Check token authentication",
+                  "required": true
+                },
+                {
+                  "name": "sessionId",
+                  "in": "path",
+                  "description": "enter session id",
+                  "required": true,
+                  "type": "integer"
+                }
+              ],
+              "produces": [
+                "application/json"
+              ],
+              "responses": {
+                "200": {
+                  "description": "result found"
+                }
+              }
+            }
+          },
+          "/sessions/{sessionId}/{decision}": {
+            "patch": {
+              "tags": [
+                "Sessions"
+              ],
+              "summary": "accept or reject session",
+              "description": "mentor can accept or reject session",
+              "parameters": [
+                {
+                  "name": "Authorization",
+                  "in": "header",
+                  "description": "Check token authentication",
+                  "required": true
+                },
+                {
+                  "name": "sessionId",
+                  "in": "path",
+                  "description": "enter session id",
+                  "required": true,
+                  "type": "integer"
+                },
+                {
+                  "name": "decision",
+                  "in": "path",
+                  "description": "enter accept or reject as decision",
+                  "required": true,
+                  "type": "string"
+                }
+              ],
+              "produces": [
+                "application/json"
+              ],
+              "responses": {
+                "200": {
+                  "description": "result found"
+                },"404": {
+                    "description": "Session not found"
+                  },"400": {
+                    "description": "invalid decision"
+                  }
+              }
+            }
+          },
+          "/user/{userId}": {
+            "patch": {
+              "tags": [
+                "Users"
+              ],
+              "summary": "change mentee to be a mentor",
+              "description": "admin can change a mentee to be a mentor",
+              "parameters": [
+                {
+                  "name": "Authorization",
+                  "in": "header",
+                  "description": "Check token authentication",
+                  "required": true
+                },
+                {
+                  "name": "userId",
+                  "in": "path",
+                  "description": "enter user id",
+                  "required": true,
+                  "type": "integer"
+                }
+              ],
+              "produces": [
+                "application/json"
+              ],
+              "responses": {
+                "201": {
+                  "description": "user upDate successfully"
+                },"404": {
+                    "description": "user not found"
+                  }
+              }
+            }
+          }
+    },
+    "definitions": {
+        "signup": {
+            "required": [
+                "firstName",
+                "lastName",
+                "email",
+                "password",
+                "address",
+                "bio",
+                "occupation",
+                "expertise"
+            ],
+            "type": "object",
+            "properties": {
+                "firstName": {
+                    "type": "string"
+                },
+                "lastName": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "address": {
+                    "type": "string"
+                },
+                "bio": {
+                    "type": "string"
+                },
+                "occupation": {
+                    "type": "string"
+                },
+                "expertise": {
+                    "type": "string"
+                }
+            }
+        },
+        "signin": {
+          "required": [
+            "email",
+            "password"
+          ],
+          "type": "object",
+          "properties": {
+            "email": {
+              "type": "string"
+            },
+            "password": {
+              "type": "string"
+            }
+          }
+        },
+        "sessions": {
+            "required": [
+                "mentorId",
+                "questions"
+            ],
+            "type": "object",
+            "properties": {
+              "mentorId": {
+                "type": "number"
+              },
+              "questions": {
+                "type": "string"
+              }
+            }
+          },
+          "reviews": {
+            "required": [
+                "score",
+                "remark"
+            ],
+            "type": "object",
+            "properties": {
+              "score": {
+                "type": "number"
+              },
+              "remark": {
+                "type": "string"
+              }
+            }
+          }
+    }
+}
