@@ -42,20 +42,21 @@ class sessionReview {
 
       sessionReviews.push(newReview);
       return res.status(201).send({
-        success: 'true',
+        status: '201',
         message: 'session review successfuly sent',
         newReview,
       });
     } 
     return res.status(404).send({
-      success: 'fail',
+      status: '404',
       message: 'session not found',
     });
   }
 
   static allReview(req, res) {
     return res.status(200).json({
-      success: 'true',
+      status: '200',
+      message: 'success',
       sessionReviews,
     });
   }
@@ -72,13 +73,14 @@ class sessionReview {
     });
     if (deleteResult) {
       return res.status(200).send({
-        success: 'true',
+        status: '200',
+        message: 'success',
         deleteResult,
       });
     } 
 
     return res.status(404).send({
-      success: 'false',
+      status: '404',
       message: 'session review not found',
     });
 

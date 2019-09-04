@@ -21,7 +21,7 @@ describe('post </sessions/1/review>  mentee should be able to review a mentor af
       .end((err, res) => {
         res.should.have.status(201);
         res.body.should.have.be.a('object');
-        res.body.should.have.property('success').eql('true');
+        res.body.should.have.property('status');
         res.body.should.have.property('message').eql('session review successfuly sent');
         res.body.newReview.should.have.property('id');
         res.body.newReview.should.have.property('sessionId');
@@ -84,7 +84,7 @@ describe('GET </API/v1/sessions>  GET all sessions reviewed', () => {
       .end((err, res) => {
         res.should.have.status(200);
         res.body.should.have.be.a('object');
-        res.body.should.have.property('success');
+        res.body.should.have.property('status');
         res.body.sessionReviews.should.be.a('array');
         res.body.sessionReviews[0].id.should.be.a('number');
         res.body.sessionReviews[0].sessionId.should.be.a('number');
@@ -119,7 +119,7 @@ describe('GET </API/v1/sessions>  delete specific  reviewed review deemed as ina
       .end((err, res) => {
         res.should.have.status(200);
         res.body.should.have.be.a('object');
-        res.body.should.have.property('success').eql('true');
+        res.body.should.have.property('status');
         res.body.deleteResult.should.be.a('string').eql('session review deleted successfuly');
       });
   });
@@ -132,7 +132,7 @@ describe('GET </API/v1/sessions>  delete specific  reviewed review deemed as ina
       .end((err, res) => {
         res.should.have.status(404);
         res.body.should.have.be.a('object');
-        res.body.should.have.property('success').eql('false');
+        res.body.should.have.property('status');
         res.body.should.have.property('message').eql('session review not found');
       });
   });

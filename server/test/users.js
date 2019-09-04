@@ -98,7 +98,7 @@ describe('GET </API/v1/mentor/1>  GET specific mentor', () => {
       .end((err, res) => {
         res.should.have.status(404);
         res.body.should.have.be.a('object');
-        res.body.should.have.property('success').eql('false');
+        res.body.should.have.property('status');
         res.body.should.have.property('message').eql('mentor not found');
       });
   });
@@ -134,7 +134,7 @@ describe('GET </API/v1/auth/>  GET specific user', () => {
       .end((err, res) => {
         res.should.have.status(404);
         res.body.should.have.be.a('object');
-        res.body.should.have.property('success').eql('false');
+        res.body.should.have.property('status');
         res.body.should.have.property('message').eql('user not found');
       });
   });
@@ -173,16 +173,15 @@ describe('POST </API/v1/auth/signup>', () => {
         res.should.have.status(201);
         res.body.should.have.be.a('object');
         res.body.should.have.property('token');
-        res.body.User.should.have.property('id');
-        res.body.User.should.have.property('firstName');
-        res.body.User.should.have.property('lastName');
-        res.body.User.should.have.property('email');
-        res.body.User.should.have.property('password');
-        res.body.User.should.have.property('address');
-        res.body.User.should.have.property('bio');
-        res.body.User.should.have.property('occupation');
-        res.body.User.should.have.property('expertise');
-        res.body.User.should.have.property('type').eql('mentee');
+        res.body.outPoutData.should.have.property('id');
+        res.body.outPoutData.should.have.property('firstName');
+        res.body.outPoutData.should.have.property('lastName');
+        res.body.outPoutData.should.have.property('email');
+        res.body.outPoutData.should.have.property('address');
+        res.body.outPoutData.should.have.property('bio');
+        res.body.outPoutData.should.have.property('occupation');
+        res.body.outPoutData.should.have.property('expertise');
+        res.body.outPoutData.should.have.property('type').eql('mentee');
       });
   });
 
@@ -196,7 +195,7 @@ describe('POST </API/v1/auth/signin>', () => {
       .send(login)
       .end((err, res) => {
         res.should.have.status(200);
-        res.body.should.have.property('success').eql('true');
+        res.body.should.have.property('status');
         res.body.should.have.property('token');
         res.body.should.have.property('loggedInUser');
 
@@ -221,7 +220,7 @@ describe('POST </API/v1/auth/signin>', () => {
       .send({ email: 'fake@gmail.com', password: 'invalid' })
       .end((err, res) => {
         res.should.have.status(404);
-        res.body.should.have.property('success').eql('fail');
+        res.body.should.have.property('status');
         res.body.should.have.property('message').eql('User not found, Incorrect email or password');
       });
   });
@@ -237,7 +236,7 @@ describe('GET </API/v1/user/1>  change user type to be mentor', () => {
       .end((err, res) => {
         res.should.have.status(201);
         res.body.should.have.be.a('object');
-        res.body.should.have.property('success').eql('true');
+        res.body.should.have.property('status');
         res.body.should.have.property('message').eql('user upDate successfully');
         res.body.newMentor.should.have.property('id');
         res.body.newMentor.should.have.property('firstName');
