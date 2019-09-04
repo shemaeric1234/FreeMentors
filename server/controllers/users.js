@@ -25,6 +25,7 @@ class User {
 
     if (message) {
       return res.status(401).json({
+        status: '201',
         message,
       });
     }
@@ -42,10 +43,23 @@ class User {
       type: 'mentee',
 
     };
+    const outPoutData = {
+      id: NewidGeneretor(users),
+      firstName: User.firstName,
+      lastName: User.lastName,
+      email: User.email,
+      address: User.address,
+      bio: User.bio,
+      occupation: User.occupation,
+      expertise: User.expertise,
+      type: User.type,
+    };
     users.push(User);
     return res.status(201).json({
+      status: '201',
+      message: 'user added',
       token,
-      User,
+      outPoutData,
     });
   }
 
@@ -61,22 +75,32 @@ class User {
     const userData = req.body;
     let token = '';
     users.map((user) => {
-      // eslint-disable-next-line max-len
       if (user.email === userData.email && hashpassword.compareSync(userData.password, user.password)) {
         token = getToken(email);
-        loggedInUser = user;
+        loggedInUser = {
+          id: user.id,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          address: user.address,
+          bio: user.bio,
+          occupation: user.occupation,
+          expertise: user.expertise,
+          type: user.type,
+        };
       }
     });
 
 
     if (!loggedInUser) {
       return res.status(404).send({
-        success: 'fail',
+        status: 404,
         message: 'User not found, Incorrect email or password',
       });
     }
     return res.status(200).send({
-      success: 'true',
+      status: '200',
+      message: 'login successfuly',
       token,
       loggedInUser,
     });
@@ -84,6 +108,8 @@ class User {
 
   static getUsers(req, res) {
     return res.status(200).json({
+      status: '200',
+      message: 'success',
       users,
     });
   }
@@ -98,17 +124,19 @@ class User {
     });
     if (!userGotten) {
       return res.status(404).json({
-        success: 'false',
+        status: '404',
         message: 'user not found',
       });
     }
     return res.status(200).send({
+      status: '200',
+      message: 'success',
       userGotten,
     });
   }
   
   static updateUser(req, res) {
-    const id = parseInt(req.params.userId);
+    const id = parseInt(req.params.userId,10);
     let newMentor;
     users.map((userToUpdate) => {
       if (userToUpdate.id === id) {
@@ -119,12 +147,12 @@ class User {
 
     if (!newMentor) {
       return res.status(404).send({
-        success: 'false',
+        status: '404',
         message: 'user not found',
       });
     }
     return res.status(201).send({
-      success: 'true',
+      status: '201',
       message: 'user upDate successfully',
       newMentor,
     });
@@ -138,7 +166,8 @@ class User {
       }
     });
     return res.status(200).json({
-      success: 'true',
+      status: '200',
+      message: 'success',
       allMentor,
     });
   }
@@ -153,11 +182,13 @@ class User {
     });
     if (!specMentor) {
       return res.status(404).send({
-        success: 'false',
+        status: '404',
         message: 'mentor not found',
       });
     }
     return res.status(200).send({
+      status: '200',
+      message: 'success',
       specMentor,
     });
   }

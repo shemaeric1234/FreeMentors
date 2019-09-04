@@ -6,10 +6,9 @@ import { sessionsSchema } from '../helpers/validation';
 import customize from '../helpers/customize';
 
 class session {
-  
   static createNew(req, res) {
     const session1 = req.body;
-
+    let errorMessage = '';
     const { error } = Joi.validate(session1, sessionsSchema);
     if (error) {
       return customize.validateError(req, res, error, 400);
@@ -17,24 +16,42 @@ class session {
     sessions.forEach((newSession) => {
       if (newSession.menteeEmail === req.user.email && newSession.questions
         === session1.questions) {
-        return res.status(400).json({
-          message: 'session already exists',
-        });
+        errorMessage = 'session already exists';
       }
     });
+    if (errorMessage) {
+      return res.status(400).json({
+        status: '400',
+        message: errorMessage,
+      });
+    }
 
+    let mentorEmail = '';
+    users.map((thisMentor) => {
+      if (thisMentor.id === req.body.mentorId && thisMentor.type === 'mentor') {
+        mentorEmail = thisMentor.email;
+      }
+    });
+    if (!mentorEmail) {
+      return res.status(404).send({
+        status: '404',
+        message: 'mentor not found',
+      });
+    }
     const newSession = {
       id: NewidGeneretor(sessions),
       mentorId: req.body.mentorId,
       menteeId: req.user.id,
       questions: req.body.questions,
       menteeEmail: req.user.email,
+      mentorEmail,
       status: 'pending',
 
     };
     sessions.push(newSession);
     return res.status(201).json({
-      success: 'true',
+      status: '201',
+      message: 'success',
       newSession,
     });
   }
@@ -54,7 +71,8 @@ class session {
     });
 
     return res.status(200).json({
-      success: 'true',
+      status: '200',
+      message: 'success',
       relatedSessions,
     });
   }

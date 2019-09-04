@@ -20,7 +20,7 @@ describe('POST </API/v1/sessions> a mentee should create a session', () => {
       .end((err, res) => {
         res.should.have.status(201);
         res.body.should.have.be.a('object');
-        res.body.should.have.property('success').eql('true');
+        res.body.should.have.property('status');
       });
   });
 
@@ -44,6 +44,18 @@ describe('POST </API/v1/sessions> a mentee should create a session', () => {
       .set('Authorization', `Bearer ${menteeToken}`)
       .end((err, res) => {
         res.should.have.status(400);
+        res.body.should.have.be.a('object');
+      });
+  });
+
+  it('It should sheck if a mentor exist', () => {
+    chai
+      .request(app)
+      .post('/API/v1/sessions')
+      .send(sessions[4])
+      .set('Authorization', `Bearer ${menteeToken}`)
+      .end((err, res) => {
+        res.should.have.status(404);
         res.body.should.have.be.a('object');
       });
   });
@@ -111,7 +123,7 @@ describe('GET </API/v1/sessions> should get all sessions', () => {
       .end((err, res) => {
         res.should.have.status(200);
         res.body.should.have.be.a('object');
-        res.body.should.have.property('success').eql('true');
+        res.body.should.have.property('status');
         res.body.relatedSessions.should.be.a('array');
         res.body.relatedSessions[0].id.should.be.a('number');
         res.body.relatedSessions[0].mentorId.should.be.a('number');
