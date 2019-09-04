@@ -88,13 +88,14 @@ Now, app running locally to access resources we run endpoints on below URL.
 
 ` Example http://localhost:3000/API/v1/auth/signup `
 
-
+### API documentation
+- Swagger API [click here](https://free-mentor-adc.herokuapp.com/docs/)
 ### Test App
 App are designed with Test Driven Development, we can check app to see how it works.
 >npm test
 
 ### Version
-- The FreeMentorsis `v1.0.0`
+- The FreeMentors is `v1.0.0`
 
 ### License
 - Issued by **SHEMA Eric**
