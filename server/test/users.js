@@ -70,7 +70,7 @@ describe('GET </API/v1/mentor/1>  GET specific mentor', () => {
   it('It should display aspecific mentor', () => {
     chai
       .request(app)
-      .get('/API/v1/mentor/1')
+      .get('/API/v1/mentor/3')
       .set('Authorization', `Bearer ${menteeToken}`)
       .end((err, res) => {
         res.should.have.status(200);
