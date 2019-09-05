@@ -20,7 +20,7 @@ app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 // ERRROR HANDLING
 
 app.use((req, _res, next) => {
-  const error = new Error('Not found');
+  const error = new Error('That Kind of Request does Not Found');
   error.status = 404;
   next(error);
 });
@@ -28,9 +28,8 @@ app.use((req, _res, next) => {
 app.use((error, req, res, next) => {
   res.status(error.status);
   res.json({
-    error: {
-      message: error.message,
-    },
+    status: '404',
+    error: error.message,
   });
 });
 

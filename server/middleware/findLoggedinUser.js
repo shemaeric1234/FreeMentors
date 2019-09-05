@@ -13,8 +13,8 @@ export const admin = (req, res, next) => {
     next();
   } else {
     return res.status(403).send({
-      success: 'fail',
-      message: 'you are not allowed this kind of request only admin',
+      status: '403',
+      error: 'you are not allowed this kind of request only admin',
     });
   }
 };
@@ -32,8 +32,8 @@ export const mentor = (req, res, next) => {
     next();
   } else {
     return res.status(403).send({
-      success: 'fail',
-      message: 'you are not allowed this kind of request only mentor',
+      status: 'fail',
+      error: 'you are not allowed this kind of request only mentor',
     });
   }
 };
@@ -52,8 +52,8 @@ export const mentee = (req, res, next) => {
     next();
   } else {
     return res.status(403).send({
-      success: 'fail',
-      message: 'you are not allowed this kind of request only mentee',
+      status: '403',
+      error: 'you are not allowed this kind of request only mentee',
     });
   }
 };
@@ -72,8 +72,8 @@ export const menteeOrMentor = (req, res, next) => {
     next();
   } else {
     return res.status(403).send({
-      success: 'fail',
-      message: 'you are not allowed this kind of request only mentee or mentor',
+      tatus: '403',
+      error: 'you are not allowed this kind of request only mentee or mentor',
     });
   }
 };
@@ -92,8 +92,8 @@ export const mentorOrAdmin = (req, res, next) => {
     next();
   } else {
     return res.status(403).send({
-      success: 'fail',
-      message: 'you are not allowed this kind of request only mentor or admin',
+      status: '403',
+      error: 'you are not allowed this kind of request only mentor or admin',
     });
   }
 };

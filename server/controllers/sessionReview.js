@@ -6,8 +6,14 @@ import users from '../models/users';
 import { sessionReviewSchema } from '../helpers/validation';
 import customize from '../helpers/customize';
 
-class sessionReview {
-  static review(req, res) {
+const sessionReview = {
+  review: (req, res) => {
+    if (/[^0-9]+/g.test(req.params.sessionId)) {
+      return res.status(400).send({
+        status: '400',
+        error: 'SessionId on URL must be a number',
+      });
+    }
     const sessionId = parseInt(req.params.sessionId, 10);
     const score = parseInt(req.body.score, 10);
     const reviewBody = req.body;
@@ -30,7 +36,7 @@ class sessionReview {
     })
 
     if (sessionToreview) {
-      const newReview = {
+      const data = {
         id: NewidGeneretor(sessionReviews),
         sessionId: sessionToreview.id,
         mentorId: sessionToreview.mentorId,
@@ -40,51 +46,56 @@ class sessionReview {
         remark: reviewBody.remark,
       };
 
-      sessionReviews.push(newReview);
+      sessionReviews.push(data);
       return res.status(201).send({
         status: '201',
         message: 'session review successfuly sent',
-        newReview,
+        data,
       });
-    } 
+    }
     return res.status(404).send({
       status: '404',
       message: 'session not found',
     });
-  }
+  },
 
-  static allReview(req, res) {
+  allReview: (req, res) => {
     return res.status(200).json({
       status: '200',
       message: 'success',
-      sessionReviews,
+      data: sessionReviews,
     });
-  }
+  },
 
-  static deleteRemark(req, res) {
+  deleteRemark: (req, res) => {
+    if (/[^0-9]+/g.test(req.params.sessionId)) {
+      return res.status(400).send({
+        status: '400',
+        error: 'SessionId on URL must be a number',
+      });
+    }
     const reviewId = parseInt(req.params.sessionId, 10);
-    let deleteResult = '';
+    let data = '';
     sessionReviews.map((specificReview, index) => {
       if (specificReview.sessionId === reviewId) {
         sessionReviews.splice(index, 1);
 
-        deleteResult = 'session review deleted successfuly';
+        data = 'session review deleted successfuly';
       }
     });
-    if (deleteResult) {
+    if (data) {
       return res.status(200).send({
         status: '200',
         message: 'success',
-        deleteResult,
+        data,
       });
-    } 
+    }
 
     return res.status(404).send({
       status: '404',
       message: 'session review not found',
     });
-
-  }
-}
+  },
+};
 
 export default sessionReview;
