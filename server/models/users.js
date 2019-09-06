@@ -49,6 +49,19 @@ const users = [
     expertise: 'master',
     type: 'mentee',
   },
+  {
+    token: '',
+    id: 5,
+    firstName: 'uwimana456',
+    lastName: 'yves',
+    email: 'kamanzi123@gmail.com',
+    password: 'uwimana',
+    address: 'kayonza',
+    bio: 'hhhhhhh',
+    occupation: 'sw-developer',
+    expertise: 'master',
+    type: 'mentor',
+  },
 ];
 
 export default users;

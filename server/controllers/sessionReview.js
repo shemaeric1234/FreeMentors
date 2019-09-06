@@ -33,7 +33,7 @@ const sessionReview = {
       if (existUser.id === sessionToreview.menteeId) {
         menteeInfo = existUser;
       }
-    })
+    });
 
     if (sessionToreview) {
       const data = {
@@ -60,10 +60,36 @@ const sessionReview = {
   },
 
   allReview: (req, res) => {
+    const data = [];
+    let isMentor = '';
+    users.map((NewMentor) => {
+      if (NewMentor.email === req.user.email && NewMentor.type === 'mentor') {
+        isMentor = true;
+        sessionReviews.map((mentorRevie) => {
+          if (mentorRevie.mentorId === NewMentor.id) {
+            data.push({
+              id: mentorRevie.id,
+              sessionId: mentorRevie.sessionId,
+              mentorId: mentorRevie.mentorId,
+              menteeId: mentorRevie.menteeId,
+              score: mentorRevie.score,
+              menteeFullName: mentorRevie.menteeFullName,
+              remark: mentorRevie.remark,
+            });
+          }
+        });
+      }
+    });
+    if (isMentor && data.length === 0) {
+      data.push("you don't have the session");
+    } else if (data.length === 0) {
+      data.push(sessionReviews);
+    }
+
     return res.status(200).json({
       status: '200',
       message: 'success',
-      data: sessionReviews,
+      data,
     });
   },
 

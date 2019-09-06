@@ -98,15 +98,6 @@ describe('GET </API/v1/sessions>  GET all sessions reviewed', () => {
         res.should.have.status(200);
         res.body.should.have.be.a('object');
         res.body.should.have.property('status');
-        res.body.data.should.be.a('array');
-        res.body.data[0].id.should.be.a('number');
-        res.body.data[0].sessionId.should.be.a('number');
-        res.body.data[0].mentorId.should.be.a('number');
-        res.body.data[0].menteeId.should.be.a('number');
-        res.body.data[0].score.should.be.a('number');
-        res.body.data[0].should.have.property('menteeFullName');
-        res.body.data[0].should.have.property('remark');
-
       });
   });
 
