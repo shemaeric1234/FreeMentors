@@ -18,17 +18,16 @@ describe('GET </API/v1/auth/>  GET all users', () => {
       .end((err, res) => {
         res.should.have.status(200);
         res.body.should.have.be.a('object');
-        res.body.users.should.have.be.a('array');
-        res.body.users[0].should.have.property('id');
-        res.body.users[0].should.have.property('firstName');
-        res.body.users[0].should.have.property('lastName');
-        res.body.users[0].should.have.property('email');
-        res.body.users[0].should.have.property('password');
-        res.body.users[0].should.have.property('address');
-        res.body.users[0].should.have.property('bio');
-        res.body.users[0].should.have.property('occupation');
-        res.body.users[0].should.have.property('expertise');
-        res.body.users[0].should.have.property('type');
+        res.body.data.should.have.be.a('array');
+        res.body.data[0].should.have.property('id');
+        res.body.data[0].should.have.property('firstName');
+        res.body.data[0].should.have.property('lastName');
+        res.body.data[0].should.have.property('email');
+        res.body.data[0].should.have.property('address');
+        res.body.data[0].should.have.property('bio');
+        res.body.data[0].should.have.property('occupation');
+        res.body.data[0].should.have.property('expertise');
+        res.body.data[0].should.have.property('type');
       });
   });
 
@@ -53,17 +52,16 @@ describe('GET </API/v1/mentors>  GET all mentors', () => {
       .end((err, res) => {
         res.should.have.status(200);
         res.body.should.have.be.a('object');
-        res.body.allMentor.should.have.be.a('array');
-        res.body.allMentor[0].should.have.property('id');
-        res.body.allMentor[0].should.have.property('firstName');
-        res.body.allMentor[0].should.have.property('lastName');
-        res.body.allMentor[0].should.have.property('email');
-        res.body.allMentor[0].should.have.property('password');
-        res.body.allMentor[0].should.have.property('address');
-        res.body.allMentor[0].should.have.property('bio');
-        res.body.allMentor[0].should.have.property('occupation');
-        res.body.allMentor[0].should.have.property('expertise');
-        res.body.allMentor[0].should.have.property('type');
+        res.body.data.should.have.be.a('array');
+        res.body.data[0].should.have.property('id');
+        res.body.data[0].should.have.property('firstName');
+        res.body.data[0].should.have.property('lastName');
+        res.body.data[0].should.have.property('email');
+        res.body.data[0].should.have.property('address');
+        res.body.data[0].should.have.property('bio');
+        res.body.data[0].should.have.property('occupation');
+        res.body.data[0].should.have.property('expertise');
+        res.body.data[0].should.have.property('type');
       });
   });
 });
@@ -72,21 +70,19 @@ describe('GET </API/v1/mentor/1>  GET specific mentor', () => {
   it('It should display aspecific mentor', () => {
     chai
       .request(app)
-      .get('/API/v1/mentor/1')
+      .get('/API/v1/mentor/3')
       .set('Authorization', `Bearer ${menteeToken}`)
       .end((err, res) => {
         res.should.have.status(200);
         res.body.should.have.be.a('object');
-        res.body.specMentor.should.have.property('id');
-        res.body.specMentor.should.have.property('firstName');
-        res.body.specMentor.should.have.property('lastName');
-        res.body.specMentor.should.have.property('email');
-        res.body.specMentor.should.have.property('password');
-        res.body.specMentor.should.have.property('address');
-        res.body.specMentor.should.have.property('bio');
-        res.body.specMentor.should.have.property('occupation');
-        res.body.specMentor.should.have.property('expertise');
-        res.body.specMentor.should.have.property('type');
+        res.body.data[0].should.have.property('firstName');
+        res.body.data[0].should.have.property('lastName');
+        res.body.data[0].should.have.property('email');
+        res.body.data[0].should.have.property('address');
+        res.body.data[0].should.have.property('bio');
+        res.body.data[0].should.have.property('occupation');
+        res.body.data[0].should.have.property('expertise');
+        res.body.data[0].should.have.property('type');
       });
   });
 
@@ -99,9 +95,24 @@ describe('GET </API/v1/mentor/1>  GET specific mentor', () => {
         res.should.have.status(404);
         res.body.should.have.be.a('object');
         res.body.should.have.property('status');
-        res.body.should.have.property('message').eql('mentor not found');
+        res.body.should.have.property('message');
       });
   });
+
+  it('It should check if URL paramentor are valid', () => {
+    chai
+      .request(app)
+      .get('/API/v1/mentor/0dfghjk')
+      .set('Authorization', `Bearer ${menteeToken}`)
+      .end((err, res) => {
+        res.should.have.status(400);
+        res.body.should.have.be.a('object');
+        res.body.should.have.property('status');
+        res.body.should.have.property('error');
+      });
+  });
+
+
 });
 
 describe('GET </API/v1/auth/>  GET specific user', () => {
@@ -113,16 +124,25 @@ describe('GET </API/v1/auth/>  GET specific user', () => {
       .end((err, res) => {
         res.should.have.status(200);
         res.body.should.have.be.a('object');
-        res.body.userGotten.should.have.property('id');
-        res.body.userGotten.should.have.property('firstName');
-        res.body.userGotten.should.have.property('lastName');
-        res.body.userGotten.should.have.property('email');
-        res.body.userGotten.should.have.property('password');
-        res.body.userGotten.should.have.property('address');
-        res.body.userGotten.should.have.property('bio');
-        res.body.userGotten.should.have.property('occupation');
-        res.body.userGotten.should.have.property('expertise');
-        res.body.userGotten.should.have.property('type');
+        res.body.data[0].should.have.property('firstName');
+        res.body.data[0].should.have.property('lastName');
+        res.body.data[0].should.have.property('email');
+        res.body.data[0].should.have.property('address');
+        res.body.data[0].should.have.property('bio');
+        res.body.data[0].should.have.property('occupation');
+        res.body.data[0].should.have.property('expertise');
+        res.body.data[0].should.have.property('type');
+      });
+  });
+
+  it('It should check if userId in URL is not string', () => {
+    chai
+      .request(app)
+      .get('/API/v1/auth/hjkl')
+      .set('Authorization', `Bearer ${admintoken}`)
+      .end((err, res) => {
+        res.should.have.status(400);
+        res.body.should.have.be.a('object');
       });
   });
 
@@ -173,15 +193,15 @@ describe('POST </API/v1/auth/signup>', () => {
         res.should.have.status(201);
         res.body.should.have.be.a('object');
         res.body.should.have.property('token');
-        res.body.outPoutData.should.have.property('id');
-        res.body.outPoutData.should.have.property('firstName');
-        res.body.outPoutData.should.have.property('lastName');
-        res.body.outPoutData.should.have.property('email');
-        res.body.outPoutData.should.have.property('address');
-        res.body.outPoutData.should.have.property('bio');
-        res.body.outPoutData.should.have.property('occupation');
-        res.body.outPoutData.should.have.property('expertise');
-        res.body.outPoutData.should.have.property('type').eql('mentee');
+        res.body.data.should.have.property('id');
+        res.body.data.should.have.property('firstName');
+        res.body.data.should.have.property('lastName');
+        res.body.data.should.have.property('email');
+        res.body.data.should.have.property('address');
+        res.body.data.should.have.property('bio');
+        res.body.data.should.have.property('occupation');
+        res.body.data.should.have.property('expertise');
+        res.body.data.should.have.property('type').eql('mentee');
       });
   });
 
@@ -197,8 +217,7 @@ describe('POST </API/v1/auth/signin>', () => {
         res.should.have.status(200);
         res.body.should.have.property('status');
         res.body.should.have.property('token');
-        res.body.should.have.property('loggedInUser');
-
+        res.body.should.have.property('data');
       });
   });
 
@@ -238,16 +257,15 @@ describe('GET </API/v1/user/1>  change user type to be mentor', () => {
         res.body.should.have.be.a('object');
         res.body.should.have.property('status');
         res.body.should.have.property('message').eql('user upDate successfully');
-        res.body.newMentor.should.have.property('id');
-        res.body.newMentor.should.have.property('firstName');
-        res.body.newMentor.should.have.property('lastName');
-        res.body.newMentor.should.have.property('email');
-        res.body.newMentor.should.have.property('password');
-        res.body.newMentor.should.have.property('address');
-        res.body.newMentor.should.have.property('bio');
-        res.body.newMentor.should.have.property('occupation');
-        res.body.newMentor.should.have.property('expertise');
-        res.body.newMentor.should.have.property('type');
+        res.body.data.should.have.property('id');
+        res.body.data.should.have.property('firstName');
+        res.body.data.should.have.property('lastName');
+        res.body.data.should.have.property('email');
+        res.body.data.should.have.property('address');
+        res.body.data.should.have.property('bio');
+        res.body.data.should.have.property('occupation');
+        res.body.data.should.have.property('expertise');
+        res.body.data.should.have.property('type');
       });
   });
 
@@ -261,4 +279,15 @@ describe('GET </API/v1/user/1>  change user type to be mentor', () => {
         res.body.should.have.be.a('object');
       });
   });
+  it('It should check if URL paramentor ara valid', () => {
+    chai
+      .request(app)
+      .patch('/API/v1/user/0fghjkl')
+      .set('Authorization', `Bearer ${admintoken}`)
+      .end((err, res) => {
+        res.should.have.status(400);
+        res.body.should.have.be.a('object');
+      });
+  });
+
 });

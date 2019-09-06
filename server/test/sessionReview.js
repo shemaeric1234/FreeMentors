@@ -23,13 +23,13 @@ describe('post </sessions/1/review>  mentee should be able to review a mentor af
         res.body.should.have.be.a('object');
         res.body.should.have.property('status');
         res.body.should.have.property('message').eql('session review successfuly sent');
-        res.body.newReview.should.have.property('id');
-        res.body.newReview.should.have.property('sessionId');
-        res.body.newReview.should.have.property('mentorId');
-        res.body.newReview.should.have.property('menteeId');
-        res.body.newReview.should.have.property('score');
-        res.body.newReview.should.have.property('menteeFullName');
-        res.body.newReview.should.have.property('remark');
+        res.body.data.should.have.property('id');
+        res.body.data.should.have.property('sessionId');
+        res.body.data.should.have.property('mentorId');
+        res.body.data.should.have.property('menteeId');
+        res.body.data.should.have.property('score');
+        res.body.data.should.have.property('menteeFullName');
+        res.body.data.should.have.property('remark');
       });
   });
   it('it should validate inputs', () => {
@@ -56,6 +56,19 @@ describe('post </sessions/1/review>  mentee should be able to review a mentor af
         res.body.should.have.be.a('object');
       });
   });
+
+  it('it should verify if url parametor is valid ', () => {
+    chai
+      .request(app)
+      .post('/API/v1/sessions/dfghj/review')
+      .send(remark[0])
+      .set('Authorization', `Bearer ${menteeToken}`)
+      .end((err, res) => {
+        res.should.have.status(400);
+        res.body.should.have.be.a('object');
+      });
+  });
+
 });
 
 
@@ -85,14 +98,14 @@ describe('GET </API/v1/sessions>  GET all sessions reviewed', () => {
         res.should.have.status(200);
         res.body.should.have.be.a('object');
         res.body.should.have.property('status');
-        res.body.sessionReviews.should.be.a('array');
-        res.body.sessionReviews[0].id.should.be.a('number');
-        res.body.sessionReviews[0].sessionId.should.be.a('number');
-        res.body.sessionReviews[0].mentorId.should.be.a('number');
-        res.body.sessionReviews[0].menteeId.should.be.a('number');
-        res.body.sessionReviews[0].score.should.be.a('number');
-        res.body.sessionReviews[0].should.have.property('menteeFullName');
-        res.body.sessionReviews[0].should.have.property('remark');
+        res.body.data.should.be.a('array');
+        res.body.data[0].id.should.be.a('number');
+        res.body.data[0].sessionId.should.be.a('number');
+        res.body.data[0].mentorId.should.be.a('number');
+        res.body.data[0].menteeId.should.be.a('number');
+        res.body.data[0].score.should.be.a('number');
+        res.body.data[0].should.have.property('menteeFullName');
+        res.body.data[0].should.have.property('remark');
 
       });
   });
@@ -120,7 +133,7 @@ describe('GET </API/v1/sessions>  delete specific  reviewed review deemed as ina
         res.should.have.status(200);
         res.body.should.have.be.a('object');
         res.body.should.have.property('status');
-        res.body.deleteResult.should.be.a('string').eql('session review deleted successfuly');
+        res.body.data.should.be.a('string').eql('session review deleted successfuly');
       });
   });
 
@@ -134,6 +147,19 @@ describe('GET </API/v1/sessions>  delete specific  reviewed review deemed as ina
         res.body.should.have.be.a('object');
         res.body.should.have.property('status');
         res.body.should.have.property('message').eql('session review not found');
+      });
+  });
+
+  it('it should check if url paramentor is valid', () => {
+    chai
+      .request(app)
+      .delete('/API/v1/sessions/0dfghjk/review')
+      .set('Authorization', `Bearer ${admintoken}`)
+      .end((err, res) => {
+        res.should.have.status(400);
+        res.body.should.have.be.a('object');
+        res.body.should.have.property('status');
+        res.body.should.have.property('error');
       });
   });
 

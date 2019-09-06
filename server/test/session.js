@@ -124,13 +124,13 @@ describe('GET </API/v1/sessions> should get all sessions', () => {
         res.should.have.status(200);
         res.body.should.have.be.a('object');
         res.body.should.have.property('status');
-        res.body.relatedSessions.should.be.a('array');
-        res.body.relatedSessions[0].id.should.be.a('number');
-        res.body.relatedSessions[0].mentorId.should.be.a('number');
-        res.body.relatedSessions[0].menteeId.should.be.a('number');
-        res.body.relatedSessions[0].should.have.property('questions');
-        res.body.relatedSessions[0].should.have.property('menteeEmail');
-        res.body.relatedSessions[0].should.have.property('status');
+        res.body.data.should.be.a('array');
+        res.body.data[0].id.should.be.a('number');
+        res.body.data[0].mentorId.should.be.a('number');
+        res.body.data[0].menteeId.should.be.a('number');
+        res.body.data[0].should.have.property('questions');
+        res.body.data[0].should.have.property('menteeEmail');
+        res.body.data[0].should.have.property('status');
       });
   });
 
@@ -211,6 +211,31 @@ describe('POST </API/v1/sessions> a mentor should make decision', () => {
         res.body.should.have.property('message').eql('Session reject successfuly');
       });
   });
+
+  it('It should check if url parametor is valid', () => {
+    chai
+      .request(app)
+      .patch('/API/v1/sessions/1/789')
+      .set('Authorization', `Bearer ${mentorToken}`)
+      .end((err, res) => {
+        res.should.have.status(400);
+        res.body.should.have.be.a('object');
+        res.body.should.have.property('error');
+      });
+  });
+
+  it('It should check if url parametor is valid', () => {
+    chai
+      .request(app)
+      .patch('/API/v1/sessions/dfghj/reject')
+      .set('Authorization', `Bearer ${mentorToken}`)
+      .end((err, res) => {
+        res.should.have.status(400);
+        res.body.should.have.be.a('object');
+        res.body.should.have.property('error');
+      });
+  });
+
 
   it('It should check if a session to be accepted is available', () => {
     chai

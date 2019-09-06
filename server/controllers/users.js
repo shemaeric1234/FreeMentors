@@ -5,9 +5,10 @@ import NewidGeneretor from '../helpers/id_denerator';
 import getToken from '../helpers/generateToken';
 import { userSignup, userSignin } from '../helpers/validation';
 import customize from '../helpers/customize';
+import removePass from '../helpers/removePass';
 
-class User {
-  static register(req, res) {
+const User = {
+  register: (req, res) => {
     const User1 = req.body;
     const { email } = req.body;
     let message = '';
@@ -43,7 +44,7 @@ class User {
       type: 'mentee',
 
     };
-    const outPoutData = {
+    const data = {
       id: NewidGeneretor(users),
       firstName: User.firstName,
       lastName: User.lastName,
@@ -59,12 +60,12 @@ class User {
       status: '201',
       message: 'user added',
       token,
-      outPoutData,
+      data,
     });
-  }
+  },
 
-  static login(req, res) {
-    let loggedInUser = '';
+  login: (req, res) => {
+    let data = '';
     const { email } = req.body;
 
     const { error } = Joi.validate(req.body, userSignin);
@@ -77,7 +78,7 @@ class User {
     users.map((user) => {
       if (user.email === userData.email && hashpassword.compareSync(userData.password, user.password)) {
         token = getToken(email);
-        loggedInUser = {
+        data = {
           id: user.id,
           firstName: user.firstName,
           lastName: user.lastName,
@@ -92,7 +93,7 @@ class User {
     });
 
 
-    if (!loggedInUser) {
+    if (!data) {
       return res.status(404).send({
         status: 404,
         message: 'User not found, Incorrect email or password',
@@ -102,50 +103,73 @@ class User {
       status: '200',
       message: 'login successfuly',
       token,
-      loggedInUser,
+      data,
     });
-  }
+  },
 
-  static getUsers(req, res) {
-    return res.status(200).json({
+  getUsers: (req, res) => {
+    const data = removePass(users);
+    res.status(200).json({
       status: '200',
       message: 'success',
-      users,
+      data,
     });
-  }
+  },
 
-  static getUser(req, res) {
+  getUser: (req, res) => {
+    if (/[^0-9]+/g.test(req.params.id)) {
+      return res.status(400).send({
+        status: '400',
+        error: 'URL paramentor must be a number',
+      });
+    }
     const id = parseInt(req.params.id, 10);
-    let userGotten = '';
+    let data = [];
     users.forEach((user) => {
       if (user.id === id) {
-        userGotten = user;
+        data.push(user);
       }
     });
-    if (!userGotten) {
+    if (data.length === 0) {
       return res.status(404).json({
         status: '404',
         message: 'user not found',
       });
     }
+    data = removePass(data);
     return res.status(200).send({
       status: '200',
       message: 'success',
-      userGotten,
+      data,
     });
-  }
-  
-  static updateUser(req, res) {
-    const id = parseInt(req.params.userId,10);
-    let newMentor;
+  },
+  updateUser: (req, res) => {
+    if (/[^0-9]+/g.test(req.params.userId)) {
+      return res.status(400).send({
+        status: '400',
+        error: 'user id on URL must be a number',
+      });
+    }
+    const id = parseInt(req.params.userId, 10);
+    let data;
     users.map((userToUpdate) => {
       if (userToUpdate.id === id) {
         userToUpdate.type = 'mentor';
-        newMentor = userToUpdate;
+        data = {
+          id: userToUpdate.id,
+          firstName: userToUpdate.firstName,
+          lastName: userToUpdate.lastName,
+          email: userToUpdate.email,
+          address: userToUpdate.address,
+          bio: userToUpdate.bio,
+          occupation: userToUpdate.occupation,
+          expertise: userToUpdate.expertise,
+          type: userToUpdate.type,
+        };
       }
     });
 
-    if (!newMentor) {
+    if (!data) {
       return res.status(404).send({
         status: '404',
         message: 'user not found',
@@ -154,44 +178,52 @@ class User {
     return res.status(201).send({
       status: '201',
       message: 'user upDate successfully',
-      newMentor,
+      data,
     });
-  }
+  },
 
-  static getMentors(req, res) {
-    const allMentor = [];
+  getMentors: (req, res) => {
+    let data = [];
     users.map((mentor) => {
       if (mentor.type === 'mentor') {
-        allMentor.push(mentor);
+        data.push(mentor);
       }
     });
+    data = removePass(data);
     return res.status(200).json({
       status: '200',
       message: 'success',
-      allMentor,
+      data,
     });
-  }
+  },
 
-  static getMentor(req, res) {
+  getMentor: (req, res) => {
+    if (/[^0-9]+/g.test(req.params.mentorId)) {
+      return res.status(400).send({
+        status: '400',
+        error: 'URL paramentor must be a number',
+      });
+    }
     const id = parseInt(req.params.mentorId, 10);
-    let specMentor = '';
+    let data = [];
     users.map((specificMentor) => {
-      if (specificMentor.id === id) {
-        specMentor = specificMentor;
+      if (specificMentor.id === id && specificMentor.type === 'mentor') {
+        data.push(specificMentor);
       }
     });
-    if (!specMentor) {
+    if (data.length === 0) {
       return res.status(404).send({
         status: '404',
         message: 'mentor not found',
       });
     }
+    data = removePass(data);
     return res.status(200).send({
       status: '200',
       message: 'success',
-      specMentor,
+      data,
     });
-  }
-}
+  },
+};
 
 export default User;
