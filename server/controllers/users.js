@@ -1,7 +1,6 @@
 import hashpassword from 'bcrypt';
 import Joi from '@hapi/joi';
 import dotenv from 'dotenv';
-import users from '../models/users';
 import NewidGeneretor from '../helpers/id_denerator';
 import getToken from '../helpers/generateToken';
 import { userSignup, userSignin } from '../helpers/validation';
@@ -48,7 +47,6 @@ const User = {
     const data = await database.createUser(User);
     delete data.rows[0].password;
 
-    users.push(data);
     return res.status(201).json({
       status: '201',
       message: 'user added',
