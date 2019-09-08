@@ -1,7 +1,5 @@
 import Joi from '@hapi/joi';
-// import sessions from '../models/sessions';
 import NewidGeneretor from '../helpers/id_denerator';
-// import users from '../models/users';
 import { sessionsSchema } from '../helpers/validation';
 import customize from '../helpers/customize';
 
