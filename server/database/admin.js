@@ -5,9 +5,9 @@ const NewAdmin = JSON.parse(admin);
 
 const createAdmin = async () => {
   const conn = Database.dbConnection();
-  const result = await conn.query(`INSERT into users (firstName, lastName, email, password, address, bio, occupation, expertise,type ) VALUES (
-    '${NewAdmin.firstName}',
-    '${NewAdmin.lastName}',
+  const result = await conn.query(`INSERT into users (firstname, lastname, email, password, address, bio, occupation, expertise,type ) VALUES (
+    '${NewAdmin.firstname}',
+    '${NewAdmin.lastname}',
     '${NewAdmin.email}',
     '${NewAdmin.password}',
     '${NewAdmin.address}',
