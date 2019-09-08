@@ -92,33 +92,35 @@ const session = {
     }
     const id = parseInt(req.params.sessionId, 10);
     const decision = req.params.decision.toLowerCase();
-    let MySession = '';
+    let data = '';
     let sessMessage = '';
     let sessStatus = 0;
     sessions.map((sessionToUpdate) => {
       if (sessionToUpdate.id === id) {
-        MySession = sessionToUpdate;
+        data = sessionToUpdate;
       }
     });
 
-    if (!MySession) {
+    if (!data) {
       sessMessage = 'Session not found';
       sessStatus = 404;
     } else if (decision === 'accept') {
-      MySession.status = 'accepted';
+      data.status = 'accepted';
       sessMessage = 'Session accepted successfuly';
       sessStatus = 200;
     } else if (decision === 'reject') {
-      MySession.status = 'reject';
+      data.status = 'reject';
       sessMessage = 'Session reject successfuly';
       sessStatus = 200;
     } else if (decision !== 'accept' || decision !== 'reject' ) {
       sessMessage = 'invalid decision';
       sessStatus = 400;
+      data = '';
     }
     return res.status(sessStatus).send({
       status: sessStatus,
       message: sessMessage,
+      data,
     });
   },
 };

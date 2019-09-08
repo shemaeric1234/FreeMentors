@@ -108,7 +108,21 @@ const User = {
   },
 
   getUsers: (req, res) => {
-    const data = removePass(users);
+    let data = [];
+
+    for (let u = 0; u < users.length; u++) {
+      data.push({
+        id: users[u].id,
+        firstName: users[u].firstName,
+        lastName: users[u].lastName,
+        email: users[u].email,
+        address: users[u].address,
+        bio: users[u].bio,
+        occupation: users[u].occupation,
+        expertise: users[u].expertise,
+        type: users[u].type,
+      });
+    }
     res.status(200).json({
       status: '200',
       message: 'success',
@@ -151,30 +165,45 @@ const User = {
       });
     }
     const id = parseInt(req.params.userId, 10);
-    let data;
+    let data = '';
+    let menteeToUpdate = '';
     users.map((userToUpdate) => {
       if (userToUpdate.id === id) {
-        userToUpdate.type = 'mentor';
-        data = {
-          id: userToUpdate.id,
-          firstName: userToUpdate.firstName,
-          lastName: userToUpdate.lastName,
-          email: userToUpdate.email,
-          address: userToUpdate.address,
-          bio: userToUpdate.bio,
-          occupation: userToUpdate.occupation,
-          expertise: userToUpdate.expertise,
-          type: userToUpdate.type,
-        };
+        menteeToUpdate = userToUpdate;
       }
     });
 
-    if (!data) {
+    if (!menteeToUpdate) {
       return res.status(404).send({
         status: '404',
         message: 'user not found',
       });
     }
+
+    if (menteeToUpdate.type !== 'mentee') {
+      return res.status(403).send({
+        status: '403',
+        message: 'Forbiden is not a mentee',
+      });
+    }
+    users.map((Newuser) => {
+      if (Newuser.id === menteeToUpdate.id) {
+        Newuser.type = 'mentor';
+        menteeToUpdate.type = 'mentor';
+      }
+    });
+
+    data = {
+      id: menteeToUpdate.id,
+      firstName: menteeToUpdate.firstName,
+      lastName: menteeToUpdate.lastName,
+      email: menteeToUpdate.email,
+      address: menteeToUpdate.address,
+      bio: menteeToUpdate.bio,
+      occupation: menteeToUpdate.occupation,
+      expertise: menteeToUpdate.expertise,
+      type: menteeToUpdate.type,
+    };
     return res.status(201).send({
       status: '201',
       message: 'user upDate successfully',
@@ -184,12 +213,25 @@ const User = {
 
   getMentors: (req, res) => {
     let data = [];
+    let data2 = [];
     users.map((mentor) => {
       if (mentor.type === 'mentor') {
-        data.push(mentor);
+        data2.push(mentor);
       }
     });
-    data = removePass(data);
+    for (let u = 0; u < data2.length; u++) {
+      data.push({
+        id: data2[u].id,
+        firstName: data2[u].firstName,
+        lastName: data2[u].lastName,
+        email: data2[u].email,
+        address: data2[u].address,
+        bio: data2[u].bio,
+        occupation: data2[u].occupation,
+        expertise: data2[u].expertise,
+        type: data2[u].type,
+      });
+    }
     return res.status(200).json({
       status: '200',
       message: 'success',

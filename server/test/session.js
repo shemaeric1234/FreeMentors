@@ -77,7 +77,7 @@ describe('POST </API/v1/sessions> a mentee should create a session', () => {
       .request(app)
       .post('/API/v1/sessions')
       .end((err, res) => {
-        res.should.have.status(403);
+        res.should.have.status(401);
         res.body.should.have.be.a('object');
         res.body.should.have.property('error').eql('Please Set The Authorization Header!');
 
@@ -90,7 +90,7 @@ describe('POST </API/v1/sessions> a mentee should create a session', () => {
       .post('/API/v1/sessions')
       .set('Authorization', 'Bearer')
       .end((err, res) => {
-        res.should.have.status(403);
+        res.should.have.status(401);
         res.body.should.have.be.a('object');
         res.body.should.have.property('error').eql('No token provided, Access Denied!');
 
@@ -103,7 +103,7 @@ describe('POST </API/v1/sessions> a mentee should create a session', () => {
       .post('/API/v1/sessions')
       .set('Authorization', 'Bearer aaaaaaaaaaaa')
       .end((err, res) => {
-        res.should.have.status(403);
+        res.should.have.status(401);
         res.body.should.have.be.a('object');
         res.body.should.have.property('error').eql('You provided the invalid token!');
 
@@ -151,7 +151,7 @@ describe('GET </API/v1/sessions> should get all sessions', () => {
       .request(app)
       .get('/API/v1/sessions')
       .end((err, res) => {
-        res.should.have.status(403);
+        res.should.have.status(401);
         res.body.should.have.be.a('object');
         res.body.should.have.property('error').eql('Please Set The Authorization Header!');
 
@@ -164,7 +164,7 @@ describe('GET </API/v1/sessions> should get all sessions', () => {
       .get('/API/v1/sessions')
       .set('Authorization', 'Bearer')
       .end((err, res) => {
-        res.should.have.status(403);
+        res.should.have.status(401);
         res.body.should.have.be.a('object');
         res.body.should.have.property('error').eql('No token provided, Access Denied!');
 
@@ -177,7 +177,7 @@ describe('GET </API/v1/sessions> should get all sessions', () => {
       .get('/API/v1/sessions')
       .set('Authorization', 'Bearer aaaaaaaaaaaa')
       .end((err, res) => {
-        res.should.have.status(403);
+        res.should.have.status(401);
         res.body.should.have.be.a('object');
         res.body.should.have.property('error').eql('You provided the invalid token!');
 

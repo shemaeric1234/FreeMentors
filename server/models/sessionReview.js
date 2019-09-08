@@ -17,6 +17,24 @@ const sessionReviews = [
     menteeFullName: 'uwineza code',
     remark: 'its good enouth',
   },
+  {
+    id: 3,
+    sessionId: 2,
+    mentorId: 3,
+    menteeId: 2,
+    score: 4,
+    menteeFullName: 'uwineza code',
+    remark: 'its good enouth',
+  },
+  {
+    id: 4,
+    sessionId: 3,
+    mentorId: 3,
+    menteeId: 2,
+    score: 4,
+    menteeFullName: 'uwineza code',
+    remark: 'its good enouth',
+  },
 ];
 
 export default sessionReviews;

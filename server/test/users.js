@@ -279,6 +279,18 @@ describe('GET </API/v1/user/1>  change user type to be mentor', () => {
         res.body.should.have.be.a('object');
       });
   });
+
+  it('It should check if is a mentee', () => {
+    chai
+      .request(app)
+      .patch('/API/v1/user/3')
+      .set('Authorization', `Bearer ${admintoken}`)
+      .end((err, res) => {
+        res.should.have.status(403);
+        res.body.should.have.be.a('object');
+      });
+  });
+
   it('It should check if URL paramentor ara valid', () => {
     chai
       .request(app)
