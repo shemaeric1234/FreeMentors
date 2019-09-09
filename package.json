@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development npm run createTable && cross-env NODE_ENV=development npm run NewAdmin && cross-env NODE_ENV=development nodemon --exec babel-node ./server/index.js",
     "start": "cross-env NODE_ENV=production npm run dropTables && cross-env NODE_ENV=production npm run createTable && cross-env NODE_ENV=production npm run NewAdmin && cross-env NODE_ENV=production babel-node ./server/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \"Error: no test specified\" && exit  1",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
     "showCoverage": "start coverage/lcov-report/index.html",
     "createTable": "node --require @babel/polyfill --require @babel/register server/database/createTables.js",
