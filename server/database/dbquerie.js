@@ -42,6 +42,30 @@ class Database extends Environment {
     `);
     return result;
   }
+
+  static async createUser(data) {
+    const conn = this.dbConnection();
+    const result = await conn.query(`INSERT INTO users(firstName, lastName, email, password, address, bio, occupation, expertise,type) VALUES(
+      '${data.firstName}',
+      '${data.lastName}',
+      '${data.email}',
+      '${data.password}',
+      '${data.address}',
+      '${data.bio}',
+      '${data.occupation}',
+      '${data.expertise}',
+      '${data.type}'
+      ) returning *;`);
+    await conn.end();
+    return result;
+  }
+
+  static async selectBy(table, column, value) {
+    const conn = this.dbConnection();
+    const result = await conn.query(`SELECT * FROM ${table} WHERE ${column}='${value}'`);
+    await conn.end();
+    return result;
+  }
 }
 
 export default Database;

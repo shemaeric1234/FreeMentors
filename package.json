@@ -6,7 +6,11 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development npm run createTable && cross-env NODE_ENV=development npm run NewAdmin && cross-env NODE_ENV=development nodemon --exec babel-node ./server/index.js",
     "start": "cross-env NODE_ENV=production npm run dropTables && cross-env NODE_ENV=production npm run createTable && cross-env NODE_ENV=production npm run NewAdmin && cross-env NODE_ENV=production babel-node ./server/index.js",
+<<<<<<< HEAD
     "test": "echo \"Error: no test specified\" && exit  1",
+=======
+    "test": "cross-env NODE_ENV=test npm run dropTables && cross-env NODE_ENV=test npm run createTable && cross-env NODE_ENV=test npm run NewAdmin && cross-env NODE_ENV=test nyc --reporter=text --reporter=html mocha server/test/*.js --require @babel/polyfill --require @babel/register --timeout 10000 --exit",
+>>>>>>> feature : adding sign up database based [Finish #168369948]
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
     "showCoverage": "start coverage/lcov-report/index.html",
     "createTable": "node --require @babel/polyfill --require @babel/register server/database/createTables.js",

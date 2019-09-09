@@ -10,7 +10,7 @@ import database from '../database/dbquerie';
 import paramchecker from '../helpers/paramchecking';
 
 const User = {
-  register: (req, res) => {
+  register: async (req, res) => {
     const User1 = req.body;
     const { email } = req.body;
     let message = '';
@@ -20,21 +20,20 @@ const User = {
       return customize.validateError(req, res, error, 400);
     }
 
-    users.forEach((newUser) => {
-      if (newUser.email === User1.email) {
-        message = 'user already exists';
-      }
-    });
+    const isUser = await database.selectBy('users', 'email', email);
+    if (isUser.rowCount !== 0) {
+      message = 'user already exists';
+    }
 
     if (message) {
       return res.status(401).json({
-        status: '201',
+        status: '401',
         message,
       });
     }
     const token = getToken(email);
+
     const User = {
-      id: NewidGeneretor(users),
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       email: req.body.email,
@@ -44,25 +43,16 @@ const User = {
       occupation: req.body.occupation,
       expertise: req.body.expertise,
       type: 'mentee',
+    };
 
-    };
-    const data = {
-      id: NewidGeneretor(users),
-      firstName: User.firstName,
-      lastName: User.lastName,
-      email: User.email,
-      address: User.address,
-      bio: User.bio,
-      occupation: User.occupation,
-      expertise: User.expertise,
-      type: User.type,
-    };
-    users.push(User);
+    const data = await database.createUser(User);
+    delete data.rows[0].password;
+
     return res.status(201).json({
       status: '201',
       message: 'user added',
       token,
-      data,
+      data: data.rows[0],
     });
   },
 
