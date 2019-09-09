@@ -1,11 +1,12 @@
 import hashpassword from 'bcrypt';
 import Joi from '@hapi/joi';
-import users from '../models/users';
+import dotenv from 'dotenv';
 import NewidGeneretor from '../helpers/id_denerator';
 import getToken from '../helpers/generateToken';
 import { userSignup, userSignin } from '../helpers/validation';
 import customize from '../helpers/customize';
 import removePass from '../helpers/removePass';
+import database from '../database/dbquerie';
 
 const User = {
   register: (req, res) => {

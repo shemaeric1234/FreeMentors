@@ -17,8 +17,6 @@ app.use('/API/v1', sessionRouter);
 app.use('/API/v1', sessionReviewRouter);
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 
-// ERRROR HANDLING
-
 app.use((req, _res, next) => {
   const error = new Error('That Kind of Request does Not Found');
   error.status = 404;

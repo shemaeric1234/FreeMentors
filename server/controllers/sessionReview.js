@@ -1,8 +1,5 @@
 import Joi from '@hapi/joi';
-import sessionReviews from '../models/sessionReview';
 import NewidGeneretor from '../helpers/id_denerator';
-import sessions from '../models/sessions';
-import users from '../models/users';
 import { sessionReviewSchema } from '../helpers/validation';
 import customize from '../helpers/customize';
 
