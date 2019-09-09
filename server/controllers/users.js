@@ -7,6 +7,7 @@ import { userSignup, userSignin } from '../helpers/validation';
 import customize from '../helpers/customize';
 import removePass from '../helpers/removePass';
 import database from '../database/dbquerie';
+import paramchecker from '../helpers/paramchecking';
 
 const User = {
   register: (req, res) => {
@@ -132,11 +133,8 @@ const User = {
   },
 
   getUser: (req, res) => {
-    if (/[^0-9]+/g.test(req.params.id)) {
-      return res.status(400).send({
-        status: '400',
-        error: 'URL paramentor must be a number',
-      });
+    if (paramchecker(req.params.id, 'number')) {
+      return res.status(400).send({ status: '400', message: paramchecker(req.params.id, 'number', 'user id ') });
     }
     const id = parseInt(req.params.id, 10);
     let data = [];
@@ -159,11 +157,8 @@ const User = {
     });
   },
   updateUser: (req, res) => {
-    if (/[^0-9]+/g.test(req.params.userId)) {
-      return res.status(400).send({
-        status: '400',
-        error: 'user id on URL must be a number',
-      });
+    if (paramchecker(req.params.userId, 'number')) {
+      return res.status(400).send({ status: '400', message: paramchecker(req.params.userId, 'number', 'user id ') });
     }
     const id = parseInt(req.params.userId, 10);
     let data = '';
@@ -241,11 +236,8 @@ const User = {
   },
 
   getMentor: (req, res) => {
-    if (/[^0-9]+/g.test(req.params.mentorId)) {
-      return res.status(400).send({
-        status: '400',
-        error: 'URL paramentor must be a number',
-      });
+    if (paramchecker(req.params.mentorId, 'number')) {
+      return res.status(400).send({ status: '400', message: paramchecker(req.params.mentorId, 'number', 'user id ') });
     }
     const id = parseInt(req.params.mentorId, 10);
     let data = [];
