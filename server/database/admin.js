@@ -17,8 +17,7 @@ const createAdmin = async () => {
     '${NewAdmin.type}') on conflict (email) do nothing
     returning *`);
   await conn.end();
-  console.log('admin created');
-  
+
   return result;
 };
 
