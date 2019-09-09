@@ -2,14 +2,12 @@ import Joi from '@hapi/joi';
 import NewidGeneretor from '../helpers/id_denerator';
 import { sessionReviewSchema } from '../helpers/validation';
 import customize from '../helpers/customize';
+import paramchecker from '../helpers/paramchecking';
 
 const sessionReview = {
   review: (req, res) => {
-    if (/[^0-9]+/g.test(req.params.sessionId)) {
-      return res.status(400).send({
-        status: '400',
-        error: 'SessionId on URL must be a number',
-      });
+    if (paramchecker(req.params.sessionId, 'number')) {
+      return res.status(400).send({ status: '400', message: paramchecker(req.params.sessionId, 'number', 'session id ') });
     }
     const sessionId = parseInt(req.params.sessionId, 10);
     const score = parseInt(req.body.score, 10);
@@ -91,11 +89,8 @@ const sessionReview = {
   },
 
   deleteRemark: (req, res) => {
-    if (/[^0-9]+/g.test(req.params.sessionId)) {
-      return res.status(400).send({
-        status: '400',
-        error: 'SessionId on URL must be a number',
-      });
+    if (paramchecker(req.params.sessionId, 'number')) {
+      return res.status(400).send({ status: '400', message: paramchecker(req.params.sessionId, 'number', 'session id ') });
     }
     const reviewId = parseInt(req.params.sessionId, 10);
     let data = '';

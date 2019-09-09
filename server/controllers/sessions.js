@@ -2,6 +2,7 @@ import Joi from '@hapi/joi';
 import NewidGeneretor from '../helpers/id_denerator';
 import { sessionsSchema } from '../helpers/validation';
 import customize from '../helpers/customize';
+import paramchecker from '../helpers/paramchecking';
 
 const session = {
   createNew: (req, res) => {
@@ -76,17 +77,11 @@ const session = {
   },
 
   acceptOrReject: (req, res) => {
-    if (/[^0-9]+/g.test(req.params.sessionId)) {
-      return res.status(400).send({
-        status: '400',
-        error: 'SessionId on URL must be a number',
-      });
+    if (paramchecker(req.params.sessionId, 'number')) {
+      return res.status(400).send({ status: '400', message: paramchecker(req.params.sessionId, 'number', 'sesson id ') });
     }
-    if (/[^a-zA-Z]+/g.test(req.params.decision)) {
-      return res.status(400).send({
-        status: '400',
-        error: ' decission URL must be a string',
-      });
+   if (paramchecker(req.params.decision, 'string')) {
+      return res.status(400).send({ status: '400', message: paramchecker(req.params.decision, 'string', 'Decission ') });
     }
     const id = parseInt(req.params.sessionId, 10);
     const decision = req.params.decision.toLowerCase();
