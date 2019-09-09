@@ -5,21 +5,21 @@ dotenv.config();
 
 class Environment {
   static dbConnection() {
-    // dev DB
+    // development Database
     if (process.env.NODE_ENV === 'development') {
       return new Pool({
         connectionString: process.env.DEV_DB_URL,
       });
     }
 
-    // test DB
+    // test Database
     if (process.env.NODE_ENV === 'test') {
       return new Pool({
         connectionString: process.env.TEST_DB_URL,
       });
     }
 
-    // Production DB
+    // Production Database
     if (process.env.NODE_ENV === 'production') {
       return new Pool({
         connectionString: process.env.DATABASE_URL,

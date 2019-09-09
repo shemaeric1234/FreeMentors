@@ -9,7 +9,7 @@ import removePass from '../helpers/removePass';
 import database from '../database/dbquerie';
 
 const User = {
-  register: async (req, res) => {
+  register: (req, res) => {
     const User1 = req.body;
     const { email } = req.body;
     let message = '';
@@ -19,20 +19,21 @@ const User = {
       return customize.validateError(req, res, error, 400);
     }
 
-    const isUser = await database.selectBy('users', 'email', email);
-    if (isUser.rowCount !== 0) {
-      message = 'user already exists';
-    }
+    users.forEach((newUser) => {
+      if (newUser.email === User1.email) {
+        message = 'user already exists';
+      }
+    });
 
     if (message) {
       return res.status(401).json({
-        status: '401',
+        status: '201',
         message,
       });
     }
     const token = getToken(email);
-
     const User = {
+      id: NewidGeneretor(users),
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       email: req.body.email,
@@ -42,16 +43,25 @@ const User = {
       occupation: req.body.occupation,
       expertise: req.body.expertise,
       type: 'mentee',
+
     };
-
-    const data = await database.createUser(User);
-    delete data.rows[0].password;
-
+    const data = {
+      id: NewidGeneretor(users),
+      firstName: User.firstName,
+      lastName: User.lastName,
+      email: User.email,
+      address: User.address,
+      bio: User.bio,
+      occupation: User.occupation,
+      expertise: User.expertise,
+      type: User.type,
+    };
+    users.push(User);
     return res.status(201).json({
       status: '201',
       message: 'user added',
       token,
-      data: data.rows[0],
+      data,
     });
   },
 
