@@ -145,3 +145,33 @@ describe('GET </API/v1/auth/>  GET all users', () => {
       });
   });
 });
+
+describe('GET </API/v1/auth/>  GET specific user', () => {
+
+  it('It should check if userId in URL is not string', (done) => {
+    chai
+      .request(app)
+      .get('/API/v1/auth/hjkl')
+      .set('Authorization', `Bearer ${admintoken}`)
+      .end((err, res) => {
+        res.should.have.status(400);
+        res.body.should.have.be.a('object');
+        done();
+      });
+  });
+
+  it('It should check if there is not  user available', (done) => {
+    chai
+      .request(app)
+      .get('/API/v1/auth/0')
+      .set('Authorization', `Bearer ${admintoken}`)
+      .end((err, res) => {
+        res.should.have.status(404);
+        res.body.should.have.be.a('object');
+        res.body.should.have.property('status');
+        res.body.should.have.property('message').eql('user not found');
+        done();
+      });
+  });
+});
+  
