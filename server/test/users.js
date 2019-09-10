@@ -227,3 +227,43 @@ describe('GET </API/v1/mentors>  GET all mentors', () => {
       });
   });
 });
+
+describe('GET </API/v1/mentor/1>  GET specific mentor', () => {
+  it('It should display aspecific mentor', (done) => {
+    chai
+      .request(app)
+      .get('/API/v1/mentor/6')
+      .set('Authorization', `Bearer ${menteeToken}`)
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.have.be.a('object');
+        done();
+      });
+  });
+
+  it('It should check if there is not  mentor available', (done) => {
+    chai
+      .request(app)
+      .get('/API/v1/mentor/0')
+      .set('Authorization', `Bearer ${menteeToken}`)
+      .end((err, res) => {
+        res.should.have.status(404);
+        res.body.should.have.be.a('object');
+        done();
+      });
+  });
+
+  it('It should check if URL paramentor are valid', (done) => {
+    chai
+      .request(app)
+      .get('/API/v1/mentor/dfghjk')
+      .set('Authorization', `Bearer ${menteeToken}`)
+      .end((err, res) => {
+        res.should.have.status(400);
+        res.body.should.have.be.a('object');
+        res.body.should.have.property('status');
+        res.body.should.have.property('error');
+        done();
+      });
+  });
+});
