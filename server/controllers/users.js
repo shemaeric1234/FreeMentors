@@ -101,28 +101,23 @@ class User {
     });
   }
 
-  static getUser(req, res) {
+  static async getUser(req, res) {
     if (paramchecker(req.params.id, 'number')) {
       return res.status(400).send({ status: '400', message: paramchecker(req.params.id, 'number', 'user id ') });
     }
     const id = parseInt(req.params.id, 10);
-    let data = [];
-    users.forEach((user) => {
-      if (user.id === id) {
-        data.push(user);
-      }
-    });
-    if (data.length === 0) {
+    const data = await database.selectBy('users', 'id', id);
+    if (data.rowCount === 0) {
       return res.status(404).json({
         status: '404',
         message: 'user not found',
       });
     }
-    data = removePass(data);
+    delete data.rows[0].password;
     return res.status(200).send({
       status: '200',
       message: 'success',
-      data,
+      data: data.rows[0],
     });
   }
 
