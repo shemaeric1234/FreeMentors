@@ -1,7 +1,6 @@
 import hashpassword from 'bcrypt';
 import Joi from '@hapi/joi';
 import dotenv from 'dotenv';
-import NewidGeneretor from '../helpers/id_denerator';
 import getToken from '../helpers/generateToken';
 import { userSignup, userSignin } from '../helpers/validation';
 import customize from '../helpers/customize';
@@ -56,8 +55,9 @@ const User = {
     });
   },
 
-  login: (req, res) => {
+  login: async (req, res) => {
     let data = '';
+    let passwordTest = false;
     const { email } = req.body;
 
     const { error } = Joi.validate(req.body, userSignin);
@@ -66,36 +66,27 @@ const User = {
     }
 
     const userData = req.body;
+    data = await database.selectBy('users', 'email', email);
+
+    if (data.rowCount !== 0) {
+      passwordTest = hashpassword.compareSync(userData.password, data.rows[0].password);
+    }
     let token = '';
-    users.map((user) => {
-      if (user.email === userData.email && hashpassword.compareSync(userData.password, user.password)) {
-        token = getToken(email);
-        data = {
-          id: user.id,
-          firstName: user.firstName,
-          lastName: user.lastName,
-          email: user.email,
-          address: user.address,
-          bio: user.bio,
-          occupation: user.occupation,
-          expertise: user.expertise,
-          type: user.type,
-        };
-      }
-    });
-
-
-    if (!data) {
+    if (data.rowCount !== 0 && passwordTest) {
+      token = getToken(email);
+    }
+    if (!token) {
       return res.status(404).send({
         status: 404,
         message: 'User not found, Incorrect email or password',
       });
     }
+    delete data.rows[0].password;
     return res.status(200).send({
       status: '200',
       message: 'login successfuly',
       token,
-      data,
+      data: data.rows[0],
     });
   },
 

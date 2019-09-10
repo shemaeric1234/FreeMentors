@@ -1,5 +1,4 @@
 import Joi from '@hapi/joi';
-import NewidGeneretor from '../helpers/id_denerator';
 import { sessionReviewSchema } from '../helpers/validation';
 import customize from '../helpers/customize';
 import paramchecker from '../helpers/paramchecking';
