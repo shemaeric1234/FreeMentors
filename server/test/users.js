@@ -15,7 +15,7 @@ chai.should();
 const createAllUserTest = async () => {
   await conn.query(`INSERT INTO 
   users(firstName, lastName, email, password, address, bio, occupation, expertise,type) 
-  VALUES('rutikanga','anna','menteeg@gmail.com','mentee','any','jjjjjj','hhhhhhh','yyyyyy','mentee'),
+  VALUES('rutikanga','anna','mentee@gmail.com','mentee','any','jjjjjj','hhhhhhh','yyyyyy','mentee'),
   ('rutikanga','anna','mentee1@gmail.com','test','any','jjjjjj','hhhhhhh','yyyyyy','mentee'),
   ('rutikanga','anna','mentee2@gmail.com','test','any','jjjjjj','hhhhhhh','yyyyyy','mentee'),
   ('rutikanga','anna','mentor@gmail.com','mentor','any','jjjjjj','hhhhhhh','yyyyyy','mentor'),
@@ -208,6 +208,20 @@ describe('GET </API/v1/user/1>  change user type to be mentor', () => {
       .set('Authorization', `Bearer ${admintoken}`)
       .end((err, res) => {
         res.should.have.status(400);
+        res.body.should.have.be.a('object');
+        done();
+      });
+  });
+});
+
+describe('GET </API/v1/mentors>  GET all mentors', () => {
+  it('It should display all mentors', (done) => {
+    chai
+      .request(app)
+      .get('/API/v1/mentors')
+      .set('Authorization', `Bearer ${menteeToken}`)
+      .end((err, res) => {
+        res.should.have.status(200);
         res.body.should.have.be.a('object');
         done();
       });

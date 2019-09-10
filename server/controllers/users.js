@@ -150,31 +150,21 @@ class User {
     });
   }
 
-  static getMentors(req, res) {
-    let data = [];
-    let data2 = [];
-    users.map((mentor) => {
-      if (mentor.type === 'mentor') {
-        data2.push(mentor);
-      }
-    });
-    for (let u = 0; u < data2.length; u++) {
-      data.push({
-        id: data2[u].id,
-        firstName: data2[u].firstName,
-        lastName: data2[u].lastName,
-        email: data2[u].email,
-        address: data2[u].address,
-        bio: data2[u].bio,
-        occupation: data2[u].occupation,
-        expertise: data2[u].expertise,
-        type: data2[u].type,
+  static async getMentors(req, res) {
+    const data = await database.selectBy('users', 'type', 'mentor');
+    if (data.rowCount === 0) {
+      return res.status(404).json({
+        status: '404',
+        message: 'Mentors Not found',
       });
+    }
+    for (let u = 0; u < data.rowCount; u += 1) {
+      delete data.rows[u].password;
     }
     return res.status(200).json({
       status: '200',
       message: 'success',
-      data,
+      data: data.rows,
     });
   }
 
