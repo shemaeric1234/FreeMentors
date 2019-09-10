@@ -60,3 +60,45 @@ describe('POST </API/v1/auth/signup>', () => {
       });
   });
 });
+
+describe('POST </API/v1/auth/signin>', () => {
+  it('user should sign in', (done) => {
+    chai
+      .request(app)
+      .post('/API/v1/auth/signin')
+      .send(login)
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.have.property('status');
+        res.body.should.have.property('token');
+        res.body.should.have.property('data');
+        done();
+      });
+  });
+
+  it('user name and password required', (done) => {
+    chai
+      .request(app)
+      .post('/API/v1/auth/signin')
+      .send()
+      .end((err, res) => {
+        res.should.have.status(400);
+        res.body.should.be.a('object');
+        done();
+      });
+  });
+
+  it('it should return incorect username  and password', (done) => {
+    chai
+      .request(app)
+      .post('/API/v1/auth/signin')
+      .send({ email: 'fake@gmail.com', password: 'invalid' })
+      .end((err, res) => {
+        res.should.have.status(404);
+        res.body.should.have.property('status');
+        res.body.should.have.property('message').eql('User not found, Incorrect email or password');
+        done();
+      });
+  });
+
+});

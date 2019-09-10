@@ -45,6 +45,6 @@ export const user = [
 ];
 
 export const login = {
-  email: 'mentee@gmail.com',
-  password: 'mentee',
+  email: 'admin@gmail.com',
+  password: 'admin',
 };
