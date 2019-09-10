@@ -1,13 +1,9 @@
-export const admin = (req, res, next) => {
-  let existAdmin = '';
-  users.map((ExistUser) => {
-    if (ExistUser.email === req.user.payLoad && ExistUser.type === 'admin') {
-      existAdmin = ExistUser;
-    }
-  });
+import database from '../database/dbquerie';
 
-  if (existAdmin) {
-    req.user = existAdmin;
+export const admin = async (req, res, next) => {
+  const isAdmin = await database.selectBy2colum('users', 'email', req.user.payLoad, 'type', 'admin', 'and');
+  if (isAdmin.rowCount !== 0) {
+    req.user = isAdmin.rows[0];
     next();
   } else {
     return res.status(403).send({
@@ -17,16 +13,10 @@ export const admin = (req, res, next) => {
   }
 };
 
-export const mentor = (req, res, next) => {
-  let existMentor = '';
-  users.map((ExistUser) => {
-    if (ExistUser.email === req.user.payLoad && ExistUser.type === 'mentor') {
-      existMentor = ExistUser;
-    }
-  });
-
-  if (existMentor) {
-    req.user = existMentor;
+export const mentor = async (req, res, next) => {
+  const isAmentor = await database.selectBy2colum('users', 'email', req.user.payLoad, 'type', 'mentor', 'and');
+  if (isAmentor.rowCount !== 0) {
+    req.user = isAmentor.rows[0];
     next();
   } else {
     return res.status(403).send({
@@ -37,16 +27,10 @@ export const mentor = (req, res, next) => {
 };
 
 
-export const mentee = (req, res, next) => {
-  let existMentee = '';
-  users.map((ExistUser) => {
-    if (ExistUser.email === req.user.payLoad && ExistUser.type === 'mentee') {
-      existMentee = ExistUser;
-    }
-  });
-
-  if (existMentee) {
-    req.user = existMentee;
+export const mentee = async (req, res, next) => {
+  const isAmentee = await database.selectBy2colum('users', 'email', req.user.payLoad, 'type', 'mentee', 'and');
+  if (isAmentee.rowCount !== 0) {
+    req.user = isAmentee.rows[0];
     next();
   } else {
     return res.status(403).send({
@@ -57,16 +41,10 @@ export const mentee = (req, res, next) => {
 };
 
 
-export const menteeOrMentor = (req, res, next) => {
-  let existMenteeORmentor = '';
-  users.map((ExistUser) => {
-    if (ExistUser.email === req.user.payLoad && (ExistUser.type === 'mentee' || ExistUser.type === 'mentor')) {
-      existMenteeORmentor = ExistUser;
-    }
-  });
-
-  if (existMenteeORmentor) {
-    req.user = existMenteeORmentor;
+export const menteeOrMentor = async (req, res, next) => {
+  const isAmenteeOrMentor = await database.selectBy3colum('users', 'email', req.user.payLoad, 'type', 'mentor', 'type', 'mentee', 'and', 'or');
+  if (isAmenteeOrMentor.rowCount !== 0) {
+    req.user = isAmenteeOrMentor.rows[0];
     next();
   } else {
     return res.status(403).send({

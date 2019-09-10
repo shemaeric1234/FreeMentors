@@ -3,8 +3,8 @@ import { sessionReviewSchema } from '../helpers/validation';
 import customize from '../helpers/customize';
 import paramchecker from '../helpers/paramchecking';
 
-const sessionReview = {
-  review: (req, res) => {
+class sessionReview {
+ static review(req, res) {
     if (paramchecker(req.params.sessionId, 'number')) {
       return res.status(400).send({ status: '400', message: paramchecker(req.params.sessionId, 'number', 'session id ') });
     }
@@ -51,9 +51,9 @@ const sessionReview = {
       status: '404',
       message: 'session not found',
     });
-  },
+  }
 
-  allReview: (req, res) => {
+  static allReview(req, res) {
     const data = [];
     let isMentor = '';
     users.map((NewMentor) => {
@@ -85,9 +85,9 @@ const sessionReview = {
       message: 'success',
       data,
     });
-  },
+  }
 
-  deleteRemark: (req, res) => {
+  static deleteRemark(req, res) {
     if (paramchecker(req.params.sessionId, 'number')) {
       return res.status(400).send({ status: '400', message: paramchecker(req.params.sessionId, 'number', 'session id ') });
     }
@@ -112,7 +112,7 @@ const sessionReview = {
       status: '404',
       message: 'session review not found',
     });
-  },
-};
+  }
+}
 
 export default sessionReview;

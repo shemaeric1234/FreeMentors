@@ -4,12 +4,31 @@ import { describe, it } from 'mocha';
 import app from '../index';
 import { user, login } from './mockData/users';
 import getToken from '../helpers/generateToken';
+import Environment from '../config/database';
+
+const conn = Environment.dbConnection();
 
 chai.use(chaiHttp);
 chai.should();
+
+
+const createAllUserTest = async () => {
+  await conn.query(`INSERT INTO 
+  users(firstName, lastName, email, password, address, bio, occupation, expertise,type) 
+  VALUES('rutikanga','anna','menteeg@gmail.com','mentee','any','jjjjjj','hhhhhhh','yyyyyy','mentee'),
+  ('rutikanga','anna','mentee1@gmail.com','test','any','jjjjjj','hhhhhhh','yyyyyy','mentee'),
+  ('rutikanga','anna','mentee2@gmail.com','test','any','jjjjjj','hhhhhhh','yyyyyy','mentee'),
+  ('rutikanga','anna','mentor@gmail.com','mentor','any','jjjjjj','hhhhhhh','yyyyyy','mentor'),
+  ('rutikanga','anna','mentor1@gmail.com','test','any','jjjjjj','hhhhhhh','yyyyyy','mentor'),
+  ('rutikanga','anna','mentor2@gmail.com','test','any','jjjjjj','hhhhhhh','yyyyyy','mentor')`);
+
+  await conn.end();
+};
+
+createAllUserTest();
+
 const admintoken = getToken('admin@gmail.com');
 const menteeToken = getToken('mentee@gmail.com');
-
 
 describe('POST </API/v1/auth/signup>', () => {
   it('user detail required', (done) => {
@@ -101,4 +120,28 @@ describe('POST </API/v1/auth/signin>', () => {
       });
   });
 
+});
+
+describe('GET </API/v1/auth/>  GET all users', () => {
+  it('It should display all users', () => {
+    chai
+      .request(app)
+      .get('/API/v1/auth/')
+      .set('Authorization', `Bearer ${admintoken}`)
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.have.be.a('object');
+      });
+  });
+
+  it('It should check if user allowed to get all users', () => {
+    chai
+      .request(app)
+      .get('/API/v1/auth/')
+      .set('Authorization', `Bearer ${menteeToken}`)
+      .end((err, res) => {
+        res.should.have.status(403);
+        res.body.should.have.be.a('object');
+      });
+  });
 });
