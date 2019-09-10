@@ -175,3 +175,41 @@ describe('GET </API/v1/auth/>  GET specific user', () => {
   });
 });
   
+describe('GET </API/v1/user/1>  change user type to be mentor', () => {
+
+  it('It should check if user not found', (done) => {
+    chai
+      .request(app)
+      .patch('/API/v1/user/100')
+      .set('Authorization', `Bearer ${admintoken}`)
+      .end((err, res) => {
+        res.should.have.status(404);
+        res.body.should.have.be.a('object');
+        done();
+      });
+  });
+
+  it('It should check if is a mentee', (done) => {
+    chai
+      .request(app)
+      .patch('/API/v1/user/6')
+      .set('Authorization', `Bearer ${admintoken}`)
+      .end((err, res) => {
+        res.should.have.status(403);
+        res.body.should.have.be.a('object');
+        done();
+      });
+  });
+
+  it('It should check if URL paramentor ara valid', (done) => {
+    chai
+      .request(app)
+      .patch('/API/v1/user/0fghjkl')
+      .set('Authorization', `Bearer ${admintoken}`)
+      .end((err, res) => {
+        res.should.have.status(400);
+        res.body.should.have.be.a('object');
+        done();
+      });
+  });
+});

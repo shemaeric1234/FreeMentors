@@ -121,54 +121,32 @@ class User {
     });
   }
 
-  static updateUser(req, res) {
+  static async updateUser(req, res) {
     if (paramchecker(req.params.userId, 'number')) {
       return res.status(400).send({ status: '400', message: paramchecker(req.params.userId, 'number', 'user id ') });
     }
+    
     const id = parseInt(req.params.userId, 10);
-    let data = '';
-    let menteeToUpdate = '';
-    users.map((userToUpdate) => {
-      if (userToUpdate.id === id) {
-        menteeToUpdate = userToUpdate;
-      }
-    });
-
-    if (!menteeToUpdate) {
-      return res.status(404).send({
+    const data1 = await database.selectBy('users', 'id', id);
+    if (data1.rowCount === 0) {
+      return res.status(404).json({
         status: '404',
-        message: 'user not found',
+        error: 'user not found',
       });
     }
 
-    if (menteeToUpdate.type !== 'mentee') {
+    if (data1.rows[0].type !== 'mentee') {
       return res.status(403).send({
         status: '403',
         message: 'Forbiden is not a mentee',
       });
     }
-    users.map((Newuser) => {
-      if (Newuser.id === menteeToUpdate.id) {
-        Newuser.type = 'mentor';
-        menteeToUpdate.type = 'mentor';
-      }
-    });
-
-    data = {
-      id: menteeToUpdate.id,
-      firstName: menteeToUpdate.firstName,
-      lastName: menteeToUpdate.lastName,
-      email: menteeToUpdate.email,
-      address: menteeToUpdate.address,
-      bio: menteeToUpdate.bio,
-      occupation: menteeToUpdate.occupation,
-      expertise: menteeToUpdate.expertise,
-      type: menteeToUpdate.type,
-    };
+    const data = await database.update('users', 'type', 'mentor', 'id', data1.rows[0].id);
+    delete data.rows[0].password;
     return res.status(201).send({
       status: '201',
       message: 'user upDate successfully',
-      data,
+      data: data.rows[0],
     });
   }
 
