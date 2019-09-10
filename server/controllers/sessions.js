@@ -76,6 +76,7 @@ class session {
   }
 
   static acceptOrReject(req, res) {
+
     if (paramchecker(req.params.sessionId, 'number')) {
       return res.status(400).send({ status: '400', message: paramchecker(req.params.sessionId, 'number', 'sesson id ') });
     }
