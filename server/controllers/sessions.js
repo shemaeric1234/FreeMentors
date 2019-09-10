@@ -3,8 +3,8 @@ import { sessionsSchema } from '../helpers/validation';
 import customize from '../helpers/customize';
 import paramchecker from '../helpers/paramchecking';
 
-const session = {
-  createNew: (req, res) => {
+class session {
+  static  createNew(req, res) {
     const session1 = req.body;
     let errorMessage = '';
     const { error } = Joi.validate(session1, sessionsSchema);
@@ -52,9 +52,9 @@ const session = {
       message: 'success',
       data,
     });
-  },
+  }
 
-  getAll: (req, res) => {
+ static getAll(req, res) {
     const data = [];
 
     sessions.map((RelatedSession) => {
@@ -73,9 +73,10 @@ const session = {
       message: 'success',
       data,
     });
-  },
+  }
 
-  acceptOrReject: (req, res) => {
+  static acceptOrReject(req, res) {
+
     if (paramchecker(req.params.sessionId, 'number')) {
       return res.status(400).send({ status: '400', message: paramchecker(req.params.sessionId, 'number', 'sesson id ') });
     }
@@ -114,7 +115,7 @@ const session = {
       message: sessMessage,
       data,
     });
-  },
-};
+  }
+}
 
 export default session;

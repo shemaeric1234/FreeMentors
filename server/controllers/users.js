@@ -1,15 +1,13 @@
 import hashpassword from 'bcrypt';
 import Joi from '@hapi/joi';
-import dotenv from 'dotenv';
 import getToken from '../helpers/generateToken';
 import { userSignup, userSignin } from '../helpers/validation';
 import customize from '../helpers/customize';
-import removePass from '../helpers/removePass';
 import database from '../database/dbquerie';
 import paramchecker from '../helpers/paramchecking';
 
-const User = {
-  register: async (req, res) => {
+class User {
+  static async register(req, res) {
     const User1 = req.body;
     const { email } = req.body;
     let message = '';
@@ -53,9 +51,9 @@ const User = {
       token,
       data: data.rows[0],
     });
-  },
+  }
 
-  login: async (req, res) => {
+  static async login(req, res) {
     let data = '';
     let passwordTest = false;
     const { email } = req.body;
@@ -88,32 +86,22 @@ const User = {
       token,
       data: data.rows[0],
     });
-  },
+  }
 
-  getUsers: (req, res) => {
-    let data = [];
+  static async getUsers(req, res) {
+    const data = await database.selectAll('users');
 
-    for (let u = 0; u < users.length; u++) {
-      data.push({
-        id: users[u].id,
-        firstName: users[u].firstName,
-        lastName: users[u].lastName,
-        email: users[u].email,
-        address: users[u].address,
-        bio: users[u].bio,
-        occupation: users[u].occupation,
-        expertise: users[u].expertise,
-        type: users[u].type,
-      });
+    for (let u = 0; u < data.rowCount; u++) {
+      delete data.rows[u].password;
     }
-    res.status(200).json({
+    return res.status(200).json({
       status: '200',
       message: 'success',
-      data,
+      data: data.rows,
     });
-  },
+  }
 
-  getUser: (req, res) => {
+  static getUser(req, res) {
     if (paramchecker(req.params.id, 'number')) {
       return res.status(400).send({ status: '400', message: paramchecker(req.params.id, 'number', 'user id ') });
     }
@@ -136,8 +124,9 @@ const User = {
       message: 'success',
       data,
     });
-  },
-  updateUser: (req, res) => {
+  }
+
+  static updateUser(req, res) {
     if (paramchecker(req.params.userId, 'number')) {
       return res.status(400).send({ status: '400', message: paramchecker(req.params.userId, 'number', 'user id ') });
     }
@@ -186,9 +175,9 @@ const User = {
       message: 'user upDate successfully',
       data,
     });
-  },
+  }
 
-  getMentors: (req, res) => {
+  static getMentors(req, res) {
     let data = [];
     let data2 = [];
     users.map((mentor) => {
@@ -214,9 +203,9 @@ const User = {
       message: 'success',
       data,
     });
-  },
+  }
 
-  getMentor: (req, res) => {
+  static getMentor(req, res) {
     if (paramchecker(req.params.mentorId, 'number')) {
       return res.status(400).send({ status: '400', message: paramchecker(req.params.mentorId, 'number', 'user id ') });
     }
@@ -239,7 +228,7 @@ const User = {
       message: 'success',
       data,
     });
-  },
-};
+  }
+}
 
 export default User;
