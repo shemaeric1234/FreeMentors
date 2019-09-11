@@ -1,13 +1,13 @@
 import hashpassword from 'bcrypt';
 import Joi from '@hapi/joi';
-import users from '../models/users';
-import NewidGeneretor from '../helpers/id_denerator';
 import getToken from '../helpers/generateToken';
 import { userSignup, userSignin } from '../helpers/validation';
 import customize from '../helpers/customize';
+import database from '../database/dbquerie';
+import paramchecker from '../helpers/paramchecking';
 
 class User {
-  static register(req, res) {
+  static async register(req, res) {
     const User1 = req.body;
     const { email } = req.body;
     let message = '';
@@ -17,20 +17,20 @@ class User {
       return customize.validateError(req, res, error, 400);
     }
 
-    users.forEach((newUser) => {
-      if (newUser.email === User1.email) {
-        message = 'user already exists';
-      }
-    });
+    const isUser = await database.selectBy('users', 'email', email);
+    if (isUser.rowCount !== 0) {
+      message = 'user already exists';
+    }
 
     if (message) {
       return res.status(401).json({
+        status: '401',
         message,
       });
     }
     const token = getToken(email);
+
     const User = {
-      id: NewidGeneretor(users),
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       email: req.body.email,
@@ -40,17 +40,22 @@ class User {
       occupation: req.body.occupation,
       expertise: req.body.expertise,
       type: 'mentee',
-
     };
-    users.push(User);
+
+    const data = await database.createUser(User);
+    delete data.rows[0].password;
+
     return res.status(201).json({
+      status: '201',
+      message: 'user added',
       token,
-      User,
+      data: data.rows[0],
     });
   }
 
-  static login(req, res) {
-    let loggedInUser = '';
+  static async login(req, res) {
+    let data = '';
+    let passwordTest = false;
     const { email } = req.body;
 
     const { error } = Joi.validate(req.body, userSignin);
@@ -59,106 +64,132 @@ class User {
     }
 
     const userData = req.body;
+    data = await database.selectBy('users', 'email', email);
+
+    if (data.rowCount !== 0) {
+      passwordTest = hashpassword.compareSync(userData.password, data.rows[0].password);
+    }
     let token = '';
-    users.map((user) => {
-      // eslint-disable-next-line max-len
-      if (user.email === userData.email && hashpassword.compareSync(userData.password, user.password)) {
-        token = getToken(email);
-        loggedInUser = user;
-      }
-    });
-
-
-    if (!loggedInUser) {
+    if (data.rowCount !== 0 && passwordTest) {
+      token = getToken(email);
+    }
+    if (!token) {
       return res.status(404).send({
-        success: 'fail',
+        status: 404,
         message: 'User not found, Incorrect email or password',
       });
     }
+    delete data.rows[0].password;
     return res.status(200).send({
-      success: 'true',
+      status: '200',
+      message: 'login successfuly',
       token,
-      loggedInUser,
+      data: data.rows[0],
     });
   }
 
-  static getUsers(req, res) {
+  static async getUsers(req, res) {
+    const data = await database.selectAll('users');
+
+    for (let u = 0; u < data.rowCount; u++) {
+      delete data.rows[u].password;
+    }
     return res.status(200).json({
-      users,
+      status: '200',
+      message: 'success',
+      data: data.rows,
     });
   }
 
-  static getUser(req, res) {
+  static async getUser(req, res) {
+    if (paramchecker(req.params.id, 'number')) {
+      return res.status(400).send({ status: '400', message: paramchecker(req.params.id, 'number', 'user id ') });
+    }
     const id = parseInt(req.params.id, 10);
-    let userGotten = '';
-    users.forEach((user) => {
-      if (user.id === id) {
-        userGotten = user;
-      }
-    });
-    if (!userGotten) {
+    const data = await database.selectBy('users', 'id', id);
+    if (data.rowCount === 0) {
       return res.status(404).json({
-        success: 'false',
+        status: '404',
         message: 'user not found',
       });
     }
+    delete data.rows[0].password;
     return res.status(200).send({
-      userGotten,
+      status: '200',
+      message: 'success',
+      data: data.rows[0],
     });
   }
-  
-  static updateUser(req, res) {
-    const id = parseInt(req.params.userId);
-    let newMentor;
-    users.map((userToUpdate) => {
-      if (userToUpdate.id === id) {
-        userToUpdate.type = 'mentor';
-        newMentor = userToUpdate;
-      }
-    });
 
-    if (!newMentor) {
-      return res.status(404).send({
-        success: 'false',
-        message: 'user not found',
+  static async updateUser(req, res) {
+    if (paramchecker(req.params.userId, 'number')) {
+      return res.status(400).send({ status: '400', message: paramchecker(req.params.userId, 'number', 'user id ') });
+    }
+    
+    const id = parseInt(req.params.userId, 10);
+    const data1 = await database.selectBy('users', 'id', id);
+    if (data1.rowCount === 0) {
+      return res.status(404).json({
+        status: '404',
+        error: 'user not found',
       });
     }
+
+    if (data1.rows[0].type !== 'mentee') {
+      return res.status(403).send({
+        status: '403',
+        message: 'Forbiden is not a mentee',
+      });
+    }
+    const data = await database.update('users', 'type', 'mentor', 'id', data1.rows[0].id);
+    delete data.rows[0].password;
     return res.status(201).send({
-      success: 'true',
+      status: '201',
       message: 'user upDate successfully',
-      newMentor,
+      data: data.rows[0],
     });
   }
 
-  static getMentors(req, res) {
-    const allMentor = [];
-    users.map((mentor) => {
-      if (mentor.type === 'mentor') {
-        allMentor.push(mentor);
-      }
-    });
+  static async getMentors(req, res) {
+    const data = await database.selectBy('users', 'type', 'mentor');
+    if (data.rowCount === 0) {
+      return res.status(404).json({
+        status: '404',
+        message: 'Mentors Not found',
+      });
+    }
+    for (let u = 0; u < data.rowCount; u += 1) {
+      delete data.rows[u].password;
+    }
     return res.status(200).json({
-      success: 'true',
-      allMentor,
+      status: '200',
+      message: 'success',
+      data: data.rows,
     });
   }
 
   static getMentor(req, res) {
+    if (paramchecker(req.params.mentorId, 'number')) {
+      return res.status(400).send({ status: '400', message: paramchecker(req.params.mentorId, 'number', 'user id ') });
+    }
     const id = parseInt(req.params.mentorId, 10);
-    let specMentor = '';
+    let data = [];
     users.map((specificMentor) => {
-      if (specificMentor.id === id) {
-        specMentor = specificMentor;
+      if (specificMentor.id === id && specificMentor.type === 'mentor') {
+        data.push(specificMentor);
       }
     });
-    if (!specMentor) {
+    if (data.length === 0) {
       return res.status(404).send({
-        success: 'false',
+        status: '404',
         message: 'mentor not found',
       });
     }
+    data = removePass(data);
     return res.status(200).send({
-      specMentor,
+      status: '200',
+      message: 'success',
+      data,
     });
   }
 }

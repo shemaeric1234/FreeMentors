@@ -1,13 +1,13 @@
 import Joi from '@hapi/joi';
-import sessionReviews from '../models/sessionReview';
-import NewidGeneretor from '../helpers/id_denerator';
-import sessions from '../models/sessions';
-import users from '../models/users';
 import { sessionReviewSchema } from '../helpers/validation';
 import customize from '../helpers/customize';
+import paramchecker from '../helpers/paramchecking';
 
 class sessionReview {
-  static review(req, res) {
+ static review(req, res) {
+    if (paramchecker(req.params.sessionId, 'number')) {
+      return res.status(400).send({ status: '400', message: paramchecker(req.params.sessionId, 'number', 'session id ') });
+    }
     const sessionId = parseInt(req.params.sessionId, 10);
     const score = parseInt(req.body.score, 10);
     const reviewBody = req.body;
@@ -27,10 +27,10 @@ class sessionReview {
       if (existUser.id === sessionToreview.menteeId) {
         menteeInfo = existUser;
       }
-    })
+    });
 
     if (sessionToreview) {
-      const newReview = {
+      const data = {
         id: NewidGeneretor(sessionReviews),
         sessionId: sessionToreview.id,
         mentorId: sessionToreview.mentorId,
@@ -40,48 +40,78 @@ class sessionReview {
         remark: reviewBody.remark,
       };
 
-      sessionReviews.push(newReview);
+      sessionReviews.push(data);
       return res.status(201).send({
-        success: 'true',
+        status: '201',
         message: 'session review successfuly sent',
-        newReview,
+        data,
       });
-    } 
+    }
     return res.status(404).send({
-      success: 'fail',
+      status: '404',
       message: 'session not found',
     });
   }
 
   static allReview(req, res) {
+    const data = [];
+    let isMentor = '';
+    users.map((NewMentor) => {
+      if (NewMentor.email === req.user.email && NewMentor.type === 'mentor') {
+        isMentor = true;
+        sessionReviews.map((mentorRevie) => {
+          if (mentorRevie.mentorId === NewMentor.id) {
+            data.push({
+              id: mentorRevie.id,
+              sessionId: mentorRevie.sessionId,
+              mentorId: mentorRevie.mentorId,
+              menteeId: mentorRevie.menteeId,
+              score: mentorRevie.score,
+              menteeFullName: mentorRevie.menteeFullName,
+              remark: mentorRevie.remark,
+            });
+          }
+        });
+      }
+    });
+    if (isMentor && data.length === 0) {
+      data.push("you don't have the session");
+    } else if (data.length === 0) {
+      data.push(sessionReviews);
+    }
+
     return res.status(200).json({
-      success: 'true',
-      sessionReviews,
+      status: '200',
+      message: 'success',
+      data,
     });
   }
 
   static deleteRemark(req, res) {
+    if (paramchecker(req.params.sessionId, 'number')) {
+      return res.status(400).send({ status: '400', message: paramchecker(req.params.sessionId, 'number', 'session id ') });
+    }
     const reviewId = parseInt(req.params.sessionId, 10);
-    let deleteResult = '';
+    let data = '';
     sessionReviews.map((specificReview, index) => {
       if (specificReview.sessionId === reviewId) {
         sessionReviews.splice(index, 1);
 
-        deleteResult = 'session review deleted successfuly';
+        data = 'session review deleted successfuly';
       }
     });
-    if (deleteResult) {
+    if (data) {
       return res.status(200).send({
-        success: 'true',
-        deleteResult,
+        status: '200',
+        message: 'success',
+        data,
       });
-    } 
+    }
 
     return res.status(404).send({
-      success: 'false',
+      status: '404',
       message: 'session review not found',
     });
-
   }
 }
 

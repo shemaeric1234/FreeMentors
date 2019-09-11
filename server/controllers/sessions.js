@@ -1,15 +1,12 @@
 import Joi from '@hapi/joi';
-import sessions from '../models/sessions';
-import NewidGeneretor from '../helpers/id_denerator';
-import users from '../models/users';
 import { sessionsSchema } from '../helpers/validation';
 import customize from '../helpers/customize';
+import paramchecker from '../helpers/paramchecking';
 
 class session {
-  
-  static createNew(req, res) {
+  static  createNew(req, res) {
     const session1 = req.body;
-
+    let errorMessage = '';
     const { error } = Joi.validate(session1, sessionsSchema);
     if (error) {
       return customize.validateError(req, res, error, 400);
@@ -17,78 +14,105 @@ class session {
     sessions.forEach((newSession) => {
       if (newSession.menteeEmail === req.user.email && newSession.questions
         === session1.questions) {
-        return res.status(400).json({
-          message: 'session already exists',
-        });
+        errorMessage = 'session already exists';
       }
     });
+    if (errorMessage) {
+      return res.status(400).json({
+        status: '400',
+        message: errorMessage,
+      });
+    }
 
-    const newSession = {
+    let mentorEmail = '';
+    users.map((thisMentor) => {
+      if (thisMentor.id === req.body.mentorId && thisMentor.type === 'mentor') {
+        mentorEmail = thisMentor.email;
+      }
+    });
+    if (!mentorEmail) {
+      return res.status(404).send({
+        status: '404',
+        message: 'mentor not found',
+      });
+    }
+    const data = {
       id: NewidGeneretor(sessions),
       mentorId: req.body.mentorId,
       menteeId: req.user.id,
       questions: req.body.questions,
       menteeEmail: req.user.email,
+      mentorEmail,
       status: 'pending',
 
     };
-    sessions.push(newSession);
+    sessions.push(data);
     return res.status(201).json({
-      success: 'true',
-      newSession,
+      status: '201',
+      message: 'success',
+      data,
     });
   }
 
-  static getAll(req, res) {
-    const relatedSessions = [];
+ static getAll(req, res) {
+    const data = [];
 
     sessions.map((RelatedSession) => {
       users.map((specUser) => {
         if (specUser.email === req.user.email) {
           if (specUser.id === RelatedSession.mentorId || specUser.email
              === RelatedSession.menteeEmail) {
-            relatedSessions.push(RelatedSession);
+            data.push(RelatedSession);
           }
         }
       });
     });
 
     return res.status(200).json({
-      success: 'true',
-      relatedSessions,
+      status: '200',
+      message: 'success',
+      data,
     });
   }
 
   static acceptOrReject(req, res) {
+    if (paramchecker(req.params.sessionId, 'number')) {
+      return res.status(400).send({ status: '400', message: paramchecker(req.params.sessionId, 'number', 'sesson id ') });
+    }
+   if (paramchecker(req.params.decision, 'string')) {
+      return res.status(400).send({ status: '400', message: paramchecker(req.params.decision, 'string', 'Decission ') });
+    }
     const id = parseInt(req.params.sessionId, 10);
     const decision = req.params.decision.toLowerCase();
-    let MySession = '';
+    let data = '';
     let sessMessage = '';
     let sessStatus = 0;
     sessions.map((sessionToUpdate) => {
       if (sessionToUpdate.id === id) {
-        MySession = sessionToUpdate;
+        data = sessionToUpdate;
       }
     });
 
-    if (!MySession) {
+    if (!data) {
       sessMessage = 'Session not found';
       sessStatus = 404;
     } else if (decision === 'accept') {
-      MySession.status = 'accepted';
+      data.status = 'accepted';
       sessMessage = 'Session accepted successfuly';
       sessStatus = 200;
     } else if (decision === 'reject') {
-      MySession.status = 'reject';
+      data.status = 'reject';
       sessMessage = 'Session reject successfuly';
       sessStatus = 200;
-    } else if ( decision !== 'accept' || decision !== 'reject' ) {
+    } else if (decision !== 'accept' || decision !== 'reject' ) {
       sessMessage = 'invalid decision';
       sessStatus = 400;
-    } 
+      data = '';
+    }
     return res.status(sessStatus).send({
       status: sessStatus,
       message: sessMessage,
+      data,
     });
   }
 }
