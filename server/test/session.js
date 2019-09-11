@@ -236,19 +236,6 @@ describe('POST </API/v1/sessions> a mentor should make decision', () => {
       });
   });
 
-  it('It should check if url parametor is valid', (done) => {
-    chai
-      .request(app)
-      .patch('/API/v1/sessions/dfghj/reject')
-      .set('Authorization', `Bearer ${mentorToken}`)
-      .end((err, res) => {
-        res.should.have.status(400);
-        res.body.should.have.be.a('object');
-        done();
-      });
-  });
-
-
   it('It should check if a session to be accepted is available', (done) => {
     chai
       .request(app)

@@ -1,7 +1,6 @@
 import Joi from '@hapi/joi';
 import { sessionsSchema } from '../helpers/validation';
 import customize from '../helpers/customize';
-import paramchecker from '../helpers/paramchecking';
 import database from '../database/dbquerie';
 
 class session {
@@ -58,16 +57,18 @@ class session {
   }
 
   static async acceptOrReject(req, res) {
-    if (paramchecker(req.params.sessionId, 'number')) {
-      return res.status(400).send({ status: '400', message: paramchecker(req.params.sessionId, 'number', 'sesson id ') });
-    }
-    if (paramchecker(req.params.decision, 'string')) {
-      return res.status(400).send({ status: '400', message: paramchecker(req.params.decision, 'string', 'Decission ') });
-    }
-    const id = parseInt(req.params.sessionId, 10);
+    const id = parseInt(req.params.id, 10);
     const decision = req.params.decision.toLowerCase();
     let sessMessage = ''; let sessStatus = 0; let error;
-    let data = await database.selectBy('sessions', 'id', id);
+    let data = '';
+    try {
+      data = await database.selectBy('sessions', 'id', id);
+    } catch (error1) {
+      return res.status(404).send({
+        status: '400',
+        error: error1.message,
+      });
+    }
     if (data.rowCount === 0 || (data.rows[0].mentorid !== req.user.id)) {
       error = 'Session not found';
       sessStatus = 404;

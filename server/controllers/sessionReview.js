@@ -1,10 +1,10 @@
 import Joi from '@hapi/joi';
 import { sessionReviewSchema } from '../helpers/validation';
 import customize from '../helpers/customize';
-import paramchecker from '../helpers/paramchecking';
+import paramchecker from '../middleware/paramchecking';
 
 class sessionReview {
- static review(req, res) {
+  static review(req, res) {
     if (paramchecker(req.params.sessionId, 'number')) {
       return res.status(400).send({ status: '400', message: paramchecker(req.params.sessionId, 'number', 'session id ') });
     }
