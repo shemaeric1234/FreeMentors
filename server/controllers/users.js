@@ -111,6 +111,7 @@ class User {
         error: error.message,
       });
     }
+    
     if (data.rowCount === 0) {
       return res.status(404).json({
         status: '404',
@@ -136,6 +137,7 @@ class User {
         error: error.message,
       });
     }
+    
     if (data1.rowCount === 0) {
       return res.status(404).json({
         status: '404',
