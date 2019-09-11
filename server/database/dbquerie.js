@@ -93,7 +93,7 @@ class Database extends Environment {
     await conn.end();
     return result;
   }
-
+  
   static async update(tableName, column, value, type2, value2) {
     const conn = this.dbConnection();
     const result = await conn.query(`update ${tableName} set ${column}='${value}' WHERE ${type2} = '${value2}' returning *`);
