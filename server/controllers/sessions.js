@@ -57,7 +57,7 @@ class session {
     });
   }
 
-  static acceptOrReject(req, res) {
+  static async acceptOrReject(req, res) {
     if (paramchecker(req.params.sessionId, 'number')) {
       return res.status(400).send({ status: '400', message: paramchecker(req.params.sessionId, 'number', 'sesson id ') });
     }
@@ -66,35 +66,35 @@ class session {
     }
     const id = parseInt(req.params.sessionId, 10);
     const decision = req.params.decision.toLowerCase();
-    let data = '';
-    let sessMessage = '';
-    let sessStatus = 0;
-    sessions.map((sessionToUpdate) => {
-      if (sessionToUpdate.id === id) {
-        data = sessionToUpdate;
-      }
-    });
-
-    if (!data) {
-      sessMessage = 'Session not found';
+    let sessMessage = ''; let sessStatus = 0; let error;
+    let data = await database.selectBy('sessions', 'id', id);
+    if (data.rowCount === 0 || (data.rows[0].mentorid !== req.user.id)) {
+      error = 'Session not found';
       sessStatus = 404;
     } else if (decision === 'accept') {
-      data.status = 'accepted';
+      await database.update('sessions', 'status', 'Accepted', 'id', id);
       sessMessage = 'Session accepted successfuly';
       sessStatus = 200;
     } else if (decision === 'reject') {
-      data.status = 'reject';
+      await database.update('sessions', 'status', 'Reject', 'id', id);
       sessMessage = 'Session reject successfuly';
       sessStatus = 200;
-    } else if (decision !== 'accept' || decision !== 'reject' ) {
-      sessMessage = 'invalid decision';
+    } else if (decision !== 'accept' || decision !== 'reject') {
+      error = 'invalid decision';
       sessStatus = 400;
       data = '';
     }
+    if (error) {
+      return res.status(404).send({
+        status: sessStatus,
+        error,
+      });
+    }
+    const result = await database.selectBy('sessions', 'id', id);
     return res.status(sessStatus).send({
       status: sessStatus,
       message: sessMessage,
-      data,
+      data: result.rows[0],
     });
   }
 }
