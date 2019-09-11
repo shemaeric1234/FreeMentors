@@ -100,6 +100,13 @@ class Database extends Environment {
     await conn.end();
     return result;
   }
+
+  static async selectBy3colum(table, column1, value1, column2, value2, column3, value3, logGate1, logGet2) {
+    const conn = this.dbConnection();
+    const result = await conn.query(`SELECT * FROM ${table} WHERE ${column1}='${value1}' ${logGate1} (${column2}='${value2}' ${logGet2} ${column3} = '${value3}')`);
+    await conn.end();
+    return result;
+  }
 }
 
 export default Database;

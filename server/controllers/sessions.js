@@ -42,24 +42,18 @@ class session {
     });
   }
 
- static getAll(req, res) {
-    const data = [];
-
-    sessions.map((RelatedSession) => {
-      users.map((specUser) => {
-        if (specUser.email === req.user.email) {
-          if (specUser.id === RelatedSession.mentorId || specUser.email
-             === RelatedSession.menteeEmail) {
-            data.push(RelatedSession);
-          }
-        }
+  static async getAll(req, res) {
+    const data = await database.selectBy2colum('sessions', 'menteeid', req.user.id, 'mentorid', req.user.id, 'or');
+    if (data.rowCount === 0) {
+      return res.status(404).send({
+        status: '404',
+        error: 'Sessions not found',
       });
-    });
-
+    }
     return res.status(200).json({
       status: '200',
       message: 'success',
-      data,
+      data: data.rows,
     });
   }
 
@@ -67,7 +61,7 @@ class session {
     if (paramchecker(req.params.sessionId, 'number')) {
       return res.status(400).send({ status: '400', message: paramchecker(req.params.sessionId, 'number', 'sesson id ') });
     }
-   if (paramchecker(req.params.decision, 'string')) {
+    if (paramchecker(req.params.decision, 'string')) {
       return res.status(400).send({ status: '400', message: paramchecker(req.params.decision, 'string', 'Decission ') });
     }
     const id = parseInt(req.params.sessionId, 10);
