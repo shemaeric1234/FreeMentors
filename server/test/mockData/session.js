@@ -1,15 +1,11 @@
 const sessions = [
   {
-    mentorId: 3,
-    questions: 'i need your help in psychlogy',
+    mentorId: 7,
+    questions: 'question',
   },
   {
-    id: 2,
-    mentorId: 3,
-    menteeId: 1,
+    mentorId: 5,
     questions: 'i need your help in psychlogy',
-    menteeEmail: 'mukesha@gmail.com',
-    status: 'pending',
   }, {
     id: 3,
     mentorId: 2,

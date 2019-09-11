@@ -2,55 +2,43 @@ import Joi from '@hapi/joi';
 import { sessionsSchema } from '../helpers/validation';
 import customize from '../helpers/customize';
 import paramchecker from '../helpers/paramchecking';
+import database from '../database/dbquerie';
 
 class session {
-  static  createNew(req, res) {
+  static async createNew(req, res) {
     const session1 = req.body;
-    let errorMessage = '';
     const { error } = Joi.validate(session1, sessionsSchema);
     if (error) {
       return customize.validateError(req, res, error, 400);
     }
-    sessions.forEach((newSession) => {
-      if (newSession.menteeEmail === req.user.email && newSession.questions
-        === session1.questions) {
-        errorMessage = 'session already exists';
-      }
-    });
-    if (errorMessage) {
+    const dbsession = await database.selectBy2colum('sessions', 'menteeemail', req.user.email, 'questions', session1.questions, 'and');
+    if (dbsession.rowCount !== 0) {
       return res.status(400).json({
         status: '400',
-        message: errorMessage,
+        message: 'session already exists',
       });
     }
 
-    let mentorEmail = '';
-    users.map((thisMentor) => {
-      if (thisMentor.id === req.body.mentorId && thisMentor.type === 'mentor') {
-        mentorEmail = thisMentor.email;
-      }
-    });
-    if (!mentorEmail) {
+    const mentorDetail = await database.selectBy2colum('users', 'id', req.body.mentorId, 'type', 'mentor', 'and');
+    if (mentorDetail.rowCount === 0) {
       return res.status(404).send({
         status: '404',
         message: 'mentor not found',
       });
     }
-    const data = {
-      id: NewidGeneretor(sessions),
+
+    const result = {
       mentorId: req.body.mentorId,
       menteeId: req.user.id,
       questions: req.body.questions,
       menteeEmail: req.user.email,
-      mentorEmail,
       status: 'pending',
-
     };
-    sessions.push(data);
+    const data = await database.createSesion(result);
     return res.status(201).json({
       status: '201',
       message: 'success',
-      data,
+      data: data.rows[0],
     });
   }
 
