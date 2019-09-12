@@ -17,6 +17,7 @@ const createAllSssionTest = async () => {
 
   await conn.end();
 };
+
 createAllSssionTest();
 
 const admintoken = getToken('admin@gmail.com');
