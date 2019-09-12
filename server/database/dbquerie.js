@@ -60,6 +60,19 @@ class Database extends Environment {
     return result;
   }
 
+  static async createSesion(data) {
+    const conn = this.dbConnection();
+    const result = await conn.query(`INSERT INTO sessions(mentorid,menteeid,questions,menteeemail,status) VALUES(
+      ${data.mentorId},
+      ${data.menteeId},
+      '${data.questions}',
+      '${data.menteeEmail}',
+      '${data.status}'
+     ) returning * `);
+    await conn.end();
+    return result;
+  }
+  
   static async selectBy(table, column, value) {
     const conn = this.dbConnection();
     const result = await conn.query(`SELECT * FROM ${table} WHERE ${column}='${value}'`);
