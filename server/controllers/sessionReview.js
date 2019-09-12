@@ -77,30 +77,27 @@ class sessionReview {
     });
   }
 
-  static deleteRemark(req, res) {
-    if (paramchecker(req.params.sessionId, 'number')) {
-      return res.status(400).send({ status: '400', message: paramchecker(req.params.sessionId, 'number', 'session id ') });
-    }
-    const reviewId = parseInt(req.params.sessionId, 10);
+  static async deleteRemark(req, res) {
+    const reviewId = parseInt(req.params.id, 10);
     let data = '';
-    sessionReviews.map((specificReview, index) => {
-      if (specificReview.sessionId === reviewId) {
-        sessionReviews.splice(index, 1);
-
-        data = 'session review deleted successfuly';
-      }
-    });
-    if (data) {
-      return res.status(200).send({
-        status: '200',
-        message: 'success',
-        data,
+    try {
+      data = await database.deleteBy('sessionreview', 'id', reviewId);
+    } catch (error) {
+      return res.status(400).send({
+        status: '400',
+        error: error.message,
+      });
+    }
+    if (data.rowCount === 0) {
+      return res.status(404).send({
+        status: '404',
+        message: 'Session review not found',
       });
     }
 
-    return res.status(404).send({
-      status: '404',
-      message: 'session review not found',
+    return res.status(200).send({
+      status: '200',
+      message: ' session review deleted successfuly',
     });
   }
 }

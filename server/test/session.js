@@ -157,7 +157,7 @@ describe('GET </API/v1/sessions> should get all sessions', () => {
         done();
       });
   });
-  
+
   it('it should verify if there is not athorization in header set', (done) => {
     chai
       .request(app)
@@ -233,7 +233,7 @@ describe('POST </API/v1/sessions> a mentor should make decision', () => {
         done();
       });
   });
-  
+
   it('It should check if a session to be accepted is available', (done) => {
     chai
       .request(app)

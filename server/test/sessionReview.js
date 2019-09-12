@@ -63,5 +63,18 @@ describe('post </sessions/1/review>  mentee should be able to review a mentor af
         done();
       });
   });
+});
 
+describe('GET </API/v1/sessions>  delete specific  reviewed review deemed as inappropriate ', () => {
+  it('it should check if session is not available', (done) => {
+    chai
+      .request(app)
+      .delete('/API/v1/sessions/0/review')
+      .set('Authorization', `Bearer ${admintoken}`)
+      .end((err, res) => {
+        res.should.have.status(404);
+        res.body.should.have.be.a('object');
+        done();
+      });
+  });
 });
