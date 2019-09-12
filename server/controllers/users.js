@@ -168,28 +168,23 @@ class User {
     });
   }
 
-  static getMentor(req, res) {
+  static async getMentor(req, res) {
     if (paramchecker(req.params.mentorId, 'number')) {
-      return res.status(400).send({ status: '400', message: paramchecker(req.params.mentorId, 'number', 'user id ') });
+      return res.status(400).send({ status: '400', error: paramchecker(req.params.mentorId, 'number', 'user id ') });
     }
     const id = parseInt(req.params.mentorId, 10);
-    let data = [];
-    users.map((specificMentor) => {
-      if (specificMentor.id === id && specificMentor.type === 'mentor') {
-        data.push(specificMentor);
-      }
-    });
-    if (data.length === 0) {
-      return res.status(404).send({
+    const data = await database.selectBy2colum('users', 'id', id, 'type', 'mentor', 'and');
+    if (data.rowCount === 0) {
+      return res.status(404).json({
         status: '404',
-        message: 'mentor not found',
+        message: 'Mentor Not found',
       });
     }
-    data = removePass(data);
-    return res.status(200).send({
+    delete data.rows[0].password;
+    return res.status(200).json({
       status: '200',
       message: 'success',
-      data,
+      data: data.rows[0],
     });
   }
 }

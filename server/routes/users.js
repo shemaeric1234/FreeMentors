@@ -10,7 +10,7 @@ router.get('/auth/:id', verifyToken, admin, Users.getUser);
 router.post('/auth/signup', Users.register);
 router.post('/auth/signin', Users.login);
 router.get('/mentors', verifyToken, mentee, Users.getMentors);
-router.get('/mentor/:mentorId', verifyToken, mentee, Users.getMentor);
+router.get('/mentors/:mentorId', verifyToken, mentee, Users.getMentor);
 router.patch('/user/:userId', verifyToken, admin, Users.updateUser);
 
 export default router;
