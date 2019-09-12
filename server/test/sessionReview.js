@@ -77,3 +77,29 @@ describe('GET </API/v1/sessions>  delete specific  reviewed review deemed as ina
       });
   });
 });
+
+describe('GET </API/v1/sessions>  GET all sessions reviewed', () => {
+  it('It should display all reviewed sessions', () => {
+    chai
+      .request(app)
+      .get('/API/v1/reviewedsessions')
+      .set('Authorization', `Bearer ${admintoken}`)
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.have.be.a('object');
+        res.body.should.have.property('status');
+      });
+  });
+
+
+  it('It should check if a user allowed to do this action', () => {
+    chai
+      .request(app)
+      .get('/API/v1/reviewedsessions')
+      .set('Authorization', `Bearer ${menteeToken}`)
+      .end((err, res) => {
+        res.should.have.status(403);
+        res.body.should.have.be.a('object');
+      });
+  });
+});

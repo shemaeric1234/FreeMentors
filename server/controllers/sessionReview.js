@@ -43,37 +43,38 @@ class sessionReview {
     });
   }
 
-  static allReview(req, res) {
-    const data = [];
-    let isMentor = '';
-    users.map((NewMentor) => {
-      if (NewMentor.email === req.user.email && NewMentor.type === 'mentor') {
-        isMentor = true;
-        sessionReviews.map((mentorRevie) => {
-          if (mentorRevie.mentorId === NewMentor.id) {
-            data.push({
-              id: mentorRevie.id,
-              sessionId: mentorRevie.sessionId,
-              mentorId: mentorRevie.mentorId,
-              menteeId: mentorRevie.menteeId,
-              score: mentorRevie.score,
-              menteeFullName: mentorRevie.menteeFullName,
-              remark: mentorRevie.remark,
-            });
-          }
-        });
+  static async allReview(req, res) {
+    if (req.user.type === 'mentor') {
+      const result = await database.selectBy('sessionreview', 'mentorid', req.user.id);
+      let data = '';
+      let message = '';
+      let status = 0;
+      if (result.rowCount !== 0) {
+        data = result.rows;
+        message = 'success';
+        status = 200;
+      } else {
+        message = 'Session reviewed not found';
+        status = 404;
       }
-    });
-    if (isMentor && data.length === 0) {
-      data.push("you don't have the session");
-    } else if (data.length === 0) {
-      data.push(sessionReviews);
+      return res.status(status).send({
+        status,
+        message,
+        data,
+      });
     }
-
-    return res.status(200).json({
+    const data = await database.selectAll('sessionreview');
+    if (data.rowCount === 0) {
+      return res.status(404).send({
+        status: '404',
+        message: 'Session reviewed not found',
+        data: data.rows,
+      });
+    }
+    return res.status(200).send({
       status: '200',
       message: 'success',
-      data,
+      data: data.rows,
     });
   }
 
