@@ -221,7 +221,7 @@ describe('GET </API/v1/mentor/1>  GET specific mentor', () => {
   it('It should display aspecific mentor', (done) => {
     chai
       .request(app)
-      .get('/API/v1/mentor/6')
+      .get('/API/v1/mentors/6')
       .set('Authorization', `Bearer ${menteeToken}`)
       .end((err, res) => {
         res.should.have.status(200);
@@ -233,7 +233,7 @@ describe('GET </API/v1/mentor/1>  GET specific mentor', () => {
   it('It should check if there is not  mentor available', (done) => {
     chai
       .request(app)
-      .get('/API/v1/mentor/0')
+      .get('/API/v1/mentors/0')
       .set('Authorization', `Bearer ${menteeToken}`)
       .end((err, res) => {
         res.should.have.status(404);
@@ -245,7 +245,7 @@ describe('GET </API/v1/mentor/1>  GET specific mentor', () => {
   it('It should check if URL paramentor are valid', (done) => {
     chai
       .request(app)
-      .get('/API/v1/mentor/dfghjk')
+      .get('/API/v1/mentors/dfghjk')
       .set('Authorization', `Bearer ${menteeToken}`)
       .end((err, res) => {
         res.should.have.status(400);

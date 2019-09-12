@@ -4,7 +4,6 @@ import getToken from '../helpers/generateToken';
 import { userSignup, userSignin } from '../helpers/validation';
 import customize from '../helpers/customize';
 import database from '../database/dbquerie';
-import paramchecker from '../helpers/paramchecking';
 
 class User {
   static async register(req, res) {
@@ -102,11 +101,17 @@ class User {
   }
 
   static async getUser(req, res) {
-    if (paramchecker(req.params.id, 'number')) {
-      return res.status(400).send({ status: '400', message: paramchecker(req.params.id, 'number', 'user id ') });
-    }
     const id = parseInt(req.params.id, 10);
-    const data = await database.selectBy('users', 'id', id);
+    let data = '';
+    try {
+      data = await database.selectBy('users', 'id', id);
+    } catch (error) {
+      return res.status(404).send({
+        status: '400',
+        error: error.message,
+      });
+    }
+    
     if (data.rowCount === 0) {
       return res.status(404).json({
         status: '404',
@@ -122,12 +127,17 @@ class User {
   }
 
   static async updateUser(req, res) {
-    if (paramchecker(req.params.userId, 'number')) {
-      return res.status(400).send({ status: '400', message: paramchecker(req.params.userId, 'number', 'user id ') });
+    const id = parseInt(req.params.id, 10);
+    let data1 = '';
+    try {
+      data1 = await database.selectBy('users', 'id', id);
+    } catch (error) {
+      return res.status(400).json({
+        status: '400',
+        error: error.message,
+      });
     }
     
-    const id = parseInt(req.params.userId, 10);
-    const data1 = await database.selectBy('users', 'id', id);
     if (data1.rowCount === 0) {
       return res.status(404).json({
         status: '404',
@@ -169,11 +179,16 @@ class User {
   }
 
   static async getMentor(req, res) {
-    if (paramchecker(req.params.mentorId, 'number')) {
-      return res.status(400).send({ status: '400', error: paramchecker(req.params.mentorId, 'number', 'user id ') });
+    const id = parseInt(req.params.id, 10);
+    let data = '';
+    try {
+      data = await database.selectBy2colum('users', 'id', id, 'type', 'mentor', 'and');
+    } catch (error) {
+      return res.status(400).json({
+        status: '400',
+        error: error.message,
+      });
     }
-    const id = parseInt(req.params.mentorId, 10);
-    const data = await database.selectBy2colum('users', 'id', id, 'type', 'mentor', 'and');
     if (data.rowCount === 0) {
       return res.status(404).json({
         status: '404',

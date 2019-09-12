@@ -107,7 +107,6 @@ class Database extends Environment {
     await conn.end();
     return result;
   }
-
 }
 
 export default Database;
