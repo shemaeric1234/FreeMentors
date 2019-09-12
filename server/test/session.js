@@ -19,6 +19,7 @@ const createAllSssionTest = async () => {
     (6,2,'question','mentee4@gmail.com','pending'),
     (7,2,'question','mentee5@gmail.com','pending')`);
 
+
   await conn.end();
 };
 
@@ -158,7 +159,6 @@ describe('GET </API/v1/sessions> should get all sessions', () => {
         done();
       });
   });
-
 
   it('it should verify if there is not athorization in header set', (done) => {
     chai
