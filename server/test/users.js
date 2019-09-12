@@ -64,17 +64,6 @@ describe('POST </API/v1/auth/signup>', () => {
       .end((err, res) => {
         res.should.have.status(201);
         res.body.should.have.be.a('object');
-        res.body.should.have.property('token');
-        res.body.data.should.have.property('id');
-        res.body.data.should.have.property('firstname');
-        res.body.data.should.have.property('lastname');
-        res.body.data.should.have.property('email');
-        res.body.data.should.have.property('address');
-        res.body.data.should.have.property('bio');
-        res.body.data.should.have.property('occupation');
-        res.body.data.should.have.property('expertise');
-        res.body.data.should.have.property('type').eql('mentee');
-
         done();
       });
   });
