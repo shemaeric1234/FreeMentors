@@ -120,6 +120,13 @@ class Database extends Environment {
     await conn.end();
     return result;
   }
+
+  static async deleteBy(table, column, value) {
+    const conn = this.dbConnection();
+    const result = await conn.query(`DELETE FROM ${table} WHERE ${column}='${value}'`);
+    await conn.end();
+    return result;
+  }
 }
 
 export default Database;
