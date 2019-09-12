@@ -12,8 +12,8 @@ class session {
     }
     const dbsession = await database.selectBy2colum('sessions', 'menteeemail', req.user.email, 'questions', session1.questions, 'and');
     if (dbsession.rowCount !== 0) {
-      return res.status(400).json({
-        status: '400',
+      return res.status(409).json({
+        status: '409',
         message: 'session already exists',
       });
     }

@@ -50,7 +50,7 @@ describe('POST </API/v1/auth/signup>', () => {
       .post('/API/v1/auth/signup')
       .send(user[1])
       .end((err, res) => {
-        res.should.have.status(401);
+        res.should.have.status(409);
         res.body.should.have.be.a('object');
         done();
       });
@@ -78,8 +78,6 @@ describe('POST </API/v1/auth/signin>', () => {
       .end((err, res) => {
         res.should.have.status(200);
         res.body.should.have.property('status');
-        res.body.should.have.property('token');
-        res.body.should.have.property('data');
         done();
       });
   });
@@ -104,7 +102,6 @@ describe('POST </API/v1/auth/signin>', () => {
       .end((err, res) => {
         res.should.have.status(404);
         res.body.should.have.property('status');
-        res.body.should.have.property('message').eql('User not found, Incorrect email or password');
         done();
       });
   });
@@ -136,7 +133,6 @@ describe('GET </API/v1/auth/>  GET all users', () => {
 });
 
 describe('GET </API/v1/auth/>  GET specific user', () => {
-
   it('It should check if userId in URL is not string', (done) => {
     chai
       .request(app)

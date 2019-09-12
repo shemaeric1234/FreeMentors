@@ -61,7 +61,7 @@ describe('POST </API/v1/sessions> a mentee should create a session', () => {
       .send(sessions[0])
       .set('Authorization', `Bearer ${menteeToken}`)
       .end((err, res) => {
-        res.should.have.status(400);
+        res.should.have.status(409);
         res.body.should.have.be.a('object');
         done();
       });

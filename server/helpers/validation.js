@@ -7,7 +7,7 @@ const userSignup = Joi.object().keys({
   lastName: Joi.string().alphanum().min(3).max(30)
     .required(),
   email: Joi.string().email({ minDomainSegments: 2 }),
-  password: Joi.string().required(),
+  password: Joi.string().regex(/^((?=.*[a-z])(?=.*[A-Z]))(?=.*[0-9])(?=.{8,})/).required(),
   address: Joi.string().required(),
   bio: Joi.string().min(3).min(3).max(500)
     .required(),

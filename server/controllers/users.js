@@ -22,8 +22,8 @@ class User {
     }
 
     if (message) {
-      return res.status(401).json({
-        status: '401',
+      return res.status(409).json({
+        status: '409',
         message,
       });
     }
@@ -42,18 +42,17 @@ class User {
     };
 
     const data = await database.createUser(User);
-    delete data.rows[0].password;
+
 
     return res.status(201).json({
       status: '201',
       message: 'user added',
       token,
-      data: data.rows[0],
     });
   }
 
   static async login(req, res) {
-    let data = '';
+    let data1 = '';
     let passwordTest = false;
     const { email } = req.body;
 
@@ -63,13 +62,13 @@ class User {
     }
 
     const userData = req.body;
-    data = await database.selectBy('users', 'email', email);
+    data1 = await database.selectBy('users', 'email', email);
 
-    if (data.rowCount !== 0) {
-      passwordTest = hashpassword.compareSync(userData.password, data.rows[0].password);
+    if (data1.rowCount !== 0) {
+      passwordTest = hashpassword.compareSync(userData.password, data1.rows[0].password);
     }
     let token = '';
-    if (data.rowCount !== 0 && passwordTest) {
+    if (data1.rowCount !== 0 && passwordTest) {
       token = getToken(email);
     }
     if (!token) {
@@ -78,12 +77,21 @@ class User {
         message: 'User not found, Incorrect email or password',
       });
     }
-    delete data.rows[0].password;
+    const data = {
+      type: data1.rows[0].type,
+      token,
+    };
+    if (data1.rows[0].type === 'admin') {
+      return res.status(200).send({
+        status: '200',
+        message: 'login successfuly',
+        data,
+      });
+    }
     return res.status(200).send({
       status: '200',
       message: 'login successfuly',
       token,
-      data: data.rows[0],
     });
   }
 
