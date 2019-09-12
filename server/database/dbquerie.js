@@ -37,7 +37,6 @@ class Database extends Environment {
         menteeId INT references users(id) ON DELETE CASCADE,
         score INT,
         remark VARCHAR(500) NOT NULL,
-        status VARCHAR(50) NOT NULL,
         PRIMARY KEY(id));
     `);
     return result;
@@ -72,7 +71,21 @@ class Database extends Environment {
     await conn.end();
     return result;
   }
-  
+
+  static async createSesionReview(data) {
+    const conn = this.dbConnection();
+    const result = await conn.query(`INSERT INTO sessionreview(sessionid,mentorid,menteeid,score,remark) VALUES(
+      ${data.sessionId},
+      ${data.mentorId},
+      ${data.menteeId},
+      ${data.score},
+      '${data.remark}'
+     ) returning * `);
+    await conn.end();
+    return result;
+  }
+
+
   static async selectBy(table, column, value) {
     const conn = this.dbConnection();
     const result = await conn.query(`SELECT * FROM ${table} WHERE ${column}='${value}'`);

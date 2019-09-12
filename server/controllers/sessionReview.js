@@ -2,49 +2,39 @@ import Joi from '@hapi/joi';
 import { sessionReviewSchema } from '../helpers/validation';
 import customize from '../helpers/customize';
 import paramchecker from '../middleware/paramchecking';
+import database from '../database/dbquerie';
 
 class sessionReview {
-  static review(req, res) {
-    if (paramchecker(req.params.sessionId, 'number')) {
-      return res.status(400).send({ status: '400', message: paramchecker(req.params.sessionId, 'number', 'session id ') });
-    }
-    const sessionId = parseInt(req.params.sessionId, 10);
+  static async review(req, res) {
+    const sessionId = parseInt(req.params.id, 10);
     const score = parseInt(req.body.score, 10);
-    const reviewBody = req.body;
-    let sessionToreview = '';
-    let menteeInfo = '';
-    const { error } = Joi.validate(reviewBody, sessionReviewSchema);
+    const { error } = Joi.validate(req.body, sessionReviewSchema);
     if (error) {
       return customize.validateError(req, res, error, 400);
     }
 
-    sessions.map((existSesion) => {
-      if (existSesion.id === sessionId) {
-        sessionToreview = existSesion;
-      }
-    });
-    users.map((existUser) => {
-      if (existUser.id === sessionToreview.menteeId) {
-        menteeInfo = existUser;
-      }
-    });
-
-    if (sessionToreview) {
+    let data1 = '';
+    try {
+      data1 = await database.selectBy('sessions', 'id', sessionId);
+    } catch (error1) {
+      return res.status(404).send({
+        status: '400',
+        error: error1.message,
+      });
+    }
+    if (data1.rowCount !== 0) {
       const data = {
-        id: NewidGeneretor(sessionReviews),
-        sessionId: sessionToreview.id,
-        mentorId: sessionToreview.mentorId,
-        menteeId: sessionToreview.menteeId,
+        sessionId: data1.rows[0].id,
+        mentorId: data1.rows[0].mentorid,
+        menteeId: req.user.id,
         score,
-        menteeFullName: `${menteeInfo.firstName} ${menteeInfo.lastName}`,
-        remark: reviewBody.remark,
+        remark: req.body.remark,
       };
-
-      sessionReviews.push(data);
+      const result = await database.createSesionReview(data);
       return res.status(201).send({
         status: '201',
         message: 'session review successfuly sent',
-        data,
+        data: result.rows[0],
       });
     }
     return res.status(404).send({

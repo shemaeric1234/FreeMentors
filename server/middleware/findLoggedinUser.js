@@ -55,16 +55,10 @@ export const menteeOrMentor = async (req, res, next) => {
 };
 
 
-export const mentorOrAdmin = (req, res, next) => {
-  let exisAdminORmentor = '';
-  users.map((ExistUser) => {
-    if (ExistUser.email === req.user.payLoad && (ExistUser.type === 'mentor' || ExistUser.type === 'admin')) {
-      exisAdminORmentor = ExistUser;
-    }
-  });
-
-  if (exisAdminORmentor) {
-    req.user = exisAdminORmentor;
+export const mentorOrAdmin = async (req, res, next) => {
+  const isAdminOrMentor = await database.selectBy3colum('users', 'email', req.user.payLoad, 'type', 'mentor', 'type', 'admin', 'and', 'or');
+  if (isAdminOrMentor.rowCount !== 0) {
+    req.user = isAdminOrMentor.rows[0];
     next();
   } else {
     return res.status(403).send({
@@ -72,4 +66,4 @@ export const mentorOrAdmin = (req, res, next) => {
       error: 'you are not allowed this kind of request only mentor or admin',
     });
   }
-};
+}
