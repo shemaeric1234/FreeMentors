@@ -85,7 +85,6 @@ class Database extends Environment {
     return result;
   }
 
-
   static async selectBy(table, column, value) {
     const conn = this.dbConnection();
     const result = await conn.query(`SELECT * FROM ${table} WHERE ${column}='${value}'`);
@@ -127,7 +126,6 @@ class Database extends Environment {
     await conn.end();
     return result;
   }
-
 }
 
 export default Database;
