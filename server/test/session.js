@@ -157,7 +157,7 @@ describe('GET </API/v1/sessions> should get all sessions', () => {
         done();
       });
   });
-
+  
   it('it should verify if there is not athorization in header set', (done) => {
     chai
       .request(app)
