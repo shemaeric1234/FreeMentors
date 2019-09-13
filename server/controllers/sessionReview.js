@@ -16,6 +16,15 @@ class sessionReview {
     let data1 = '';
     try {
       data1 = await database.selectBy('sessions', 'id', sessionId);
+      const data2 = await database.selectBy('sessionreview', 'menteeid', req.user.id);
+      for (let i = 0; i < data2.rowCount; i += 1) {
+        if ((data2.rows[i].menteeid === req.user.id) && (data2.rows[i].remark === req.body.remark)) {
+          return res.status(409).send({
+            status: '409',
+            error: 'session review alread exist',
+          });
+        }
+      }
     } catch (error1) {
       return res.status(404).send({
         status: '400',
