@@ -55,7 +55,7 @@ describe('post </sessions/1/review>  mentee should be able to review a mentor af
     chai
       .request(app)
       .post('/API/v1/sessions/0/review')
-      .send(remark[0])
+      .send(remark[1])
       .set('Authorization', `Bearer ${menteeToken}`)
       .end((err, res) => {
         res.should.have.status(404);
@@ -63,6 +63,19 @@ describe('post </sessions/1/review>  mentee should be able to review a mentor af
         done();
       });
   });
+  it('it should verify if alread exist ', (done) => {
+    chai
+      .request(app)
+      .post('/API/v1/sessions/2/review')
+      .send(remark[0])
+      .set('Authorization', `Bearer ${menteeToken}`)
+      .end((err, res) => {
+        res.should.have.status(409);
+        res.body.should.have.be.a('object');
+        done();
+      });
+  });
+
 });
 
 describe('GET </API/v1/sessions>  delete specific  reviewed review deemed as inappropriate ', () => {
