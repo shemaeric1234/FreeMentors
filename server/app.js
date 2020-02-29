@@ -5,8 +5,10 @@ import swaggerDoc from '../swagger';
 import usersRouter from './routes/users';
 import sessionRouter from './routes/sessions';
 import sessionReviewRouter from './routes/sessionReview';
+import cors from 'cors';
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
